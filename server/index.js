@@ -8,9 +8,12 @@ import express from "express"
 import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import { fileURLToPath } from "url"
+import postRoutes from "./routes/posts.js"
 import {register} from "./Controllers/auth.js"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import {createPost} from "./Controllers/posts.js"
+import { verifyToken } from "./middelwares/auth.js"
 
     //  configuration
 
@@ -42,10 +45,11 @@ const upload = multer({storage})
 
 
 app.post("auth/register",upload.single("picture"),register)
-
+app.post("/posts",verifyToken,upload.single("picture"),createPost)
 
 app.use("/auth",authRoutes)
 app.use("/users",userRoutes)
+app.use("/posts",postRoutes)
 
         // Database connection
 

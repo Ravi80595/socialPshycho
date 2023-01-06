@@ -14,6 +14,8 @@ import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import {createPost} from "./Controllers/posts.js"
 import { verifyToken } from "./middelwares/auth.js"
+import User from "./models/User.js"
+import { users } from "./data/index.js"
 
     //  configuration
 
@@ -43,20 +45,46 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage})
 
+// app.use("/",(req,res)=>{
+//     User.insertMany(users);
+//     res.status(200).send("Welcome To PharmBuddy API")
+// })
 
-app.post("auth/register",upload.single("picture"),register)
+app.post("/auth/register",upload.single("picture"),register)
 app.post("/posts",verifyToken,upload.single("picture"),createPost)
 
 app.use("/auth",authRoutes)
 app.use("/users",userRoutes)
 app.use("/posts",postRoutes)
 
+
+
+
         // Database connection
 
 const PORT = process.env.PORT || 3001
-mongoose.connect(process.env.MONGO_URL,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-}).then(()=>{
-    app.listen(PORT,()=>console.log(`server connected on ${PORT}`))
-}).catch((error)=>console.log(`No connection ${error}`))
+// mongoose.connect(process.env.MONGO_URL
+//     ,{
+//     useNewUrlParser:true,
+//     useUnifiedTopology:true,
+// }
+// ).then(()=>{
+//     app.listen(PORT,()=>console.log(`server connected on ${PORT}`))
+// }).catch((error)=>console.log(`No connection ${error}`))
+
+
+let connection = mongoose.connect(process.env.MONGO_URL)
+
+app.listen(PORT,async()=>{
+    try{
+        await connection
+        console.log("Server Connected With DataBase")
+        // console.log("Server Started At http://localhost:3002")
+    }
+    catch(err){
+    console.log("Somethning Wents Wrong",err)
+    }
+    })
+
+  
+

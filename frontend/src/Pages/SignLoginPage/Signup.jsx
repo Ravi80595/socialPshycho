@@ -45,7 +45,22 @@ axios.post(`http://localhost:3002/auth/register`,payload)
 }
 
   return (
-    <Box width="100%" m="auto">
+    <>
+    <Box w="100%" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' overflow="hidden" position='fixed' backgroundColor="white">
+    <Flex justifyContent='space-between' w='100%' h={20}>
+      <Flex  w='50%' p={5} justifyContent='space-around'>
+        <Image src="https://cdn-icons-png.flaticon.com/512/831/831276.png"/>
+        <Heading fontFamily='cursive'>Socialpshcyo</Heading>
+      </Flex>
+      <Flex w='50%' p={5} justifyContent="space-evenly" fontSize='30px'>
+        <Button onClick={()=>alert("Please Signup to create Account")}>Create Account</Button>
+        <Link to='/userlogin'>
+        <Button>Already have an account</Button>
+        </Link>
+      </Flex>
+    </Flex>
+    </Box>
+    <Box width="100%" m="auto" pt={20} pb={20}>
         <Text p={10} textAlign="center">Sign up to see photos and videos from your friends.
 </Text>
         <Flex gap={10} justifyContent="space-around">
@@ -81,6 +96,7 @@ axios.post(`http://localhost:3002/auth/register`,payload)
             </Box>
         </Flex>
     </Box>
+    </>
   )
 }
 

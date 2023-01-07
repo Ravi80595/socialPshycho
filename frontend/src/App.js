@@ -9,7 +9,7 @@ import AllRoutes from "Routes/AllRoutes";
 function App() {
   return (
     <div className="app">
-      <Navbar/>
+      {/* <Navbar/> */}
       {/* <Signup/> */}
       {/* <Login/> */}
       <AllRoutes/>

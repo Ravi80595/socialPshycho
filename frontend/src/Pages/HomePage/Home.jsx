@@ -1,9 +1,12 @@
 import { Box,Flex } from '@chakra-ui/react'
+import Navbar from 'Components/Navbar'
 import SideProfile from 'Pages/ProfilePages/SideProfile'
 import React from 'react'
 
 const Home = () => {
   return (
+    <>
+    <Navbar/>
     <Box background="blackAlpha.100">
       <Flex justifyContent='space-around' gap={5} h={600} p="30px">
         <Box border="2px solid white" w="20%" background="white" borderRadius="15px">
@@ -17,6 +20,7 @@ const Home = () => {
         </Box>
       </Flex>
     </Box>
+    </>
   )
 }
 

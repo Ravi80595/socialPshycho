@@ -15,7 +15,8 @@ import userRoutes from "./routes/users.js"
 import {createPost} from "./Controllers/posts.js"
 import { verifyToken } from "./middelwares/auth.js"
 import User from "./models/User.js"
-import { users } from "./data/index.js"
+import { posts } from "./data/index.js"
+import Post from "./models/Post.js"
 
     //  configuration
 
@@ -46,7 +47,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage})
 
 // app.use("/",(req,res)=>{
-//     User.insertMany(users);
+//         Post.insertMany(posts)
 //     res.status(200).send("Welcome To PharmBuddy API")
 // })
 

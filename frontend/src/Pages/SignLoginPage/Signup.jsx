@@ -1,4 +1,4 @@
-import { Box,Flex,HStack,FormControl,FormLabel,Input,Button,Text,Image,Heading } from '@chakra-ui/react'
+import { Box,Flex,HStack,FormControl,FormLabel,Input,Button,Text,Image,Heading,InputGroup,InputRightElement } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -14,7 +14,9 @@ const Signup = () => {
         occupation:"",
     }
     const [values,setValues]=useState(initObj)
+    const [show,setShow]=useState(false)
     
+    const handleClick = () => setShow(!show);
    
     const handleChange = (e) => {
         setValues({...values,[e.target.name]:e.target.value})
@@ -79,7 +81,19 @@ axios.post(`http://localhost:3002/auth/register`,payload)
                         <FormLabel>Email</FormLabel>
                         <Input type="email" name='email' onChange={handleChange}/>
                         <FormLabel>Password</FormLabel>
-                        <Input type="password" name='password' onChange={handleChange}/>
+                        <InputGroup size="md">
+                        <Input
+                          pr="4.5rem"
+                          type={show ? "text" : "password"}
+                          name="password"
+                          onChange={handleChange}
+                        />
+                        <InputRightElement width="4.5rem">
+                          <Button h="1.75rem" size="sm" onClick={handleClick}>
+                            {show ? "Hide" : "Show"}
+                          </Button>
+                        </InputRightElement>
+                   </InputGroup>
                         <FormLabel>Location</FormLabel>
                         <Input type="text" name='location' onChange={handleChange}/>
                         <FormLabel>Occupation</FormLabel>

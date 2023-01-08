@@ -28,8 +28,7 @@ const login=(payload)=>(dispatch)=>{
         baseURL:'http://localhost:3002',
         data:payload
     }).then((res)=>{
-        console.log(res)
-       return dispatch(postLoginSuccess(res.data.token))
+       return dispatch(postLoginSuccess(res.data))
     }).catch((e)=>{
         console.log(e)
         dispatch(postLoginFailure())

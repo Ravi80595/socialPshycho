@@ -20,6 +20,12 @@ const postProfileFailure = () =>{
     }
 }
 
+const postAllFriends=()=>{
+    return{
+        type:types.All_FRIENDS
+    }
+}
+
 
 
 const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
@@ -41,7 +47,23 @@ const getProfiles=()=>(dispatch)=>{
     })
 }
 
+const getFriendList=(payload)=>(dispatch)=>{
+    // dispatch(postProfileRequest())
+     axios.get(`http://localhost:3002/users/${user._id}/friends`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then((res)=>{  
+        console.log(res.data)
+        return dispatch(postAllFriends(res.data))
+    })
+    .catch((err)=>{
+        console.log(err)
+        // dispatch(postProfileFailure())
+    })
+}
 
 
-export{getProfiles,postProfileFailure,postProfileRequest,postProfileSuccess}
+export{getProfiles,postProfileFailure,postProfileRequest,postProfileSuccess,getFriendList}
 

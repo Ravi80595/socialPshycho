@@ -3,7 +3,8 @@ import * as types from "./actionType"
 const initalState={
     profileData:[],
     isLoading:false,
-    isError:false
+    isError:false,
+    AllFriends:[]
 }
 
 const reducer = (state = initalState,action)=>{
@@ -29,6 +30,14 @@ const reducer = (state = initalState,action)=>{
                 ...state,
                 isLoading:false,
                 isError:true,
+            }
+        }
+        case types.All_FRIENDS:{
+            return{
+                ...state,
+                isLoading:false,
+                isError:false,
+                AllFriends:payload
             }
         }
         default:

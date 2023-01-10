@@ -22,8 +22,8 @@ const Login = () => {
 
   const handleLogin=()=>{
     let payload={
-      email:"ravi@gmail.com",
-      password:"Ravi"
+      email:values.email,
+      password:values.password
     }
     if(payload.email=="" || payload.password==""){
       alert("Please fill All Madentory fields")

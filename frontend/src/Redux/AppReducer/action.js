@@ -20,15 +20,35 @@ const postProfileFailure = () =>{
     }
 }
 
-const postAllFriends=()=>{
+const postAllFriends=(payload)=>{
     return{
-        type:types.All_FRIENDS
+        type:types.All_FRIENDS,
+        payload
+    }
+}
+
+const postSingleUser=(payload)=>{
+    return{
+        type:types.SINGLE_USER_PROFILE,
+        payload
+    }
+}
+const postSingleUserFriends=(payload)=>{
+    return{
+        type:types.SINGLE_USER_FRIENDS,
+        payload
+    }
+}
+
+const postSinglePost=(payload)=>{
+    return{
+        type:types.SINGLE_POST,
+        payload
     }
 }
 
 
-
-const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
+const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
 
 const getProfiles=()=>(dispatch)=>{
     dispatch(postProfileRequest())
@@ -37,8 +57,7 @@ const getProfiles=()=>(dispatch)=>{
             Authorization: `Bearer ${token}`
         }
     })
-    .then((res)=>{  
-        // console.log(res.data)
+    .then((res)=>{
         return dispatch(postProfileSuccess(res.data))
     })
     .catch((err)=>{
@@ -47,7 +66,10 @@ const getProfiles=()=>(dispatch)=>{
     })
 }
 
-const getFriendList=(payload)=>(dispatch)=>{
+
+
+
+const getFriendList=()=>(dispatch)=>{
     // dispatch(postProfileRequest())
      axios.get(`http://localhost:3002/users/${user._id}/friends`,{
         headers:{
@@ -55,8 +77,9 @@ const getFriendList=(payload)=>(dispatch)=>{
         }
     })
     .then((res)=>{  
-        console.log(res.data)
-        return dispatch(postAllFriends(res.data))
+        // console.log(res.data)
+        dispatch(postAllFriends(res.data))
+        getProfiles()
     })
     .catch((err)=>{
         console.log(err)
@@ -65,5 +88,51 @@ const getFriendList=(payload)=>(dispatch)=>{
 }
 
 
-export{getProfiles,postProfileFailure,postProfileRequest,postProfileSuccess,getFriendList}
+const getSingleUserFriendList=(payload)=>(dispatch)=>{
+     axios.get(`http://localhost:3002/users/${payload}/friends`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then((res)=>{  
+        console.log(res.data)
+        dispatch(postSingleUserFriends(res.data))
+        getProfiles()
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+
+const getSingleUserProfile=(payload)=>(dispatch)=>{
+     axios.get(`http://localhost:3002/users/${payload}`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then((res)=>{  
+         dispatch(postSingleUser(res.data))
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+
+const getSinglePost=(payload)=>(dispatch)=>{
+    console.log(payload)
+    axios.get(`http://localhost:3002/posts/singlepost/${payload}`,{
+       headers:{
+           Authorization: `Bearer ${token}`
+       }
+   })
+   .then((res)=>{  
+       console.log(res.data,"profile in action of single post")
+        dispatch(postSinglePost(res.data))
+   })
+   .catch((err)=>{
+       console.log(err)
+   })
+}
+
+export{getProfiles,postProfileFailure,postProfileRequest,postProfileSuccess,getFriendList,getSingleUserFriendList,getSingleUserProfile,getSinglePost}
 

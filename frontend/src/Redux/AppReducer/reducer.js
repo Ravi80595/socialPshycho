@@ -4,7 +4,10 @@ const initalState={
     profileData:[],
     isLoading:false,
     isError:false,
-    AllFriends:[]
+    AllFriends:[],
+    SingleProfile:[],
+    SinglePost:[],
+    SingleFriends:[],
 }
 
 const reducer = (state = initalState,action)=>{
@@ -22,7 +25,7 @@ const reducer = (state = initalState,action)=>{
                 ...state,
                 isLoading:false,
                 isError:false,
-                profileData:payload
+                profileData:[payload]
             }
         }
         case types.PROFILE_FAILURE:{
@@ -40,6 +43,31 @@ const reducer = (state = initalState,action)=>{
                 AllFriends:payload
             }
         }
+        case types.SINGLE_USER_PROFILE:{
+            return{
+                ...state,
+                isLoading:false,
+                isError:false,
+                SingleProfile:[payload]
+            }
+        }
+        case types.SINGLE_POST:{
+            return{
+                ...state,
+                isLoading:false,
+                isError:false,
+                SinglePost:[payload]
+            }
+        } 
+        case types.SINGLE_USER_FRIENDS:{
+            return{
+                ...state,
+                isLoading:false,
+                isError:false,
+                SingleFriends:payload
+            }
+        }   
+        
         default:
             return state;
     }

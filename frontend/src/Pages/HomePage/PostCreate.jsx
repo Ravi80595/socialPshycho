@@ -5,38 +5,36 @@ import { BsCameraVideo, BsCalendar4Event } from "react-icons/bs"
 import { MdOutlineArticle } from "react-icons/md"
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import {RiImageEditFill} from "react-icons/ri"
 
 const PostCreate = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    // const user = useSelector((store) => store.AuthReducer.token.user)
+    const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
     const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const [postCred,setPostCred]=useState({})
-console.log(user)
-    const handlechange = (e) => {
+
+
+const handlechange = (e) => {
         const {name, value} = e.target;
         setPostCred({
           ...postCred,
           [name]: value,
         });
-      };
-      const profilepicref=useRef()
-const handlesubmit = async(e) => {
-        e.preventDefault();
+};
 
+const profilepicref=useRef()
+
+const handlesubmit = async(e) => {
+    e.preventDefault();
     let formData=new FormData()
     formData.append("description",postCred.caption)
     formData.append("userId",user._id)
-    // console.log(profilepicref.current.files[0].name)
-    formData.append("picturePath",profilepicref.current.files[0].name)
-    let obj={
-        'description':postCred.caption,
-        "picturePath":profilepicref.current.files[0].name,
-        "userId":user._id
-    }
- await axios.post("http://localhost:3002/posts",formData,{
+    formData.append("location",postCred.location)
+    formData.append("image",profilepicref.current.files[0])
+ await axios.post("http://localhost:3002/posts/create",formData,{
     headers:{
         "Content-Type": "multipart/form-data",
-        Authorization:`Bearer ${token}`,
+        Authorization:`Bearer ${token}`
     }
 })
 .then((res)=>{
@@ -46,26 +44,30 @@ const handlesubmit = async(e) => {
 
     return (
         <Box h="150px" background="white" borderRadius="15px">
-            <Flex justifyContent="space-around" gap={5} p={3}>
-                <Image src="https://avatars.githubusercontent.com/u/63177572?v=4" w="12%" borderRadius={50} />
-                <Input mt={3} placeholder="Create new post" borderRadius={20} />
-            </Flex>
+            {
+                profileData && profileData.map(ele=>(
+                <Flex justifyContent="space-around" gap={5} p={3}>
+                    <Image h="50px" src={`http://localhost:3002/assets/${ele.picturePath}`} w="12%" borderRadius={50} />
+                    <Input mt={3} placeholder="Create new post" borderRadius={20} />
+                </Flex>
+                ))
+            }
             <Box pt={3}>
                 <Flex justifyContent="space-around">
-                    <Flex gap="10px" onClick={onOpen}>
+                    <Flex gap="10px" onClick={onOpen} cursor={"pointer"}>
                         <HiOutlinePhoto fontSize="25px" />
                         <Text>Photo</Text>
                     </Flex>
-                    <Flex gap="10px">
+                    <Flex gap="10px" cursor={"pointer"}>
                         <BsCameraVideo fontSize="25px" />
                         <Text>Video</Text>
                     </Flex>
-                    <Flex gap="10px">
-                        <BsCalendar4Event fontSize="25px" />
+                    <Flex gap="10px" cursor={"pointer"}>
+                        <BsCalendar4Event fontSize="25px"/>
                         <Text>Event</Text>
                     </Flex>
-                    <Flex gap="10px">
-                        <MdOutlineArticle fontSize="25px" />
+                    <Flex gap="10px" cursor={"pointer"}>
+                        <MdOutlineArticle fontSize="25px"/>
                         <Text>Article</Text>
                     </Flex>
                 </Flex>
@@ -78,11 +80,13 @@ const handlesubmit = async(e) => {
                     <ModalBody mt='-8'>
                         <Flex direction="column" gap="10px" mt="50px">
     <form onSubmit={handlesubmit}>
-    <label>Choose Photo</label>
-    <input type="file" ref={profilepicref} placeholder='Upload photo' />
+    <label htmlFor='file-upload' ><RiImageEditFill fontSize="40px" ml={10} w="50%" height="57px"/></label>
+    <input type="file" id='file-upload' name='image'  ref={profilepicref} />
     <label>Enter caption</label>
-    <input type="text" name='caption' onChange={handlechange} placeholder="Use # for hashtag" />
-    <input type="submit" mb="25px" color="white" bg="black" _hover={{ bg: "grey" }} />
+    <Input type="text" name='caption' onChange={handlechange} placeholder="Use # for hashtag" />
+    <label>Enter Location</label>
+    <Input type="text" name='location' onChange={handlechange} placeholder="Enter Location" />
+    <Input type="submit" mt={2} mb="25px" color="white" bg="black" _hover={{ bg: "grey" }} />
     </form>
                         </Flex>
                     </ModalBody>

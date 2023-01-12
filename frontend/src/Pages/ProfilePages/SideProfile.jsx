@@ -1,5 +1,5 @@
 import { Box,Flex,Heading,Image,Text } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {IoLocationOutline} from 'react-icons/io5'
 import {BsBagCheck} from 'react-icons/bs'
 import {CiEdit} from "react-icons/ci"
@@ -7,20 +7,23 @@ import {BsTwitter} from "react-icons/bs"
 import {AiFillInstagram} from "react-icons/ai"
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfiles } from 'Redux/AppReducer/action'
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const SideProfile = () => {
   const dispatch = useDispatch()
   const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
-  
-  let profile=[]
-  profile.push(profileData)
+  const navigate = useNavigate()
 
 useEffect(()=>{
     dispatch(getProfiles())
 },[])
 
+// ....................... User Profile Navigation ............................
 
+
+const MainPage=()=>{
+  navigate("/profile")
+}
 
 if(isLoading){
   return <h1>Loading...</h1>
@@ -34,14 +37,14 @@ if(isError){
   return (
     <Box h="500px">
         {
-          profile && profile.map((ele)=>{
+          profileData && profileData.map((ele)=>{
             return(
               <Box key={ele._id}>
-              <Flex p="10px" >
-                <Image src="https://avatars.githubusercontent.com/u/63177572?v=4" w="20%" borderRadius={50}/>
+              <Flex p="10px" onClick={MainPage} cursor="pointer">
+                <Image h="50px" src={`http://localhost:3002/assets/${ele.picturePath}`} w="20%" borderRadius={50}/>
                 <Box pl={4}>
                 <Heading as="h3" fontSize='20px' >{ele.firstName+" "+ele.lastName}</Heading>
-                {/* <Text>Friends : {ele.friends.length}</Text> */}
+                <Text>Friends : {ele.friends.length=="undefined"?"No Friends":ele.friends.length}</Text>
                 </Box>
               </Flex>
       <hr />

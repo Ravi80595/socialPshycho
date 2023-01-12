@@ -13,7 +13,9 @@ import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
 import {register} from "./Controllers/auth.js"
 import {createPost} from "./Controllers/posts.js"
+// import multer from "multer"
 import { verifyToken } from "./middelwares/auth.js"
+import { updateProfile } from "./Controllers/users.js"
 // import User from "./models/User.js"
 // import { posts } from "./data/index.js"
 // import Post from "./models/Post.js"
@@ -31,14 +33,14 @@ app.use(helmet.crossOriginResourcePolicy({policy:"cross-origin"}))
 app.use(morgan("common"))
 app.use(bodyParser.json({limit:"30mb",extended:true}))
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}))
-app.use("/images",express.static(path.join(__dirname,'data/images')))
+app.use("/assets",express.static(path.join(__dirname,'public/assets')))
 
 
     // storing system
 
 const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,`data/images`)
+    destination: function(req,file,cb){
+        cb(null,"public/assets")
     },
     filename: function(req,file,cb){
         cb(null,file.originalname)
@@ -47,8 +49,10 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage})
 
 app.post("/auth/register",upload.single("picture"),register)
-app.post("/posts",verifyToken,upload.single("picture"),createPost)
+app.patch("/users/editprofile/:id",upload.single("images"),updateProfile)
+app.post("/posts/create",verifyToken,upload.single("image"),createPost)
 
+// app.use("/posts")
 app.use("/auth",authRoutes)
 app.use("/users",userRoutes)
 app.use("/posts",postRoutes)

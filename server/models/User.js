@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     lastName :{type:String,require:true,min:2,max:40},
     email :{type:String,require:true,unique:true,max:40},
     password :{type:String,require:true,min:5},
-    picturePath :{type:String,default:""},
+    picturePath :{type:String,default:"https://cdn3.vectorstock.com/i/thumb-large/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg"},
     friends:{type:Array,default:[]},
     location:String,
     occupation:String,

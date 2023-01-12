@@ -1,4 +1,4 @@
-import { Box,Flex,Image,Button,Input } from '@chakra-ui/react'
+import { Box,Flex } from '@chakra-ui/react'
 import Navbar from 'Components/Navbar'
 import SideProfile from 'Pages/ProfilePages/SideProfile'
 import React from 'react'
@@ -6,7 +6,13 @@ import Feed from './Feed'
 import FriendList from './FriendList'
 import PostCreate from './PostCreate'
 
+// ....................... Landing Page Of Website ............................
+
+
 const Home = () => {
+
+
+
   return (
     <>
     <Navbar/>
@@ -21,7 +27,6 @@ const Home = () => {
           <Feed/>
         </Box>
         <Box border="2px solid white" w="20%" background="white" borderRadius="15px" h={600}>
-          {/* Friend List */}
           <FriendList/>
         </Box>
       </Flex>

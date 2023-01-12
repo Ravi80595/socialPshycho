@@ -6,14 +6,15 @@ import User from "../models/User.js"
 
 export const createPost = async(req,res)=>{
     try{
-        const {userId,description,picturePath}= req.body
+        const {userId,description,location}= req.body
+        const picturePath=req.file.originalname
         console.log(picturePath)
         const user = await User.findById(userId)
         const newPost = new Post({
             userId,
             firstName:user.firstName,
             lastName:user.lastName,
-            location:user.location,
+            location,
             description,
             userPicturePath:user.picturePath,
             picturePath,
@@ -56,6 +57,19 @@ export const getUserPosts = async(req,res)=>{
     }
 }
 
+
+// get single post
+
+export const getSinglePost = async(req,res)=>{
+    try{
+        const {id}=req.params
+        const post = await Post.findById(id)
+        res.status(200).json(post)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
 // Liked posts
 
 export const likePost = async(req,res)=>{

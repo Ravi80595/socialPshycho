@@ -34,6 +34,38 @@ export const updateProfile = async (req, res) => {
     }
 }
 
+// User Search Method
+
+export const searchUser=async(req,res)=>{
+    const params=req.params.id
+    // console.log(params)
+    try{
+        const users= await User.find({firstName:/`${params}`/})
+        res.send(users)
+        
+    }catch (err) {
+        console.log(err)
+    }
+}
+// db.employee.find({position : {$regex : "developer"}}).pretty()
+
+// moviesRouter.get("/movies/:key",async(req,res)=>{
+//     const parmas=req.params.key
+//     console.log(parmas)
+//     try{
+//         const movies= await MoviesModel.find(
+//             {
+//                 "$or":[
+//                     {"title":{$regex:req.params.key}}   
+//                 ]
+//             }
+//         )
+//         res.send(movies)
+//     }
+//     catch{
+//         console.log("error")
+//     }
+// })
 
 
 // Get User Friends Methods

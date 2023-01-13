@@ -14,14 +14,14 @@ const SingleUser = () => {
     const navigate=useNavigate()
     const {SingleProfile}=useSelector((store)=>store.AppReducer)
     const {SingleFriends} = useSelector((store)=>store.AppReducer)
-    const { token } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+    const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
   console.log(SingleProfile)
 
 useEffect(()=>{
     dispatch(getSingleUserProfile(id))
     dispatch(getSingleUserFriendList(id))
     getUserPosts()
-},[id])
+},[])
 
 const getUserPosts=()=>{
   axios.get(`http://localhost:3002/posts/${id}/posts`,{
@@ -40,6 +40,20 @@ const SinglePost=(ele)=>{
 
 const SingleUser=(id)=>{
   navigate(`/SingleUser/${id}`)
+}
+
+
+// ....................... Add and Remove friend Function ............................
+
+const handleFriend=(ele)=>{
+  axios.get(`http://localhost:3002/users/${user._id}/${ele.userId}`,{
+    headers:{
+      Authorization:`Bearer ${token}`
+    }
+  })
+  .then((res)=>{
+    console.log(res.data)
+  })
 }
 
   return (
@@ -76,8 +90,8 @@ const SingleUser=(id)=>{
         <Box margin="auto" w="55%" key={ele._id}>
           <Flex justifyContent="space-evenly">
             <Text fontSize="25px">{ele.firstName+" "+ele.lastName}</Text>
-            <Button>Friends</Button>
-            <Button>Message</Button>
+            <Button backgroundColor="grey" onClick={()=>handleFriend(ele)}>Friend</Button>
+            <Button backgroundColor="grey">Message</Button>
           {/* </Box> */}
           </Flex>
           <Box>

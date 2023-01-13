@@ -4,20 +4,19 @@ import {IoPersonRemoveOutline} from "react-icons/io5"
 import { useDispatch, useSelector } from 'react-redux'
 import { getFriendList} from "../../Redux/AppReducer/action"
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 const FriendList = () => {
     const navigate=useNavigate()
-    // const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+    const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const dispatch=useDispatch()
     const {AllFriends,isLoading} = useSelector((store)=>store.AppReducer)
-    console.log(AllFriends, "getin gsingle")
 
 
 useEffect(()=>{
     dispatch(getFriendList())
-    
-},[])
+},[AllFriends])
 
 // ....................... Single User Page Navigation ............................
 
@@ -25,6 +24,17 @@ const handleClick=(id)=>{
     navigate(`/SingleUser/${id}`)
 }
 
+
+const handleFriend=(ele)=>{
+    axios.get(`http://localhost:3002/users/${user._id}/${ele._id}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+    .then((res)=>{
+      console.log(res.data)
+    })
+  }
 
 if(isLoading){
     return <h1>Loading...</h1>
@@ -46,7 +56,7 @@ if(isLoading){
                 <Text>{ele.location}</Text>
             </Box>
             <Box pt={3}>
-                <IoPersonRemoveOutline />
+                <IoPersonRemoveOutline onClick={()=>handleFriend(ele)}/>
             </Box>
         </Flex>
         ))

@@ -20,19 +20,7 @@ useEffect(()=>{
     getAllPosts()
 },[])
 
-// ....................... Add and Remove friend Function ............................
 
-
-const handleFriend=(ele)=>{
-  axios.get(`http://localhost:3002/users/${user._id}/${ele.userId}`,{
-    headers:{
-      Authorization:`Bearer ${token}`
-    }
-  })
-  .then((res)=>{
-    console.log(res.data)
-  })
-}
 
 // ....................... Single User Page Navigation ............................
 
@@ -87,7 +75,7 @@ const likePost=(postId)=>{
         </Box>
         </Flex>
         <Box w="30%" fontSize="40px" pl="30px">
-        <AiOutlineUserAdd onClick={()=>handleFriend(ele)}/>
+        {/* <AiOutlineUserAdd /> */}
         </Box>
       </Flex>
       <Text p={2}>{ele.description}</Text>

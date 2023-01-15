@@ -1,17 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import {AiOutlineUserAdd,AiOutlineHeart} from 'react-icons/ai'
-import { Box,Flex,Image,Text } from '@chakra-ui/react'
+import React, { useEffect, useState,useReducer } from 'react'
+import {AiOutlineUserAdd,AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
+import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import {FaRegShareSquare} from "react-icons/fa"
 import {BiCommentDetail} from "react-icons/bi"
 import { useNavigate } from 'react-router-dom'
+
 
 const Feed = () => {
     const [feeds,setFeeds]=useState([])
     const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const navigate=useNavigate()
     const [likes,setLikes]=useState([])
-    const isLiked = Boolean(likes[user._id]);
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    // const isLiked = Boolean(likes[user._id]);
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
+
+const handleRender=()=>{
+  console.log("rerendrng")
+  forceUpdate()
+}
 
 
 // ....................... Use Effect To get initialy Posts ............................
@@ -41,7 +50,6 @@ const getAllPosts=()=>{
     .then((res)=>{  
         console.log(res.data)
         setFeeds(res.data)
-        setLikes(res.data)
     })
 }
 
@@ -55,7 +63,8 @@ const likePost=(postId)=>{
       }
   })
   .then((res)=>{  
-      console.log(res.data.likes)
+      console.log(res.data)
+      setFeeds(res.data)
   })
 }
 
@@ -80,23 +89,29 @@ const likePost=(postId)=>{
       </Flex>
       <Text p={2}>{ele.description}</Text>
       <Box>
-      <Image w="100%" pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
+      <Image w="100%" h={650} pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
       </Box>
       <Flex gap={2} pl={5} justifyContent="space-between">
         <Flex gap={2}>
-        {ele.likes ? (
-                <AiOutlineHeart onClick={()=>likePost(ele._id)} color='red' />
-              ) : (
-                <FaRegShareSquare onClick={()=>likePost(ele._id)} />
-              )}
-         {/* <AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/> */}
-         <Text>Likes</Text>
+          {
+            ele.likes.includes(user._id)?<AiTwotoneHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"} color="red"/>:         <AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/>
+          }
+         <Text onClick={onOpen} cursor="pointer">{ele.likes.length-1} Like</Text>
          <BiCommentDetail fontSize='25px'/>
         </Flex>
-        <FaRegShareSquare fontSize="25px"/>
+        <FaRegShareSquare onClick={handleRender} fontSize="25px"/>
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+                <ModalOverlay />
+                <ModalContent mt={100}>
+                    <ModalHeader>Liked By</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody mt='-8'>
+                      r
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
     </Box>
-    
     ))
 }
 </>

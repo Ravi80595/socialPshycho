@@ -15,7 +15,6 @@ const SingleUser = () => {
     const {SingleProfile}=useSelector((store)=>store.AppReducer)
     const {SingleFriends} = useSelector((store)=>store.AppReducer)
     const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
-  console.log(SingleProfile)
 
 useEffect(()=>{
     dispatch(getSingleUserProfile(id))
@@ -46,7 +45,8 @@ const SingleUser=(id)=>{
 // ....................... Add and Remove friend Function ............................
 
 const handleFriend=(ele)=>{
-  axios.get(`http://localhost:3002/users/${user._id}/${ele.userId}`,{
+  console.log("clicked",ele._id)
+  axios.get(`http://localhost:3002/users/${user._id}/${ele._id}`,{
     headers:{
       Authorization:`Bearer ${token}`
     }
@@ -129,31 +129,4 @@ const handleFriend=(ele)=>{
 }
 
 export default SingleUser
-   
-
-
-// const MainProfile = () => {
-//   const [posts,setPosts]=useState([])
-//   const dispatch=useDispatch()
-//   const {AllFriends} = useSelector((store)=>store.AppReducer)
-//   const {isLoading,isError,profileData}=useSelector((store)=>store.AppReducer)
-//   const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
-
-
-// useEffect(()=>{
-//   getUserPosts()
-//   dispatch(getFriendList())
-// },[])
-
-// const getUserPosts=()=>{
-//   axios.get(`http://localhost:3002/posts/${user._id}/posts`,{
-//     headers:{
-//       Authorization:`Bearer ${token}`,
-//     }
-//   })
-//   .then((res)=>{
-//     console.log(res.data)
-//     setPosts(res.data)
-//   })
-// }
-
+  

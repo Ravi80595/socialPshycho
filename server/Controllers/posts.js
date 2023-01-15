@@ -22,7 +22,6 @@ export const createPost = async(req,res)=>{
             comments:[]
         })
         await newPost.save()
-        
         const post = await Post.find()
         res.status(200).json(post)
     }
@@ -32,7 +31,6 @@ export const createPost = async(req,res)=>{
 }
 
 // Get All Feeds Method
-
 
 export const getFeedPosts = async(req,res)=>{
     try{
@@ -77,19 +75,15 @@ export const likePost = async(req,res)=>{
         const {id} = req.params;
         const {userId}=req.body;
         const post = await Post.findById(id)
-        const isLiked = post.likes.get(userId)
 
-        if(isLiked){
-            post.likes.delete(userId)
+        if(post.likes.includes(userId)){
+            post.likes=post.likes.filter((id)=>id!==userId)
         }else{
-            post.likes.set(userId,true)
+            post.likes.push(userId)
         }
-        const updatedPost = await Post.findByIdAndUpdate(
-            id,
-            {likes:post.likes},
-            {new:true}
-        )
-        res.status(200).json(updatedPost)
+        await post.save()
+        const posts = await Post.find()
+        res.status(200).json(posts)
     }
     catch(err){
         console.log(err)

@@ -6,19 +6,22 @@ import morgan from "morgan"
 import multer from "multer"
 import express from "express"
 import mongoose from "mongoose"
-import bodyParser from "body-parser"
 import { fileURLToPath } from "url"
+import bodyParser from "body-parser"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
+import adminRoutes from './routes/admin.js'
 import {register} from "./Controllers/auth.js"
 import {createPost} from "./Controllers/posts.js"
-// import multer from "multer"
 import { verifyToken } from "./middelwares/auth.js"
 import { updateProfile } from "./Controllers/users.js"
-// import User from "./models/User.js"
-// import { posts } from "./data/index.js"
-// import Post from "./models/Post.js"
+// const { Server } = require("socket.io");
+// import { Server } from "socket.io"
+// const io = new Server(Server);
+// import http
+// const http = require('http');
+// const server = http.createServer(app);
 
     //  configuration
 
@@ -48,26 +51,35 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage:storage})
 
+// Routes 
+
 app.post("/auth/register",upload.single("picture"),register)
 app.patch("/users/editprofile/:id",upload.single("images"),updateProfile)
 app.post("/posts/create",verifyToken,upload.single("image"),createPost)
-
-// app.use("/posts")
 app.use("/auth",authRoutes)
 app.use("/users",userRoutes)
 app.use("/posts",postRoutes)
+app.use("/admin",adminRoutes)
+
+
+// Socket connection here
 
 
 
+
+
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+//   });
 
         // Database connection
 
 const PORT = process.env.PORT || 3001
-let connection = mongoose.connect(process.env.MONGO_URL)
+let connections = mongoose.connect(process.env.MONGO_URL)
 
 app.listen(PORT,async()=>{
     try{
-        await connection
+        await connections
         console.log("Server Connected With DataBase")
     }
     catch(err){

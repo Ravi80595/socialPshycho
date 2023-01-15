@@ -96,7 +96,7 @@ if(isError){
     }
         </Box>
         <Box w='70%' margin="auto" p={20} pt={5}>
-          <Button>Edit </Button>
+          {/* <Button>Edit </Button> */}
         {
           profileData.map(ele=>(
         <Flex w="70%" margin='auto' mb={10}>

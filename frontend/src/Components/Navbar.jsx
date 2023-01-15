@@ -1,4 +1,4 @@
-import { Box,Flex,Image,Input,Menu,MenuButton,MenuList,MenuGroup,MenuItem,Button,MenuDivider} from '@chakra-ui/react'
+import { Box,Flex,Image,Input,Menu,MenuButton,MenuList,MenuGroup,MenuItem,Button,MenuDivider,Text} from '@chakra-ui/react'
 import React from 'react'
 import {AiOutlineHeart,AiOutlineHome} from 'react-icons/ai'
 import {BiMessageSquareAdd,BiMessageDetail} from 'react-icons/bi'
@@ -6,17 +6,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import axios from 'axios'
+import {GrFormClose} from "react-icons/gr"
 
 const Navbar = () => {
   const navigate=useNavigate()
   const {profileData} = useSelector((store)=>store.AppReducer)
-  const [search,setSearch]=useState("")
+  const [searchData,setSearchData]=useState("")
   const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
 
 
-if(search.length==0){
-  // document.querySelector("#searchBox").style.height="0px"
-}
 
 const handleLogout=()=>{
   let Socialpshcyo=""
@@ -24,16 +22,26 @@ const handleLogout=()=>{
   navigate("/userlogin")
 }
 
-const handleChange = (e) => {
-  // document.querySelector("#searchBox").style.height="400px"
-  setSearch(e.target.value)
+// ....................... Single User Page Navigation ............................
 
-axios.get(`http://localhost:3002/users/searchUsers/${search}`,{
+const handleClick=(id)=>{
+  navigate(`/SingleUser/${id}`)
+}
+
+
+window.onclick=()=>{
+  document.querySelector("#searchBox").style.display="none"
+}
+
+const handleChange = (e) => {
+    document.querySelector("#searchBox").style.display="block"
+axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
   headers:{
     Authorization:`Bearer ${token}`
 }
 }).then((res)=>{
   console.log(res)
+  setSearchData(res.data)
 })
 .catch((err)=>{
   console.log(err)
@@ -42,6 +50,7 @@ axios.get(`http://localhost:3002/users/searchUsers/${search}`,{
 
 
   return (
+    <>
     <Box zIndex="9999" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' backgroundColor="white" position='fixed' w="100%">
     <Flex justifyContent='space-between' w='100%' h={20}>
           <Flex  w='50%' p={5} justifyContent='space-around'>
@@ -58,7 +67,9 @@ axios.get(`http://localhost:3002/users/searchUsers/${search}`,{
         <Link to="/message">
         <BiMessageDetail/>
         </Link>
+        <Link to="/Notification">
         <AiOutlineHeart/>
+        </Link>
         <Box fontSize="20px" border='2px solid blue' w="60px" h='60px' marginTop="-15px" borderRadius={50}>
           <Menu fontSize="20px">
             <MenuButton>
@@ -79,7 +90,9 @@ axios.get(`http://localhost:3002/users/searchUsers/${search}`,{
               <MenuGroup title='Manage'>
                 <MenuItem>Setting & Privacy</MenuItem>
                 <MenuItem>Language</MenuItem>
+                <Link to="/admin">
                 <MenuItem>Admin</MenuItem>
+                </Link>
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title='Help'>
@@ -94,10 +107,28 @@ axios.get(`http://localhost:3002/users/searchUsers/${search}`,{
         </Box>
       </Flex>
     </Flex>
-    <Box id="searchBox">
-
     </Box>
+    <Box id="searchBox" w="425px" position="fixed" backgroundColor="white" mt="70px" ml="245px" zIndex="9999">
+    {
+      searchData && searchData.map(ele=>(
+        <>
+        <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
+            <Box onClick={()=>handleClick(ele._id)}>
+                <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            </Box>
+            <Box>
+                <Text onClick={()=>handleClick(ele._id)}>{`${ele.firstName} ${ele.lastName}`}</Text>
+                {/* <Text>{ele.location}</Text> */}
+            </Box>
+            <Box pt={3}>
+                {/* <IoPersonRemoveOutline onClick={()=>handleFriend(ele)}/> */}
+            </Box>
+        </Flex> 
+        </>
+      ))
+    }
     </Box>
+    </>
   )
 }
 

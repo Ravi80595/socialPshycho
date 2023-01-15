@@ -16,7 +16,7 @@ const FriendList = () => {
 
 useEffect(()=>{
     dispatch(getFriendList())
-},[AllFriends])
+},[])
 
 // ....................... Single User Page Navigation ............................
 

@@ -6,12 +6,15 @@ import { MdOutlineArticle } from "react-icons/md"
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import {RiImageEditFill} from "react-icons/ri"
+import {Dropzone} from 'dropzone'
+
 
 const PostCreate = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
     const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const [postCred,setPostCred]=useState({})
+    const dropzone= new Dropzone("")
 
 
 const handlechange = (e) => {
@@ -74,7 +77,7 @@ const handlesubmit = async(e) => {
             </Box>
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent mt={100}>
                     <ModalHeader>New Post</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody mt='-8'>

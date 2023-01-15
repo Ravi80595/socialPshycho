@@ -38,35 +38,13 @@ export const updateProfile = async (req, res) => {
 
 export const searchUser=async(req,res)=>{
     const params=req.params.id
-    // console.log(params)
     try{
-        const users= await User.find({firstName:/`${params}`/})
+        const users= await User.find({firstName:{$regex:req.params.id}})
         res.send(users)
-        
     }catch (err) {
         console.log(err)
     }
 }
-// db.employee.find({position : {$regex : "developer"}}).pretty()
-
-// moviesRouter.get("/movies/:key",async(req,res)=>{
-//     const parmas=req.params.key
-//     console.log(parmas)
-//     try{
-//         const movies= await MoviesModel.find(
-//             {
-//                 "$or":[
-//                     {"title":{$regex:req.params.key}}   
-//                 ]
-//             }
-//         )
-//         res.send(movies)
-//     }
-//     catch{
-//         console.log("error")
-//     }
-// })
-
 
 // Get User Friends Methods
 
@@ -97,7 +75,7 @@ export const addRemoveFriend = async (req, res) => {
         const { id, friendId } = req.params;
         const user = await User.findById(id)
         const friend = await User.findById(friendId)
-        console.log(friendId, id)
+
         if (user.friends.includes(friendId)) {
             user.friends = friend.friends.filter((id) => id !== friendId)
             friend.friends = friend.friends.filter((id) => id !== id)
@@ -117,7 +95,6 @@ export const addRemoveFriend = async (req, res) => {
             }
         );
         res.status(200).json(formatedFriends)
-
     }
     catch (err) {
         console.log(err)

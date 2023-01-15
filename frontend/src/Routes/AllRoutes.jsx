@@ -10,6 +10,10 @@ import Signup from 'Pages/SignLoginPage/Signup'
 import React from 'react'
 import { Routes,Route } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
+import Notification from 'Pages/Messages/Notification'
+import Dashboard from 'Pages/AdminPages/Dashboard'
+import AdminSignup from "Pages/AdminPages/SignLogin/AdminSignup"
+import AdminLogin from 'Pages/AdminPages/SignLogin/AdminLogin'
 
 const AllRoutes = () => {
   return (
@@ -23,6 +27,10 @@ const AllRoutes = () => {
         <Route path="/SingleUser/:id" element={<SingleUser/>}></Route>
         <Route path="/SinglePost/:id" element={<SinglePost/>}></Route>
         <Route path="/faqPage" element={<FaqPage/>}></Route>
+        <Route path="/Notification" element={<Notification/>}></Route>
+        <Route path="/admin" element={<Dashboard/>}></Route>
+        <Route path="/adminsign" element={<AdminSignup/>}></Route>
+        <Route path="/adminlogin" element={<AdminLogin/>}></Route>
         <Route path="*" element={<h1>Wrong Url</h1>}></Route>
       </Routes>
   )

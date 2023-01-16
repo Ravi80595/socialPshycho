@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import axios from 'axios'
 import {RiImageEditFill} from "react-icons/ri"
 import {Dropzone} from 'dropzone'
+// import Dropzone from 'react-dropzone'
 
 
 const PostCreate = () => {
@@ -14,7 +15,6 @@ const PostCreate = () => {
     const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
     const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const [postCred,setPostCred]=useState({})
-    const dropzone= new Dropzone("")
 
 
 const handlechange = (e) => {
@@ -81,16 +81,16 @@ const handlesubmit = async(e) => {
                     <ModalHeader>New Post</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody mt='-8'>
-                        <Flex direction="column" gap="10px" mt="50px">
-    <form onSubmit={handlesubmit}>
-    <label htmlFor='file-upload' ><RiImageEditFill fontSize="40px" ml={10} w="50%" height="57px"/></label>
-    <input type="file" id='file-upload' name='image'  ref={profilepicref} />
-    <label>Enter caption</label>
-    <Input type="text" name='caption' onChange={handlechange} placeholder="Use # for hashtag" />
-    <label>Enter Location</label>
-    <Input type="text" name='location' onChange={handlechange} placeholder="Enter Location" />
-    <Input type="submit" mt={2} mb="25px" color="white" bg="black" _hover={{ bg: "grey" }} />
-    </form>
+                    <Flex direction="column" gap="10px" mt="50px">
+                    <form onSubmit={handlesubmit}>
+                    <label htmlFor='file-upload' ><RiImageEditFill fontSize="40px" ml={10} w="50%" height="57px"/></label>
+                    <input type="file" id='file-upload' name='image'  ref={profilepicref} />
+                    <label>Enter caption</label>
+                    <Input type="text" name='caption' onChange={handlechange} placeholder="Use # for hashtag" />
+                    <label>Enter Location</label>
+                    <Input type="text" name='location' onChange={handlechange} placeholder="Enter Location" />
+                    <Input type="submit" mt={2} mb="25px" color="white" bg="black" _hover={{ bg: "grey" }} />
+                    </form>
                         </Flex>
                     </ModalBody>
                 </ModalContent>

@@ -1,52 +1,77 @@
 import React from 'react'
 import Navbar from './Navbar'
-import {AiOutlineHeart} from "react-icons/ai"
-import {BiCommentDetail} from "react-icons/bi"
-import {FaRegShareSquare} from "react-icons/fa"
-import {Text,Flex,Box,Image,Input} from "@chakra-ui/react"
+import {Flex,Box,Input,Button} from "@chakra-ui/react"
 import { useSelector } from 'react-redux'
-import {RiImageEditFill} from "react-icons/ri"
+import Dropzone from 'react-dropzone'
+import {CiEdit} from "react-icons/ci"
+import { useState } from 'react'
+import axios from 'axios'
+
 
 const CreatePost = () => {
   const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
+//   const [isImage, setIsImage] = useState(false);
+  const [image, setImage] = useState(null);
+  const [desc,setDesc]=useState("")
+  const [location,setLocation]=useState("")
+  const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+// console.log(image)
+
+
+ 
+const handlePost=async()=>{
+     const formData=new FormData()
+     formData.append("userId",user._id)
+     formData.append("description",desc)
+     formData.append('location',location)
+     formData.append("image", image);
+     formData.append("picturePath",image.name)
+     console.log(desc,location,image.name)
+await axios.post("http://localhost:3002/posts/create",formData,{
+     headers:{
+          "Content-Type": "multipart/form-data",
+          Authorization:`Bearer ${token}`
+     }
+})
+.then((res)=>{
+console.log(res)
+})    
+}
 
 
 
-  return (
+return (
     <>
     <Navbar/>
-    <Flex w="80%" m="auto" pt='120px' >
-       <Box w="40%" boxShadow= "rgba(0, 0, 0, 0.05) 0px 1px 12px 0px">
-           <label htmlFor="file-upload"><RiImageEditFill fontSize="50px"/></label>
-           <input type="file" id='file-upload' border="2px solid blue"/>
+    <Box w="60%" m="auto" pt='30px'>
+     <Box mt='120px'  boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p={20}>
+        <Box  borderRadius="5px" mt="1rem" p="1rem">
+          <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <Flex>
+               <Box {...getRootProps()} border={`2px dashed black`} p="1rem" width="100%" sx={{ "&:hover": { cursor: "pointer" } }}>
+                  <input {...getInputProps()} />
+                  {!image ? (
+                    <p>Add Image Here</p>
+                  ) : (
+                    <Flex>
+                      <p>{image.name}</p>
+                      <CiEdit/>
+                    </Flex>
+                  )}
+                </Box>
+              </Flex>
+            )}
+          </Dropzone>
         </Box>
-        <Box w="40%" boxShadow= "rgba(0, 0, 0, 0.35) 1.95px 1.95px 2.6px">
-        <Flex gap={5} p={5}>
-             <Image w={50} h="50px" borderRadius={50} src="f"/>
-            <Box>
-             <Text>Ravi Sharma</Text>
-             <Text>Location</Text>
-             </Box>
-         </Flex>
-              <hr />
-         <Box h={200}>
-             <Text textAlign="center">description</Text>
-</Box>
-              <hr />
-         <Box>
-         <Flex gap={2} pl={5} justifyContent="space-between" pr={5} pt={5}>
-        <Flex gap={2}>
-              <AiOutlineHeart fontSize='25px'/>
-             <Text>Like</Text>
-             <BiCommentDetail fontSize='25px'/>
-         </Flex>
-             <FaRegShareSquare fontSize="25px"/>
-        </Flex>
-              <Text pt={2}>Total Likes</Text>
-         </Box>
-              <Input type="text" placeholder="Enter Your Comment" mt={85}/>
-       </Box>
-     </Flex>
+     <Box>
+          <Input p={10} value={desc} onChange={(e)=>setDesc(e.target.value)} placeholder='Enter Caption'/>
+          <Input value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Enter Location' m={2}/>
+     </Box>
+     <Button onClick={handlePost}>Post</Button>
+     </Box>
+     </Box>
     </>
   )
 }

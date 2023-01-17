@@ -2,10 +2,10 @@ import React, { useEffect, useState,useReducer } from 'react'
 import {AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
 import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,Spinner,Input,InputGroup,InputLeftElement,InputRightElement } from '@chakra-ui/react'
 import axios from 'axios'
-import {FaRegShareSquare} from "react-icons/fa"
+// import {FaRegShareSquare} from "react-icons/fa"
 import {MdOutlineModeComment} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
-import {BsEmojiSmile} from "react-icons/bs"
+import {BsEmojiSmile,BsSave2} from "react-icons/bs"
 
 
 const Feed = () => {
@@ -114,7 +114,9 @@ const handleClick=(id)=>{
          <Text onClick={()=>handleLikedUser(ele._id)} cursor="pointer">{ele.like.length} Like</Text>
          <MdOutlineModeComment fontSize='25px'/>
         </Flex>
-        <FaRegShareSquare onClick={handleRender} fontSize="25px"/>
+        <Box pr={5}>
+        <BsSave2 onClick={handleRender} fontSize="25px"/>
+        </Box>
       </Flex>
       <Text p={2}>{ele.date}</Text>
       <InputGroup size="md" mt="15px" backgroundColor="white">
@@ -123,7 +125,7 @@ const handleClick=(id)=>{
                 <BsEmojiSmile/>
                 </InputLeftElement>
                 <InputRightElement width="4.5rem">
-                  <Text h="1.75rem" size="sm" color='blue'> post </Text>
+                  <Text cursor='pointer' h="1.75rem" size="sm" color='blue'> post </Text>
                 </InputRightElement>
                    </InputGroup>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">

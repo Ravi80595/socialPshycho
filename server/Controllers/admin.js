@@ -6,15 +6,15 @@ import User from "../models/User.js"
 
 export const adminSign = async(req,res)=>{
     try{
-        const {email,password,firstname,lastname,role,avtar}= req.body
-        let existingUser = await Admin.findOne({email})
-        if(existingUser){
+        const {email,password,firstName,lastName,role}= req.body
+        let existingAdmin = await Admin.findOne({email:email})
+        if(existingAdmin){
             res.status(404).send({"msg":"Admin already exists Please Login"})
         }else{
             bcrypt.hash(password,4, async(err,hash)=>{
-        let admin = new Admin({email,password:hash,firstname,lastname,role,avtar})
+        let admin = new Admin({email,password:hash,firstName,lastName,role})
                 await admin.save()
-                res.status(200).send({"msg":`${firstname} Sign Up Successfull`})
+                res.status(200).send({"msg":`${firstName} Sign Up Successfull`})
             })
         }
     }catch(err){

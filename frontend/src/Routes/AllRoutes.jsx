@@ -14,6 +14,9 @@ import Notification from 'Pages/Messages/Notification'
 import Dashboard from 'Pages/AdminPages/Dashboard'
 import AdminSignup from "Pages/AdminPages/SignLogin/AdminSignup"
 import AdminLogin from 'Pages/AdminPages/SignLogin/AdminLogin'
+import UserSingl from 'Pages/AdminPages/UserSingl'
+import BlueTick from 'Pages/OtherPages/BlueTick'
+import Settings from 'Pages/OtherPages/Settings'
 
 const AllRoutes = () => {
   return (
@@ -31,6 +34,9 @@ const AllRoutes = () => {
         <Route path="/admin" element={<Dashboard/>}></Route>
         <Route path="/adminsign" element={<AdminSignup/>}></Route>
         <Route path="/adminlogin" element={<AdminLogin/>}></Route>
+        <Route path="/adminsingleuser" element={<UserSingl/>}></Route>
+        <Route path="/bluetick" element={<BlueTick/>}></Route>
+        <Route path="/settings" element={<Settings/>}></Route>
         <Route path="*" element={<h1>Wrong Url</h1>}></Route>
       </Routes>
   )

@@ -7,8 +7,6 @@ import User from "../models/User.js"
 export const createPost = async(req,res)=>{
     try{
         const {userId,description,location,image,picturePath}= req.body
-        // const picturePath=image
-        // console.log(picturePath)
         const user = await User.findById(userId)
         const newPost = new Post({
             userId,
@@ -17,8 +15,9 @@ export const createPost = async(req,res)=>{
             location,
             description,
             userPicturePath:user.picturePath,
+            username:user.username,
             picturePath,
-            likes:{},
+            likes:[],
             comments:[]
         })
         await newPost.save()
@@ -76,16 +75,58 @@ export const likePost = async(req,res)=>{
         const {userId}=req.body;
         const post = await Post.findById(id)
 
-        if(post.likes.includes(userId)){
-            post.likes=post.likes.filter((id)=>id!==userId)
+        if(post.like.includes(userId)){
+            post.like=post.like.filter((id)=>id!==userId)
         }else{
-            post.likes.push(userId)
+            post.like.push(userId)
         }
         await post.save()
         const posts = await Post.find()
         res.status(200).json(posts)
     }
     catch(err){
+        console.log(err)
+    }
+}
+
+// Get who liked post
+
+export const getLikedUser=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const post = await Post.findById(id)
+        console.log(id,post)
+        const like = await Promise.all(
+            post.like.map((id)=>User.findById(id))
+        )
+        const formatedUsers = like.map(
+            ({_id, firstName, lastName, occupation, location, picturePath }) => {
+                return { _id, firstName, lastName, occupation, location, picturePath }
+            }
+        )
+        res.status(200).json(formatedUsers)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+export const getUserFriends = async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = await User.findById(id)
+
+        const friends = await Promise.all(
+            user.friends.map((id) => User.findById(id))
+        )
+        const formatedFriends = friends.map(
+            ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+                return { _id, firstName, lastName, occupation, location, picturePath }
+            }
+        );
+        res.status(200).json(formatedFriends)
+    }
+    catch (err) {
         console.log(err)
     }
 }

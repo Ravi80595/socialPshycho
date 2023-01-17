@@ -1,10 +1,11 @@
 import React, { useEffect, useState,useReducer } from 'react'
-import {AiOutlineUserAdd,AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
-import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure } from '@chakra-ui/react'
+import {AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
+import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,Spinner,Input,InputGroup,InputLeftElement,InputRightElement } from '@chakra-ui/react'
 import axios from 'axios'
 import {FaRegShareSquare} from "react-icons/fa"
-import {BiCommentDetail} from "react-icons/bi"
+import {MdOutlineModeComment} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
+import {BsEmojiSmile} from "react-icons/bs"
 
 
 const Feed = () => {
@@ -57,7 +58,7 @@ const getAllPosts=()=>{
 
 
 const likePost=(postId)=>{
-  axios.patch(`http://localhost:3002/posts/${postId}/like`,{userId: user._id},{
+  axios.patch(`http://localhost:3002/posts/${postId}/like/`,{userId: user._id},{
       headers:{
           Authorization: `Bearer ${token}`
       }
@@ -68,18 +69,32 @@ const likePost=(postId)=>{
   })
 }
 
+const handleLikedUser=(id)=>{
+  onOpen()
+  // console.log(id)
+axios.get(`http://localhost:3002/posts/likes/${id}`)
+.then((res)=>{
+  console.log(res.data)
+  setLikes(res.data)
+})
+}
+
+const handleClick=(id)=>{
+  navigate(`/SingleUser/${id}`)
+}
+
 
   return (
     <>
     {
-    feeds.map(ele=>(
+    feeds.map(ele=>( 
       
-        <Box p="7px" backgroundColor='white' mt={2} mb={5} borderRadius={10} key={ele._id}>
-         <Flex>
+        <Box backgroundColor='white' mt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
+         <Flex p="7px">
         <Flex w="70%" gap={5}>
-        <Image cursor='pointer' onClick={()=>SingleUser(ele.userId)} h="55px" src={`http://localhost:3002/assets/${ele.userPicturePath}`} w="15%" borderRadius={50}/>
+        <Image cursor='pointer' onClick={()=>SingleUser(ele.userId)} h="55px" src={`http://localhost:3002/assets/${ele.userPicturePath}`} w={["20%","30%","15%"]} borderRadius={50}/>
         <Box>
-        <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{ele.firstName+" "+ele.lastName}</Text>
+        <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{`${ele.username} (${ele.firstName})`}</Text>
         <Text>{ele.location}</Text>
         </Box>
         </Flex>
@@ -89,28 +104,50 @@ const likePost=(postId)=>{
       </Flex>
       <Text p={2}>{ele.description}</Text>
       <Box>
-      <Image w="100%" h={650} pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
+      <Image w="100%" pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
       </Box>
-      <Flex gap={2} pl={5} justifyContent="space-between">
+      <Flex gap={2} pl={2} justifyContent="space-between">
         <Flex gap={2}>
           {
-            ele.likes.includes(user._id)?<AiTwotoneHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"} color="red"/>:         <AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/>
+            ele.like.includes(user._id)?<AiTwotoneHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"} color="red"/>:         <AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/>
           }
-         <Text onClick={onOpen} cursor="pointer">{ele.likes.length-1} Like</Text>
-         <BiCommentDetail fontSize='25px'/>
+         <Text onClick={()=>handleLikedUser(ele._id)} cursor="pointer">{ele.like.length} Like</Text>
+         <MdOutlineModeComment fontSize='25px'/>
         </Flex>
         <FaRegShareSquare onClick={handleRender} fontSize="25px"/>
       </Flex>
+      <Text p={2}>{ele.date}</Text>
+      <InputGroup size="md" mt="15px" backgroundColor="white">
+            <Input pr="4.5rem" placeholder="Add a comment..." name="password"/>
+                <InputLeftElement fontSize='25px'>
+                <BsEmojiSmile/>
+                </InputLeftElement>
+                <InputRightElement width="4.5rem">
+                  <Text h="1.75rem" size="sm" color='blue'> post </Text>
+                </InputRightElement>
+                   </InputGroup>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
-                <ModalOverlay />
+                <ModalOverlay backdropBlur="2px"/>
                 <ModalContent mt={100}>
                     <ModalHeader>Liked By</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody mt='-8'>
-                      r
+                    <ModalBody >
+                    {likes && likes.map(ele=>(
+        <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
+            <Box onClick={()=>handleClick(ele._id)}>
+            <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            </Box>
+            <Box>
+                <Text onClick={()=>handleClick(ele._id)}>{`${ele.firstName} ${ele.lastName}`}</Text>
+                <Text>{ele.location}</Text>
+            </Box>
+              </Flex>
+              ))
+          }
                     </ModalBody>
                 </ModalContent>
             </Modal>
+     
     </Box>
     ))
 }

@@ -4,10 +4,13 @@ import User from "../models/User.js"
 
 export const register = async (req,res)=>{
     try{
-        const {firstName,lastName,email,password,picturePath,friends,location,occupation} = req.body;
+        const {firstName,lastName,email,password,picturePath,friends,location,username} = req.body;
         const salt = await bcrypt.genSalt()
         const passwordHash = await bcrypt.hash(password,salt)
-
+        // const user=User.findOne({username:username})
+        // if(user){
+        //         res.status(400).send("Username already exist")
+        // }else{
         const newUser = new User({
             firstName,
             lastName,
@@ -15,18 +18,20 @@ export const register = async (req,res)=>{
             password:passwordHash,
             picturePath,
             friends,
-            location,occupation,
+            location,
+            username,
             viewedProfile:Math.floor(Math.random()*1000),
             impressions:Math.floor(Math.random()*10000),
         })
         const saveUser = await newUser.save()
         res.status(201).send({"msg":"User Saved Successfully"})
-    }catch(err){
+    }
+    catch(err){
         console.log(err)
         res.status(500).json({error:err.message})
     }
+// 
 }
-
 // login
 
 export const login = async(req,res)=>{

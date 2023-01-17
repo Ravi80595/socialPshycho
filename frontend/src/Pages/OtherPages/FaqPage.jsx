@@ -23,7 +23,7 @@ const FaqPage = () => {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box as="span" fontSize="25px" textAlign='center' flex='1'>
+          <Box as="span" fontSize={["15px","10px","25px"]} textAlign='center' flex='1'>
             What is Socialpshycho?
           </Box>
           <AccordionIcon />
@@ -39,7 +39,7 @@ const FaqPage = () => {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box as="span" flex='1' fontSize="25px" textAlign='center'>
+          <Box as="span" flex='1' fontSize={["15px","10px","25px"]} textAlign='center'>
             Who Created SocialPshycho?
           </Box>
           <AccordionIcon />
@@ -55,7 +55,7 @@ const FaqPage = () => {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box as="span" flex='1' fontSize="25px" textAlign='center'>
+          <Box as="span" flex='1' fontSize={["15px","10px","25px"]} textAlign='center'>
             How To Create Account?
           </Box>
           <AccordionIcon />
@@ -71,7 +71,7 @@ const FaqPage = () => {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box as="span" flex='1' fontSize="25px" textAlign='center'>
+          <Box as="span" flex='1' fontSize={["15px","10px","25px"]} textAlign='center'>
             How to upload Post?
           </Box>
           <AccordionIcon />
@@ -87,7 +87,7 @@ const FaqPage = () => {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box as="span" flex='1' fontSize="25px" textAlign='center'>
+          <Box as="span" flex='1' fontSize={["15px","10px","25px"]} textAlign='center'>
             How To check account status?
           </Box>
           <AccordionIcon />

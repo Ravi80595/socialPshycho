@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
+import { GetCurrentDate,GetCurrentTime } from "../Utils/DateTime.js";
 
+
+const currentDate=GetCurrentDate()
+const currentTime=GetCurrentTime()
 
 const postSchema = mongoose.Schema(
     {
@@ -20,10 +24,13 @@ const postSchema = mongoose.Schema(
         picturePath:String,
         userPicturePath:String,
         likes:{type:Array,default:[]},
+        like:{type:Array,default:[]},
         comments:{
             type:Array,
             default:[]
-        }
+        },
+        date:{type:String,default:currentDate},
+        time:{type:String,default:currentTime}
     },{
         timestamps:true
     }

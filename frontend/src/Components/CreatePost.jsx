@@ -43,8 +43,8 @@ console.log(res)
 return (
     <>
     <Navbar/>
-    <Box w="60%" m="auto" pt='30px'>
-     <Box mt='120px'  boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p={20}>
+    <Box w={["100%","100%","60%"]} m="auto" pt={["10px","10px",'30px']}>
+     <Box mt='120px'  boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p={[5,5,20]}>
         <Box  borderRadius="5px" mt="1rem" p="1rem">
           <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >

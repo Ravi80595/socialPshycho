@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner } from '@chakra-ui/react'
+import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input } from '@chakra-ui/react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const UsersPage = () => {
   const [users,setUsers]=useState([])
   const [loading,setLoading]=useState(false)
+  const navigate=useNavigate()
+  const { token } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+
 
 useEffect(()=>{
   setLoading(true)
@@ -18,30 +22,55 @@ useEffect(()=>{
   })
 },[])
 
+const handleChange = (e) => {
+axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
+headers:{
+  Authorization:`Bearer ${token}`
+}
+}).then((res)=>{
+console.log(res)
+setUsers(res.data)
+})
+.catch((err)=>{
+console.log(err)
+})
+};
+
+const handleNavigate=()=>{
+  navigate("/adminsingleuser")
+}
+
 if(loading){
 return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
 
 return (
     <Box>
+      <Flex mb={20} justifyContent="space-between">
+        <Text w="10%">Total Users : {users.length}</Text>
+        <Input onInput={handleChange} w="50%" placeholder="search user"/>
+        <Text w="10%">Total us</Text>
+      </Flex>
+
+
           <TableContainer>
             <Table size='sm'>
               <Thead>
                 <Tr textAlign='center'>
                   <Th>Image</Th>
+                  <Th>User-name</Th>
                   <Th>Name</Th>
                   <Th>Email</Th>
-                  <Th>Location</Th>
                 </Tr>
               </Thead>
               <Tbody>
       {
         users && users.map(ele=>(
-                <Tr>
-                  <Td>Coming Soon...</Td>
+                <Tr onClick={handleNavigate}>
+                  <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
+                  <Td>{ele.username}</Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>
                   <Td>{ele.email}</Td>
-                  <Td>{ele.location}</Td>
                 </Tr>
                 ))
               }

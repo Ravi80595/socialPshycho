@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 
 const userSchema = new mongoose.Schema({
+    username:{type:String,unique:true,require:true},
     firstName:{type:String,require:true,min:2,max:40},
     lastName :{type:String,require:true,min:2,max:40},
     email :{type:String,require:true,unique:true,max:40},
@@ -11,7 +12,8 @@ const userSchema = new mongoose.Schema({
     location:String,
     occupation:String,
     viewedProfile:Number,
-    impressions:Number
+    impressions:Number,
+    bio:{type:String,default:"Enter Bio"}
 },{
     timestamps:true
 })

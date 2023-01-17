@@ -53,58 +53,72 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
     <>
     <Box zIndex="9999" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' backgroundColor="white" position='fixed' w="100%">
     <Flex justifyContent='space-between' w='100%' h={20}>
-          <Flex  w='50%' p={5} justifyContent='space-around'>
-        <Image onClick={()=>{navigate("/")}} cursor="pointer" src="https://cdn-icons-png.flaticon.com/512/831/831276.png"/>
-        <Input onInput={handleChange} placeholder="search" w='60%'/>
+          <Flex  w={["0%","0%","50%"]} p={[0,0,5]} justifyContent='space-around'>
+        <Image display={["none","none","block"]} onClick={()=>{navigate("/")}} cursor="pointer" src="https://cdn-icons-png.flaticon.com/512/831/831276.png"/>
+        <Input onInput={handleChange} placeholder="search" w="60%" display={["none","none","block"]}/>
       </Flex>
-      <Flex w='50%' p={5} justifyContent="space-evenly" fontSize='30px'>
-         <Link to="/newPost">
-        <BiMessageSquareAdd/>
-        </Link>
+      <Flex w={["100%","100%",'50%']} p={5} justifyContent="space-evenly" fontSize='30px'>
         <Link to="/">
         <AiOutlineHome/>
+        </Link>
+         <Link to="/newPost">
+        <BiMessageSquareAdd/>
         </Link>
         <Link to="/message">
         <BiMessageDetail/>
         </Link>
-        <Link to="/Notification">
+        {/* <Link to="/Notification">
+        </Link> */}
+        <Menu fontSize="20px">
+            <MenuButton>
         <AiOutlineHeart/>
-        </Link>
-        <Box fontSize="20px" border='2px solid blue' w="60px" h='60px' marginTop="-15px" borderRadius={50}>
+            </MenuButton>
+            <MenuList>
+              <MenuGroup title='no notification'>
+              </MenuGroup>              
+            </MenuList>
+          </Menu>
+
+
+        {/* <Box fontSize="20px" border='2px solid blue' w={[10,10,65]} h={[10,10,55]} marginTop="-15px" borderRadius={50} pt={[5,5,0]}> */}
           <Menu fontSize="20px">
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-                <Image w={55} h="60px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
+                <Image pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
             ))
           }
             </MenuButton>
             <MenuList>
-              <MenuGroup title='Profile'>
+              <MenuGroup title='Profile' fontSize="20px">
                 <Link to="/profile">
-                <MenuItem>My Account</MenuItem>
+                <MenuItem fontSize="20px">My Account</MenuItem>
                 </Link>
-                <MenuItem>Payments</MenuItem>
+                <Link to="/bluetick">
+                <MenuItem fontSize="20px">Blue Tick Apply</MenuItem>
+                </Link>
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title='Manage'>
-                <MenuItem>Setting & Privacy</MenuItem>
-                <MenuItem>Language</MenuItem>
+                <Link to="/settings">
+                <MenuItem fontSize="20px">Setting & Privacy</MenuItem>
+                </Link>
+                <MenuItem fontSize="20px">Language</MenuItem>
                 <Link to="/admin">
-                <MenuItem>Admin</MenuItem>
+                <MenuItem fontSize="20px">Admin</MenuItem>
                 </Link>
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title='Help'>
-                <MenuItem>Docs</MenuItem>
+                <MenuItem fontSize="20px">Docs</MenuItem>
                 <Link to="/faqPage">
-                <MenuItem>FAQ</MenuItem>
+                <MenuItem fontSize="20px">FAQ</MenuItem>
                 </Link>
-                <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
+                <MenuItem fontSize="20px" onClick={handleLogout}>Sign Out</MenuItem>
               </MenuGroup>
             </MenuList>
           </Menu>
-        </Box>
+        {/* </Box> */}
       </Flex>
     </Flex>
     </Box>
@@ -117,7 +131,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
                 <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
-                <Text onClick={()=>handleClick(ele._id)}>{`${ele.firstName} ${ele.lastName}`}</Text>
+                <Text onClick={()=>handleClick(ele._id)}>{ele.username}</Text>
                 {/* <Text>{ele.location}</Text> */}
             </Box>
             <Box pt={3}>

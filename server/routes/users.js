@@ -1,5 +1,5 @@
 import express from "express"
-import {getUser,getUserFriends,addRemoveFriend, searchUser} from "../Controllers/users.js"
+import {getUser,getUserFriends,addRemoveFriend, searchUser, updateUser} from "../Controllers/users.js"
 import {verifyToken} from "../middelwares/auth.js"
 
 
@@ -9,5 +9,5 @@ router.get("/search/:id",searchUser)
 router.get("/:id",verifyToken,getUser)
 router.get("/:id/friends",verifyToken,getUserFriends)
 router.get("/:id/:friendId",verifyToken,addRemoveFriend)
-
+router.post("/updateName/:id",verifyToken,updateUser)
 export default router;

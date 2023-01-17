@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box,TableContainer,Table,Thead,Tr,Tbody,Td,Th,Spinner} from '@chakra-ui/react'
+import { Box,TableContainer,Table,Thead,Tr,Tbody,Td,Th,Spinner,Image} from '@chakra-ui/react'
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -45,7 +45,7 @@ return (
       {
         admin && admin.map(ele=>(
                 <Tr>
-                  <Td>Coming Soon...</Td>
+                  <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>
                   <Td>{ele.email}</Td>
                   <Td>{ele.location}</Td>

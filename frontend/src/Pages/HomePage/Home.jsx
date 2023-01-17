@@ -17,16 +17,16 @@ const Home = () => {
     <>
     <Navbar/>
     <Box background="blackAlpha.100" pt='65px'>
-      <Flex justifyContent='space-around' gap={5} p="30px">
-        <Box border="2px solid white" w="20%" background="white" borderRadius="15px" h={600} >
+      <Flex justifyContent='space-around' gap={5} p={["0%","0%","30px"]}>
+        <Box display={["none","none","block"]} border="2px solid white" w="20%" background="white" borderRadius="15px" h={600} >
           <SideProfile/>
         </Box>
-        <Box w="40%" backgroundColor="blackAlpha.10" borderRadius="15px">
-          <PostCreate/>
+        <Box  w={["100%","90%","40%"]} backgroundColor="blackAlpha.10" borderRadius={["0%","0%","15px"]}>
+          <PostCreate />
           <hr />
           <Feed/>
         </Box>
-        <Box border="2px solid white" w="20%" background="white" borderRadius="15px" h={600}>
+        <Box display={["none","none","block"]} border="2px solid white" w="20%" background="white" borderRadius={["0%","0%","15px"]} h={600}>
           <FriendList/>
         </Box>
       </Flex>

@@ -31,6 +31,7 @@ const login=(payload)=>(dispatch)=>{
        return dispatch(postLoginSuccess(res.data))
     }).catch((e)=>{
         console.log(e)
+        alert(e.response.data.msg)
         dispatch(postLoginFailure())
     })
 }

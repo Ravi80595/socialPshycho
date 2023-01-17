@@ -8,6 +8,7 @@ import {AiFillInstagram} from "react-icons/ai"
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfiles } from 'Redux/AppReducer/action'
 import { useNavigate } from 'react-router-dom'
+import { Spinner } from '@chakra-ui/react'
 
 const SideProfile = () => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const MainPage=()=>{
 }
 
 if(isLoading){
-  return <h1>Loading...</h1>
+  return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
 
 if(isError){
@@ -55,7 +56,7 @@ if(isError){
                 </Flex>
                 <Flex gap="10px" pt={3}>
                 <BsBagCheck w="20%" fontSize="35px"/>
-                <Text textAlign='left' fontSize="20px" padding="4px" w="70%">{ele.occupation}</Text>
+                <Text textAlign='left' fontSize="20px" padding="4px" w="70%">{ele.username}</Text>
               </Flex>
               </Box>
       <hr />

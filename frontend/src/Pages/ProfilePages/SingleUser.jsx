@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSingleUserFriendList, getSingleUserProfile } from 'Redux/AppReducer/action'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const SingleUser = () => {
     const dispatch=useDispatch()
@@ -15,12 +16,13 @@ const SingleUser = () => {
     const {SingleProfile}=useSelector((store)=>store.AppReducer)
     const {SingleFriends} = useSelector((store)=>store.AppReducer)
     const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+    const [update,setUpdate]=useState(1)
 
 useEffect(()=>{
     dispatch(getSingleUserProfile(id))
     dispatch(getSingleUserFriendList(id))
     getUserPosts()
-},[])
+},[id])
 
 const getUserPosts=()=>{
   axios.get(`http://localhost:3002/posts/${id}/posts`,{
@@ -45,18 +47,24 @@ const SingleUser=(id)=>{
 // ....................... Add and Remove friend Function ............................
 
 const handleFriend=(ele)=>{
-  console.log("clicked",ele._id)
+  if(ele._id==user._id){
+    alert("You can't add yourself as a friend.")
+  }else{
   axios.get(`http://localhost:3002/users/${user._id}/${ele._id}`,{
     headers:{
       Authorization:`Bearer ${token}`
     }
   })
   .then((res)=>{
-    console.log(res.data)
+    // console.log(res.data)
+    setUpdate(update+1)
+    dispatch(getSingleUserFriendList(id))
+    dispatch(getSingleUserProfile(id))
   })
 }
+}
 
-  return (
+return (
     <>
     <Navbar/>
     <Flex pt={20} backgroundColor="blackAlpha.100">
@@ -90,9 +98,12 @@ const handleFriend=(ele)=>{
         <Box margin="auto" w="55%" key={ele._id}>
           <Flex justifyContent="space-evenly">
             <Text fontSize="25px">{ele.firstName+" "+ele.lastName}</Text>
-            <Button backgroundColor="grey" onClick={()=>handleFriend(ele)}>Friend</Button>
+            <Button backgroundColor="grey" onClick={()=>handleFriend(ele)}>
+              {ele.friends.includes(user._id)?"Remove":"Add"}
+              </Button>
+              <Link to="/message">
             <Button backgroundColor="grey">Message</Button>
-          {/* </Box> */}
+              </Link>
           </Flex>
           <Box>
           <Flex justifyContent='space-around'  pt={5}>

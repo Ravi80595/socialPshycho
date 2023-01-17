@@ -34,12 +34,33 @@ export const updateProfile = async (req, res) => {
     }
 }
 
+// Update User Name and Bio
+
+export const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {firstName,lastName,bio}=req.body
+        const newUser = await User.findByIdAndUpdate({ _id: id }, {
+            firstName:firstName,
+            lastName:lastName,
+            bio:bio
+        })
+       const newPost = await Post.findByIdAndUpdate({userId:id},{
+            userPicturePath:picturePaths
+        })
+        console.log(newPost)
+        res.status(200).json(newUser,newPost)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 // User Search Method
 
 export const searchUser=async(req,res)=>{
     const params=req.params.id
     try{
-        const users= await User.find({firstName:{$regex:req.params.id}})
+        const users= await User.find({username:{$regex:req.params.id}})
         res.send(users)
     }catch (err) {
         console.log(err)

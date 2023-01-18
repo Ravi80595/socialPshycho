@@ -95,7 +95,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
                 <MenuItem fontSize="20px">My Account</MenuItem>
                 </Link>
                 <Link to="/bluetick">
-                <MenuItem fontSize="20px">Blue Tick Apply</MenuItem>
+                <MenuItem fontSize="20px">Apply Blue Tick </MenuItem>
                 </Link>
               </MenuGroup>
               <MenuDivider />

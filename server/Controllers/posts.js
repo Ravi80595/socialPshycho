@@ -8,6 +8,7 @@ export const createPost = async(req,res)=>{
     try{
         const {userId,description,location,image,picturePath}= req.body
         const user = await User.findById(userId)
+        console.log(user)
         const newPost = new Post({
             userId,
             firstName:user.firstName,
@@ -20,6 +21,7 @@ export const createPost = async(req,res)=>{
             likes:[],
             comments:[]
         })
+        console.log(newPost)
         await newPost.save()
         const post = await Post.find()
         res.status(200).json(post)
@@ -95,7 +97,6 @@ export const getLikedUser=async(req,res)=>{
     try{
         const {id}=req.params
         const post = await Post.findById(id)
-        console.log(id,post)
         const like = await Promise.all(
             post.like.map((id)=>User.findById(id))
         )
@@ -129,4 +130,27 @@ export const getUserFriends = async (req, res) => {
     catch (err) {
         console.log(err)
     }
+}
+
+export const addComment=async(req,res)=>{
+    let userid=req.user.id
+    const user =await User.findById(userid)
+    const comment={
+        text:req.body.text,
+        postedBy:user.username,
+        postedid:req.user.id
+    }
+    Post.findByIdAndUpdate(req.body.postId,{
+        $push:{comments:comment}
+    },{
+        new:true
+    })
+    // .populate("comments.postedBy","_id username")
+    .exec((err,result)=>{
+        if(err){
+            return res.status(422).json({error:err})
+        }else{
+            res.json(result)
+        }
+    })
 }

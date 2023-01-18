@@ -41,7 +41,7 @@ const handleNavigate=()=>{
 }
 
 if(loading){
-return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
+return <Spinner textAlign='center' mt={50} ml={50} thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
 
 return (
@@ -66,7 +66,7 @@ return (
               <Tbody>
       {
         users && users.map(ele=>(
-                <Tr onClick={handleNavigate}>
+                <Tr onClick={handleNavigate} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
                   <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
                   <Td>{ele.username}</Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>

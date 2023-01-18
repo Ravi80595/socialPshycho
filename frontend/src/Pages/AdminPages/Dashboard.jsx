@@ -10,11 +10,16 @@ import {RiAdminFill} from "react-icons/ri"
 import {CiDiscount1} from "react-icons/ci"
 import { useSelector } from 'react-redux'
 import AllAdmin from './AllAdmin'
+import {GiPostStamp} from "react-icons/gi"
+import AllPosts from './AllPosts'
+
 
 const Dashboard = () => {
     const [show,setShow]=useState("Users")
     const {profileData}=useSelector((store)=>store.AppReducer)
-  console.log(profileData)
+
+
+
 
 const handleLogout=()=>{
 
@@ -37,6 +42,10 @@ return (
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow("Users")}>
 <FaUserAlt/>
 <Text pl={["0px","5px",'15px']} className="lhsName">Users</Text>
+</Flex>
+<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow("Posts")}>
+<GiPostStamp/>
+<Text pl={["0px","5px",'15px']} className="lhsName">Posts</Text>
 </Flex>
 {/* <hr /> */}
 <Text>Managment</Text>
@@ -102,7 +111,7 @@ return (
 <Box id='rhsBody' m='30px' p='30px'>
 
 {
-show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:<h1>r</h1>
+show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:<h1>r</h1>
 }
 {/* show==2?<ProductPage/>:show==3?<OrdersPage/> */}
 {/* :show=="AllAdmin"?<AllAdminPage/>:show=="SalesTeams"?<SalesTeam/>:show=="Discounts"?<Discounts/> */}

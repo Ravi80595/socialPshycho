@@ -6,6 +6,7 @@ import axios from 'axios'
 import {MdOutlineModeComment} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import {BsEmojiSmile,BsSave2} from "react-icons/bs"
+import {CiHeart} from "react-icons/ci"
 
 
 const Feed = () => {
@@ -13,7 +14,10 @@ const Feed = () => {
     const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
     const navigate=useNavigate()
     const [likes,setLikes]=useState([])
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [text,setText]=useState("")
+    const { isOpen:iscommentOpen, onOpen:oncommentOpen, onClose:oncommentClose } = useDisclosure()
+    const { isOpen:islikeOpen, onOpen:onlikeOpen, onClose:onlikeClose } = useDisclosure()
+    const [comments,setComments]=useState([])
     // const isLiked = Boolean(likes[user._id]);
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -70,7 +74,7 @@ const likePost=(postId)=>{
 }
 
 const handleLikedUser=(id)=>{
-  onOpen()
+  onlikeOpen()
   // console.log(id)
 axios.get(`http://localhost:3002/posts/likes/${id}`)
 .then((res)=>{
@@ -83,18 +87,32 @@ const handleClick=(id)=>{
   navigate(`/SingleUser/${id}`)
 }
 
+const handleComment=(postId)=>{
+  axios.put("http://localhost:3002/posts/comment",{postId,text},{
+    headers:{
+      Authorization: `Bearer ${token}`
+  }
+  })
+  .then((res)=>{
+    console.log(res.data.comments)
+  })
+}
 
+const seecomments=(ele)=>{
+  setComments(ele.comments)
+  oncommentOpen()
+} 
   return (
     <>
     {
-    feeds.map(ele=>( 
+    feeds.map(ele=>(  
       
         <Box backgroundColor='white' mt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
          <Flex p="7px">
         <Flex w="70%" gap={5}>
         <Image cursor='pointer' onClick={()=>SingleUser(ele.userId)} h="55px" src={`http://localhost:3002/assets/${ele.userPicturePath}`} w={["20%","30%","15%"]} borderRadius={50}/>
         <Box>
-        <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{`${ele.username} (${ele.firstName})`}</Text>
+        <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{`${ele.username}`}</Text>
         <Text>{ele.location}</Text>
         </Box>
         </Flex>
@@ -118,17 +136,48 @@ const handleClick=(id)=>{
         <BsSave2 onClick={handleRender} fontSize="25px"/>
         </Box>
       </Flex>
-      <Text p={2}>{ele.date}</Text>
-      <InputGroup size="md" mt="15px" backgroundColor="white">
-            <Input pr="4.5rem" placeholder="Add a comment..." name="password"/>
+      <Text p={2} color="grey">{ele.date}</Text>
+      <Text pl={2} cursor="pointer" color="grey" onClick={()=>seecomments(ele)}>View all comments</Text>
+      <Modal isOpen={iscommentOpen} onClose={oncommentClose} scrollBehavior="inside">
+                <ModalOverlay backdropBlur="2px"/>
+                <ModalContent mt={100}>
+                    <ModalHeader>All Comments</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody >
+                    {
+                      comments.map(ele=>(
+                        <>
+                      <Flex m={1} p={2}>
+                        <Flex w='40%' cursor="pointer" justifyContent='space-around' onClick={()=>handleClick(ele._id)}>
+                        <Image w={10} h={10} borderRadius={50} src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
+                        <Box>
+                        <Text> <b>{ele.postedBy} </b> : </Text>
+                        <Text fontSize={10}>{ele.date}</Text>
+                        </Box>
+                        </Flex>
+                        <Text pt={1}>{ele.text}</Text>
+                        <Text marginLeft="auto">
+                        <CiHeart cursor="pointer"/>
+                        </Text>
+                      </Flex>
+                      </>
+                      ))
+                    }
+                    </ModalBody>
+                </ModalContent>
+      </Modal>
+
+
+<InputGroup size="md" mt="15px" backgroundColor="white">
+            <Input pr="4.5rem" placeholder="Add a comment..." value={text} onChange={(e)=>setText(e.target.value)}/>
                 <InputLeftElement fontSize='25px'>
                 <BsEmojiSmile/>
                 </InputLeftElement>
                 <InputRightElement width="4.5rem">
-                  <Text cursor='pointer' h="1.75rem" size="sm" color='blue'> post </Text>
+                  <Text cursor='pointer' onClick={()=>handleComment(ele._id)} h="1.75rem" size="sm" color='blue'> post </Text>
                 </InputRightElement>
                    </InputGroup>
-      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+      <Modal isOpen={islikeOpen} onClose={onlikeClose} scrollBehavior="inside">
                 <ModalOverlay backdropBlur="2px"/>
                 <ModalContent mt={100}>
                     <ModalHeader>Liked By</ModalHeader>

@@ -10,17 +10,21 @@ import { useNavigate } from 'react-router-dom'
 import {RiImageEditFill,RiSettings4Line} from 'react-icons/ri'
 import { getProfiles } from 'Redux/AppReducer/action'
 import { Link } from 'react-router-dom'
+import Dropzone from 'react-dropzone'
+import {CiEdit} from "react-icons/ci"
+import {BiChevronDown} from "react-icons/bi"
 
 
 const MainProfile = () => {
   const [posts,setPosts]=useState([])
+  const [image, setImage] = useState(null);
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const {AllFriends} = useSelector((store)=>store.AppReducer)
   const {isLoading,isError,profileData}=useSelector((store)=>store.AppReducer)
   const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
   const { isOpen, onOpen, onClose } = useDisclosure()
-  console.log(profileData)
+
 
 useEffect(()=>{
   getUserPosts()
@@ -41,11 +45,11 @@ const getUserPosts=()=>{
 }
 
 const profilepicref=useRef()
-const handleUpdate= async(id)=>{
-  console.log("clicked",id,"name",profilepicref.current.files[0].name)
+const handleUpdate= async()=>{
+  console.log("clicked",user._id,"name",image)
   let formData= new FormData()
-  formData.append("images",profilepicref.current.files[0])
-  await axios.patch(`http://localhost:3002/users/editprofile/${id}`,formData,{
+  formData.append("images",image)
+  await axios.patch(`http://localhost:3002/users/editprofile/${user._id}`,formData,{
     headers:{
         "Content-Type": "multipart/form-data",
         Authorization:`Bearer ${token}`
@@ -53,6 +57,7 @@ const handleUpdate= async(id)=>{
 })
 .then((res)=>{
     console.log(res)
+    setImage(" ")
 })
 .catch((err)=>{
   console.log(err)
@@ -64,10 +69,6 @@ const SinglePost=(ele)=>{
 }
 const SingleUser=(id)=>{
   navigate(`/SingleUser/${id}`)
-}
-
-const updateName=()=>{
-
 }
 
 if(isLoading){
@@ -109,17 +110,15 @@ if(isError){
         <Flex w={["100%","100%","70%"]} margin='auto' mb={[0,0,10]} key={ele._id}>
         <Box>
         <Image border='2px  solid blue' h={[100,100,250]} w={[100,100,250]} ml="35px" mt="25px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius="50%"/>
-        <Box>
-          <label htmlFor='file-upload' ><RiImageEditFill fontSize="20px"/></label>  
-        <input type="file" id='file-upload' name='image'  ref={profilepicref}/>
-        <Button color="white" bg="grey" _hover={{ bg: "black" }} onClick={()=>handleUpdate(ele._id)}>Update</Button>
-        </Box>
+        <Text mt={2} borderBottom="1px dashed black" w={[100,100,300]} onClick={onOpen}><BiChevronDown/></Text>
         </Box>
         <Box margin="auto">
           <Box textAlign="center">
             <Flex>
             <Heading>{ele.firstName+" "+ele.lastName}</Heading>
-            <Text><RiSettings4Line cursor="pointer" onClick={onOpen} fontSize="25px"/></Text>
+            <Link to="/settings">
+            <Text><RiSettings4Line cursor="pointer" fontSize="25px"/></Text>
+            </Link>
             </Flex>
             <Text display={["none","none","block"]}>Email : {ele.email}</Text>
           </Box>
@@ -131,7 +130,7 @@ if(isError){
             <Text>{posts.length} Posts</Text>
             <Text>{ele.friends.length} friends</Text>
           </Flex>
-            <Text pt={2}>{ele.username}</Text>
+            <Text textAlign='center' pt={2}>{ele.username}</Text>
           <Text>{ele.bio}</Text>
           </Box>
         </Box>
@@ -139,17 +138,30 @@ if(isError){
 <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay backdropBlur="2px"/>
       <ModalContent mt={100}>
-          <ModalHeader>Update Details</ModalHeader>
+          <ModalHeader>Update Profile Image</ModalHeader>
           <ModalCloseButton />
           <ModalBody >
           <Flex direction="column" gap="10px" mt="10px">
-            <label>New First-Name</label>
-            <Input />
-            <label>New Last-Name</label>
-            <Input />
-            <label> Enter bio</label>
-            <Textarea/>
-            <Button onClick={()=>updateName(ele._id)} mb="25px" mt={5} color="white" bg="black" _hover={{bg:"grey"}} >Update</Button>
+            <label>New Image</label>
+            <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <Flex>
+               <Box {...getRootProps()} border={`2px dashed black`} p="1rem" width="100%" sx={{ "&:hover": { cursor: "pointer" } }}>
+                  <input {...getInputProps()} />
+                  {!image ? (
+                    <p>Add Image Here</p>
+                  ) : (
+                    <Flex>
+                      <p>{image.name}</p>
+                      <CiEdit/>
+                    </Flex>
+                  )}
+                </Box>
+              </Flex>
+            )}
+          </Dropzone>
+            <Button onClick={handleUpdate} mb="25px" mt={5} color="white" bg="black" _hover={{bg:"grey"}} >Update</Button>
           </Flex>
           </ModalBody>
       </ModalContent>

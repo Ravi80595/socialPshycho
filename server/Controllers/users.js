@@ -39,17 +39,19 @@ export const updateProfile = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const {firstName,lastName,bio}=req.body
+        const {firstName,lastName,bio,phone}=req.body
+        console.log(id,req.body)
         const newUser = await User.findByIdAndUpdate({ _id: id }, {
             firstName:firstName,
             lastName:lastName,
-            bio:bio
+            bio:bio,
+            phone:phone
         })
-       const newPost = await Post.findByIdAndUpdate({userId:id},{
-            userPicturePath:picturePaths
-        })
-        console.log(newPost)
-        res.status(200).json(newUser,newPost)
+    //    const newPost = await Post.findByIdAndUpdate({userId:id},{
+    //         firstName:firstName
+    //     })
+        // console.log(newPost)
+        res.status(200).json(newUser)
     } catch (err) {
         console.log(err)
     }

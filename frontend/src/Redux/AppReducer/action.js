@@ -58,6 +58,7 @@ const getProfiles=()=>(dispatch)=>{
         }
     })
     .then((res)=>{
+        console.log(res.data)
         return dispatch(postProfileSuccess(res.data))
     })
     .catch((err)=>{

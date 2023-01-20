@@ -7,13 +7,14 @@ const userSchema = new mongoose.Schema({
     lastName :{type:String,require:true,min:2,max:40},
     email :{type:String,require:true,unique:true,max:40},
     password :{type:String,require:true,min:5},
-    picturePath :{type:String,default:"https://cdn3.vectorstock.com/i/thumb-large/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg"},
+    picturePath :{type:String,default:"blank.png"},
     friends:{type:Array,default:[]},
     location:String,
     occupation:String,
     viewedProfile:Number,
     impressions:Number,
-    bio:{type:String,default:"Enter Bio"}
+    bio:{type:String,default:"Enter Bio"},
+    phone:String
 },{
     timestamps:true
 })

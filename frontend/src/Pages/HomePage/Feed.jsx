@@ -18,7 +18,6 @@ const Feed = () => {
     const { isOpen:iscommentOpen, onOpen:oncommentOpen, onClose:oncommentClose } = useDisclosure()
     const { isOpen:islikeOpen, onOpen:onlikeOpen, onClose:onlikeClose } = useDisclosure()
     const [comments,setComments]=useState([])
-    // const isLiked = Boolean(likes[user._id]);
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
 
@@ -62,6 +61,7 @@ const getAllPosts=()=>{
 
 
 const likePost=(postId)=>{
+  console.log('clicked')
   axios.patch(`http://localhost:3002/posts/${postId}/like/`,{userId: user._id},{
       headers:{
           Authorization: `Bearer ${token}`
@@ -75,7 +75,6 @@ const likePost=(postId)=>{
 
 const handleLikedUser=(id)=>{
   onlikeOpen()
-  // console.log(id)
 axios.get(`http://localhost:3002/posts/likes/${id}`)
 .then((res)=>{
   console.log(res.data)
@@ -95,6 +94,8 @@ const handleComment=(postId)=>{
   })
   .then((res)=>{
     console.log(res.data.comments)
+    getAllPosts()
+    setText(" ")
   })
 }
 
@@ -117,20 +118,19 @@ const seecomments=(ele)=>{
         </Box>
         </Flex>
         <Box w="30%" fontSize="40px" pl="30px">
-        {/* <AiOutlineUserAdd /> */}
         </Box>
       </Flex>
       <Text p={2}>{ele.description}</Text>
       <Box>
-      <Image w="100%" pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
+      <Image onDoubleClick={()=>likePost(ele._id)} w="100%" pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
       </Box>
       <Flex gap={2} pl={2} justifyContent="space-between">
         <Flex gap={2}>
           {
-            ele.like.includes(user._id)?<AiTwotoneHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"} color="red"/>:         <AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/>
+            ele.like.includes(user._id)?<AiTwotoneHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"} color="red"/>:<AiOutlineHeart onClick={()=>likePost(ele._id)} fontSize='25px' cursor={"pointer"}/>
           }
          <Text onClick={()=>handleLikedUser(ele._id)} cursor="pointer">{ele.like.length} Like</Text>
-         <MdOutlineModeComment fontSize='25px'/>
+         <MdOutlineModeComment cursor="pointer" onClick={()=>seecomments(ele)} fontSize='25px'/>
         </Flex>
         <Box pr={5}>
         <BsSave2 onClick={handleRender} fontSize="25px"/>

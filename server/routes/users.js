@@ -9,5 +9,6 @@ router.get("/search/:id",searchUser)
 router.get("/:id",verifyToken,getUser)
 router.get("/:id/friends",verifyToken,getUserFriends)
 router.get("/:id/:friendId",verifyToken,addRemoveFriend)
-router.post("/updateName/:id",verifyToken,updateUser)
+router.patch("/updateDetail/:id",verifyToken,updateUser)
+
 export default router;

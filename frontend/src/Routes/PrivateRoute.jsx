@@ -6,7 +6,6 @@ const PrivateRoute = ({children}) => {
 const {isAuth}=useSelector((store)=>store.AuthReducer)
   
 if(!isAuth){
-  alert("Please Login First")
   return <Navigate to="/userlogin"/>
 }
   return children

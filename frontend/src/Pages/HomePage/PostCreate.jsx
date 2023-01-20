@@ -11,11 +11,15 @@ const PostCreate = () => {
 
 
 
+if(isLoading){
+    return <h1>Loading...</h1>
+}
+
 return (
         <Box h="150px" background="white" display={["none","none","block"]} borderRadius="15px">
             {
                 profileData && profileData.map(ele=>(
-                <Flex justifyContent="space-around" gap={5} p={3}>
+                <Flex justifyContent="space-around" key={ele._id} gap={5} p={3}>
                     <Image h="50px" src={`http://localhost:3002/assets/${ele.picturePath}`} w="12%" borderRadius={50} />
                     <Input mt={3} placeholder="Create new post" borderRadius={20} />
                 </Flex>

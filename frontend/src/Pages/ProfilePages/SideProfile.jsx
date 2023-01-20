@@ -1,7 +1,7 @@
 import { Box,Flex,Heading,Image,Text } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import {IoLocationOutline} from 'react-icons/io5'
-import {BsBagCheck} from 'react-icons/bs'
+import {FaUserSecret} from 'react-icons/fa'
 import {CiEdit} from "react-icons/ci"
 import {BsTwitter} from "react-icons/bs"
 import {AiFillInstagram} from "react-icons/ai"
@@ -10,10 +10,14 @@ import { getProfiles } from 'Redux/AppReducer/action'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
 
+
+
 const SideProfile = () => {
   const dispatch = useDispatch()
-  const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
+  const {isError,profileData} = useSelector((store)=>store.AppReducer)
   const navigate = useNavigate()
+  const {isLoading}=useSelector((store)=>store.AuthReducer)
+  console.log(profileData)
 
 useEffect(()=>{
     dispatch(getProfiles())
@@ -55,7 +59,7 @@ if(isError){
                 <Text textAlign='left' fontSize="20px" padding="4px" w="70%">{ele.location}</Text>
                 </Flex>
                 <Flex gap="10px" pt={3}>
-                <BsBagCheck w="20%" fontSize="35px"/>
+                <FaUserSecret w="20%" fontSize="35px"/>
                 <Text textAlign='left' fontSize="20px" padding="4px" w="70%">{ele.username}</Text>
               </Flex>
               </Box>

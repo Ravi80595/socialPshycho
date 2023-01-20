@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import {Flex,Box,Input,Button} from "@chakra-ui/react"
+import {Flex,Box,Input,Button,Text} from "@chakra-ui/react"
 import { useSelector } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import {CiEdit} from "react-icons/ci"
@@ -10,12 +10,10 @@ import axios from 'axios'
 
 const CreatePost = () => {
   const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
-//   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [desc,setDesc]=useState("")
   const [location,setLocation]=useState("")
   const { token,user } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
-// console.log(image)
 
 
  
@@ -35,6 +33,10 @@ await axios.post("http://localhost:3002/posts/create",formData,{
 })
 .then((res)=>{
 console.log(res)
+alert("Post Uploaded")
+setImage(" ")
+setLocation(" ")
+setDesc(" ")
 })    
 }
 
@@ -45,7 +47,7 @@ return (
     <Navbar/>
     <Box w={["100%","100%","60%"]} m="auto" pt={["10px","10px",'30px']}>
      <Box mt='120px'  boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p={[5,5,20]}>
-        <Box  borderRadius="5px" mt="1rem" p="1rem">
+        <Box border="2px solid grey" mb={2} borderRadius="5px" mt="1rem" p="1rem">
           <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >
             {({ getRootProps, getInputProps }) => (
@@ -67,9 +69,11 @@ return (
         </Box>
      <Box>
           <Input p={10} value={desc} onChange={(e)=>setDesc(e.target.value)} placeholder='Enter Caption'/>
-          <Input value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Enter Location' m={2}/>
+          <Input mt={2} value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Enter Location'/>
      </Box>
-     <Button onClick={handlePost}>Post</Button>
+     <Text textAlign="center" mt={2}>
+     <Button w="50%" bg="blue.400" color='white' onClick={handlePost}>Post</Button>
+     </Text>
      </Box>
      </Box>
     </>

@@ -85,7 +85,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-                <Image pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
+                <Image key={ele._id} pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
             ))
           }
             </MenuButton>

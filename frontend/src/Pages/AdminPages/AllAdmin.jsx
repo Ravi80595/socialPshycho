@@ -38,7 +38,7 @@ return (
                   <Th>Image</Th>
                   <Th>Name</Th>
                   <Th>Email</Th>
-                  <Th>Location</Th>
+                  <Th>Role</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -48,7 +48,7 @@ return (
                   <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>
                   <Td>{ele.email}</Td>
-                  <Td>{ele.location}</Td>
+                  <Td>{ele.role}</Td>
                 </Tr>
                 ))
               }

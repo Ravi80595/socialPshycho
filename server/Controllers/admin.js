@@ -6,17 +6,21 @@ import User from "../models/User.js"
 
 export const adminSign = async(req,res)=>{
     try{
-        const {email,password,firstName,lastName,role}= req.body
-        let existingAdmin = await Admin.findOne({email:email})
+        const {email,password,firstName,lastName,role,key}= req.body
+        if(key!=="social"){
+            res.status(201).send({"msg":"Wrong Secret Key"})
+        }else{
+        let existingAdmin = await Admin.findOne({email})
         if(existingAdmin){
             res.status(404).send({"msg":"Admin already exists Please Login"})
         }else{
             bcrypt.hash(password,4, async(err,hash)=>{
-        let admin = new Admin({email,password:hash,firstName,lastName,role})
-                await admin.save()
+        const admins = new Admin({email,password:hash,firstName,lastName,role})
+                await admins.save()
                 res.status(200).send({"msg":`${firstName} Sign Up Successfull`})
             })
         }
+    }
     }catch(err){
         console.log(err)
     }
@@ -28,13 +32,13 @@ export const adminLogin = async(req,res)=>{
     try{
         const {email,password}= req.body
         console.log(req.body)
-        let admin = await Admin.find({email})
-        if(admin.length>0){
-            const hashed_password = admin[0].password
+        let admin = await Admin.findOne({email:email})
+        if(admin){
+            const hashed_password = admin.password
             bcrypt.compare(password,hashed_password,function(err,result){
                 if(result){
-                    const token = jwt.sign({"adminID":admin[0]._id},'ravi')
-                    res.status(200).send({"msg":"Login success ","token":token})
+                    const token = jwt.sign({"adminID":admin._id},'ravi')
+                    res.status(200).send({"admin":admin,"token":token})
                 }else{
                     res.status(400).send({"msg":"Login Faileds"})
                 }
@@ -47,6 +51,17 @@ export const adminLogin = async(req,res)=>{
     catch(err){
         console.log(err)
         res.status(404).send({"msg":"Something Went wrong"})
+    }
+}
+
+// Admin Profile Method
+export const adminProfile=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const admin = await Admin.findById(id)
+        res.status(200).json(admin)
+    }catch(err){
+        console.log(err)
     }
 }
 

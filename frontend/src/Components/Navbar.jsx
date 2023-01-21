@@ -104,7 +104,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
                 <MenuItem fontSize="20px">Setting & Privacy</MenuItem>
                 </Link>
                 <MenuItem fontSize="20px">Language</MenuItem>
-                <Link to="/admin">
+                <Link to="/adminlogin">
                 <MenuItem fontSize="20px">Admin</MenuItem>
                 </Link>
               </MenuGroup>

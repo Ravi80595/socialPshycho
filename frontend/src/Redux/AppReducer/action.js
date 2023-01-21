@@ -50,16 +50,16 @@ const postSinglePost=(payload)=>{
 
 const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
 
-const getProfiles=()=>(dispatch)=>{
+const getProfiles=(r=user)=>async(dispatch)=>{
     dispatch(postProfileRequest())
-     axios.get(`http://localhost:3002/users/${user._id}`,{
+   await axios.get(`http://localhost:3002/users/${r._id}`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
     })
     .then((res)=>{
-        console.log(res.data)
-        return dispatch(postProfileSuccess(res.data))
+        // console.log(res.data)
+        dispatch(postProfileSuccess(res.data))
     })
     .catch((err)=>{
         console.log(err)
@@ -80,7 +80,6 @@ const getFriendList=()=>(dispatch)=>{
     .then((res)=>{  
         // console.log(res.data)
         dispatch(postAllFriends(res.data))
-        getProfiles()
     })
     .catch((err)=>{
         console.log(err)

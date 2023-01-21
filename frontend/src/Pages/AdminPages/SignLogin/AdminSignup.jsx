@@ -1,7 +1,8 @@
 import React from 'react'
-import { Box,Heading,FormLabel,InputGroup,Input,Button,InputRightElement,Text,FormControl,HStack } from '@chakra-ui/react'
+import { Box,FormLabel,InputGroup,Input,Button,InputRightElement,Text,FormControl,HStack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
 
 
 const AdminSignup = () => {
@@ -11,6 +12,7 @@ const AdminSignup = () => {
     email:"",
     password:"",
     role:"",
+    key:""
 }
 const [values,setValues]=useState(initObj)
 const [show,setShow]=useState(false)
@@ -19,10 +21,25 @@ const handleClick = () => setShow(!show);
 
 const handleChange=(e)=>{
     setValues({...values,[e.target.name]:e.target.value})
-  }
+}
 
 const handleSubmit=()=>{
-
+  const payload={
+    firstName:values.firstName,
+    lastName:values.lastName,
+    email:values.email,
+    password:values.password,
+    role:values.role,
+    key:values.key
+  }
+axios.post(`http://localhost:3002/admin/signup`,payload)
+.then((res)=>{
+  console.log(res)
+  alert("Signup Successfull")
+})
+.catch((err)=>{
+  console.log(err)
+})
 }
 
   return (
@@ -56,6 +73,8 @@ const handleSubmit=()=>{
        </InputGroup>
             <FormLabel>Role</FormLabel>
             <Input type="text" name='role' onChange={handleChange}/>
+            <FormLabel>Secret Key</FormLabel>
+            <Input type="text" name='key' onChange={handleChange}/>
             <Button mt={2} width="100%" onClick={handleSubmit}>Signup</Button>
             <Text textAlign="center">OR</Text>
             <Link to="/adminlogin">

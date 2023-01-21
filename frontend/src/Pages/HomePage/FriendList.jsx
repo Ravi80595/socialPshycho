@@ -42,7 +42,7 @@ if(isLoading){
 
   return (
     <Box>
-        <Text textAlign="center"> Your All Friends</Text>
+        <Text textAlign="center"> Suggestions</Text>
         <Box mt={5} p={2}>
         {
             AllFriends && AllFriends.map(ele=>(

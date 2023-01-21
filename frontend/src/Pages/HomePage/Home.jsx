@@ -5,6 +5,9 @@ import React from 'react'
 import Feed from './Feed'
 import FriendList from './FriendList'
 import PostCreate from './PostCreate'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getProfiles } from 'Redux/AppReducer/action'
 
 // ....................... Landing Page Of Website ............................
 
@@ -12,8 +15,7 @@ import PostCreate from './PostCreate'
 const Home = () => {
 
 
-
-  return (
+return (
     <>
     <Navbar/>
     <Box background="blackAlpha.100" pt='65px'>

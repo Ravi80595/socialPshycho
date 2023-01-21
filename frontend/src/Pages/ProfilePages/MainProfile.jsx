@@ -58,6 +58,7 @@ const handleUpdate= async()=>{
 .then((res)=>{
     console.log(res)
     setImage(" ")
+    alert("Image Updated")
 })
 .catch((err)=>{
   console.log(err)

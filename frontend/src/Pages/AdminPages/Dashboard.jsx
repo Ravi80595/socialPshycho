@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Dashboard.css"
 import { Flex,Image,Box,Text,Menu,MenuButton,MenuGroup,MenuDivider,MenuList,MenuItem} from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import UsersPage from './UsersPage'
 import {FaUserAlt,FaRupeeSign} from "react-icons/fa"
@@ -12,17 +12,34 @@ import { useSelector } from 'react-redux'
 import AllAdmin from './AllAdmin'
 import {GiPostStamp} from "react-icons/gi"
 import AllPosts from './AllPosts'
+import axios from 'axios'
 
 
 const Dashboard = () => {
     const [show,setShow]=useState("Users")
-    const {profileData}=useSelector((store)=>store.AppReducer)
+    const navigate=useNavigate()
+    const [profileData,setProfileData]=useState([])
+    const { token,admin } = JSON.parse(localStorage.getItem("adminToken"))
 
+console.log(admin)
 
+useEffect(()=>{
+  getadminProfile()
+},[])
 
+const getadminProfile=()=>{
+  console.log(admin._id)
+axios.get(`http://localhost:3002/admin/profile/${admin._id}`)
+.then((res)=>{
+  console.log(res.data)
+  setProfileData([res.data])
+})
+}
 
 const handleLogout=()=>{
-
+let r=" "
+localStorage.setItem("adminToken",JSON.stringify(r))
+navigate("/adminlogin")
 }
 
 
@@ -92,7 +109,7 @@ return (
             </MenuButton>
             <MenuList>
               <MenuGroup title='Profile'>
-                <Link to="/profile">
+                <Link to="/adminProfile">
                 <MenuItem>My Account</MenuItem>
                 </Link>
               </MenuGroup>
@@ -100,9 +117,7 @@ return (
               <MenuGroup title='Manage'>
                 <MenuItem>Setting & Privacy</MenuItem>
                 <MenuItem>Language</MenuItem>
-                <Link to="/admin">
-                <MenuItem>Logout</MenuItem>
-                </Link>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </MenuGroup>
             </MenuList>
           </Menu>

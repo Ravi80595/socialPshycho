@@ -1,27 +1,52 @@
 import { Box,Flex,Heading,Image,Text } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {IoLocationOutline} from 'react-icons/io5'
 import {FaUserSecret} from 'react-icons/fa'
 import {CiEdit} from "react-icons/ci"
 import {BsTwitter} from "react-icons/bs"
 import {AiFillInstagram} from "react-icons/ai"
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { getProfiles } from 'Redux/AppReducer/action'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
+import axios from "axios"
 
 
 
 const SideProfile = () => {
   const dispatch = useDispatch()
-  const {isError,profileData} = useSelector((store)=>store.AppReducer)
   const navigate = useNavigate()
-  const {isLoading}=useSelector((store)=>store.AuthReducer)
-  console.log(profileData)
+  const {token}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
+  const {isLoading,profileData,isError} = useSelector((store)=>store.AppReducer)
+  const {user}=useSelector((store)=>store.AuthReducer.token)
+
+
+const onpageLoad=()=>{
+  dispatch(getProfiles(user))
+}
+
 
 useEffect(()=>{
-    dispatch(getProfiles())
+  // getUserProfiles()
+  onpageLoad()
 },[])
+
+
+const getUserProfiles=()=>{
+   axios.get(`http://localhost:3002/users/${user._id}`,{
+      headers:{
+          Authorization: `Bearer ${token}`
+      }
+  })
+  .then((res)=>{
+      console.log(res.data)
+      // setProfileData([res.data])
+      // dispatch(getProfiles())
+  })
+  .catch((err)=>{
+      console.log(err)
+  })
+}
 
 // ....................... User Profile Navigation ............................
 
@@ -34,9 +59,9 @@ if(isLoading){
   return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
 
-if(isError){
-  return <h1>Something went wrong</h1>
-}
+// if(isError){
+//   return <h1>Something went wrong</h1>
+// }
 
 
   return (

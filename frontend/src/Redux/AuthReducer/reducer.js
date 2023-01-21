@@ -1,8 +1,8 @@
 import * as types from "./actionType"
 
 const initalState={
-    isAuth:false,
-    token:'',
+    isAuth:localStorage.getItem('socialPshcyoToken')? true : false,
+    token:[],
     isLoading:false,
     isError:false
 }

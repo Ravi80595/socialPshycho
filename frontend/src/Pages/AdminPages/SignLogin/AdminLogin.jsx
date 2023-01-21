@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box,Heading,FormControl,FormLabel,Input,InputGroup,InputRightElement,Text,Button } from '@chakra-ui/react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 const AdminLogin = () => {
@@ -10,18 +11,29 @@ const AdminLogin = () => {
     email:"",
     password:"",
   })
+  const navigate=useNavigate()
 
 
 const handleChange=(e)=>{
     setValues({...values,[e.target.name]:e.target.value})
 }
+const handleClick = () => setShow(!show);
 
-const handleClick=()=>{
-
-}
 
 const handleLogin=()=>{
-
+  const payload={
+    email:values.email,
+    password:values.password
+  }
+axios.post("http://localhost:3002/admin/login",payload)
+.then((res)=>{
+  localStorage.setItem("adminToken",JSON.stringify(res.data))
+  alert("Login Success")
+  navigate("/admin")
+})
+.catch((err)=>{
+  console.log(err)
+})
 }
 
 return (

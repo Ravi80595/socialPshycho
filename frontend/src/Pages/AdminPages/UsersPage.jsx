@@ -14,6 +14,7 @@ useEffect(()=>{
   setLoading(true)
   axios.get("http://localhost:3002/admin/users")
   .then((res)=>{
+    console.log(res.data)
     setUsers(res.data)
     setLoading(false)
   })
@@ -36,8 +37,12 @@ console.log(err)
 })
 };
 
-const handleNavigate=()=>{
-  navigate("/adminsingleuser")
+// const handleClick=(id)=>{
+//   navigate(`/SingleUser/${id}`)
+// }
+
+const handleNavigate=(ele)=>{
+  navigate(`/adminsingleuser/${ele._id}`)
 }
 
 if(loading){
@@ -66,7 +71,7 @@ return (
               <Tbody>
       {
         users && users.map(ele=>(
-                <Tr onClick={handleNavigate} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
+                <Tr onClick={()=>handleNavigate(ele)} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
                   <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
                   <Td>{ele.username}</Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>

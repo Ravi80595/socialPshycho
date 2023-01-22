@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box,Heading,FormControl,FormLabel,Input,InputGroup,InputRightElement,Text,Button } from '@chakra-ui/react'
+import { Box,Heading,Flex,FormControl,FormLabel,Input,InputGroup,InputRightElement,Text,Button } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+// import AdminNavbar from '../profilePages/AdminNavbar'
 
 
 const AdminLogin = () => {
@@ -37,6 +38,12 @@ axios.post("http://localhost:3002/admin/login",payload)
 }
 
 return (
+  <>
+   <Flex p={5} boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'>
+      <Link to="/">
+        <Button>User Login Page</Button>
+      </Link>
+    </Flex>
     <Box width="30%" m="auto" mt={10}>
     <Box p={10} m={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
       <Heading textAlign="center" mb={10} fontFamily="cursive">SocialPshcyo</Heading>
@@ -69,6 +76,7 @@ return (
         </FormControl>
     </Box>
 </Box>
+</>
   )
 }
 

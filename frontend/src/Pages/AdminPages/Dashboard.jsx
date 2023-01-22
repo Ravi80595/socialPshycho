@@ -126,7 +126,7 @@ return (
 <Box id='rhsBody' m='30px' p='30px'>
 
 {
-show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:<h1>r</h1>
+show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:<h1>Fearture Available Soon</h1>
 }
 {/* show==2?<ProductPage/>:show==3?<OrdersPage/> */}
 {/* :show=="AllAdmin"?<AllAdminPage/>:show=="SalesTeams"?<SalesTeam/>:show=="Discounts"?<Discounts/> */}

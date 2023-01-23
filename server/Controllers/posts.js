@@ -2,7 +2,7 @@ import Post from "../models/Post.js"
 import User from "../models/User.js"
 
 
-// Post create Method
+// ........................... Post Create Method ...............................
 
 export const createPost = async(req,res)=>{
     try{
@@ -31,7 +31,7 @@ export const createPost = async(req,res)=>{
     }
 }
 
-// Get All Feeds Method
+// ........................... All Feeds Method ...............................
 
 export const getFeedPosts = async(req,res)=>{
     try{
@@ -43,7 +43,7 @@ export const getFeedPosts = async(req,res)=>{
     }
 }
 
-// Get particular user posts
+// ........................... Single User all posts ...............................
 
 export const getUserPosts = async(req,res)=>{
     try{
@@ -56,8 +56,7 @@ export const getUserPosts = async(req,res)=>{
     }
 }
 
-
-// get single post
+// ........................... Single Post Get Method ...............................
 
 export const getSinglePost = async(req,res)=>{
     try{
@@ -69,7 +68,8 @@ export const getSinglePost = async(req,res)=>{
         console.log(err)
     }
 }
-// Liked posts
+
+// ........................... Post Like Method ...............................
 
 export const likePost = async(req,res)=>{
     try{
@@ -91,7 +91,7 @@ export const likePost = async(req,res)=>{
     }
 }
 
-// Get who liked post
+// ........................... Post Liked users...............................
 
 export const getLikedUser=async(req,res)=>{
     try{
@@ -112,6 +112,8 @@ export const getLikedUser=async(req,res)=>{
     }
 }
 
+// ........................... Friend List Get Method ...............................
+
 export const getUserFriends = async (req, res) => {
     try {
         const { id } = req.params
@@ -131,6 +133,8 @@ export const getUserFriends = async (req, res) => {
         console.log(err)
     }
 }
+
+// ........................... Add Comment method ...............................
 
 export const addComment=async(req,res)=>{
     let userid=req.user.id
@@ -153,4 +157,17 @@ export const addComment=async(req,res)=>{
             res.json(result)
         }
     })
+}
+
+// ........................... Post Delete Method ...............................
+
+export const postDelete=async(req,res)=>{
+    try{
+        const {id}=req.params
+        console.log(id)
+        await Post.findByIdAndDelete({_id:id})
+        res.status(200).json({"msg":"Post delete Success"})
+    }catch(err){
+        console.log(err)
+    }
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input,Button} from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 const AllPosts = () => {
     const [posts,setPosts]=useState([])
+    const navigate=useNavigate()
 
 useEffect(()=>{
     getAllPosts()
@@ -15,6 +17,10 @@ const getAllPosts=()=>{
         console.log(res.data)
         setPosts(res.data)
     })
+}
+
+const handleNavigate=(ele)=>{
+  navigate(`/adminSinglePost/${ele._id}`)
 }
 
 // if(loading){
@@ -42,7 +48,7 @@ return (
             <Tbody>
     {
       posts && posts.map(ele=>(
-              <Tr key={ele._id} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
+              <Tr key={ele._id} onClick={()=>handleNavigate(ele)} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
                 <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
                 <Td>{ele.username}</Td>
                 <Td>{ele.firstName} {ele.lastName}</Td>

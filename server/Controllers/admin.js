@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import  jwt  from "jsonwebtoken"
 import User from "../models/User.js"
 
+// ........................... Admin Signup Method ...............................
 
 export const adminSign = async(req,res)=>{
     try{
@@ -26,7 +27,7 @@ export const adminSign = async(req,res)=>{
     }
 }
 
-
+// ........................... Admin Login Method ...............................
 
 export const adminLogin = async(req,res)=>{
     try{
@@ -54,7 +55,8 @@ export const adminLogin = async(req,res)=>{
     }
 }
 
-// Admin Profile Method
+// ........................... Admin Profile Get Method ...............................
+
 export const adminProfile=async(req,res)=>{
     try{
         const {id}=req.params
@@ -65,8 +67,27 @@ export const adminProfile=async(req,res)=>{
     }
 }
 
+// ........................... Admin Profile Edit Method ...............................
 
-// All Users Get Methods
+export const adminProfileEdit=async(req,res)=>{
+    try {
+        const { id } = req.params;
+        const {firstName,lastName,image,phone}=req.body
+        const newAdmin = await Admin.findByIdAndUpdate({ _id: id }, {
+            firstName:firstName,
+            lastName:lastName,
+            userPicturePath:image,
+            phone:phone
+        })
+        console.log(newAdmin)
+        res.status(200).json(newAdmin)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+// ........................... All User Get Method Admin ...............................
 
 export const AllUser = async(req,res)=>{
     try{
@@ -77,7 +98,7 @@ export const AllUser = async(req,res)=>{
     }
 }
 
-// All Admins Get Methods
+// ........................... All Admins ...............................
 
 export const AllAdmin = async(req,res)=>{
     try{

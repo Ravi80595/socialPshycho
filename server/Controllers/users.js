@@ -1,7 +1,7 @@
 import Post from "../models/Post.js"
 import User from "../models/User.js"
 
-// Get User Method
+// ........................... User Get Method ...............................
 
 export const getUser = async (req, res) => {
     try {
@@ -13,8 +13,7 @@ export const getUser = async (req, res) => {
     }
 }
 
-
-// update profile
+// ........................... User Proile Image Edit ...............................
 
 export const updateProfile = async (req, res) => {
     try {
@@ -34,7 +33,7 @@ export const updateProfile = async (req, res) => {
     }
 }
 
-// Update User Name and Bio
+// ........................... User Details update Method ...............................
 
 export const updateUser = async (req, res) => {
     try {
@@ -57,7 +56,7 @@ export const updateUser = async (req, res) => {
     }
 }
 
-// User Search Method
+// ........................... User Search Method ...............................
 
 export const searchUser=async(req,res)=>{
     const params=req.params.id
@@ -69,7 +68,7 @@ export const searchUser=async(req,res)=>{
     }
 }
 
-// Get User Friends Methods
+// ........................... User Friend Get Method ...............................
 
 export const getUserFriends = async (req, res) => {
     try {
@@ -91,7 +90,7 @@ export const getUserFriends = async (req, res) => {
     }
 }
 
-// Friends add Remove method
+// ........................... User Add Remove Friend Method ...............................
 
 export const addRemoveFriend = async (req, res) => {
     try {

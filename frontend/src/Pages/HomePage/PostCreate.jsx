@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Input, Image, Text,} from '@chakra-ui/react'
+import { Box, Flex, Input, Image, Text,Stack,Skeleton} from '@chakra-ui/react'
 import { HiOutlinePhoto } from "react-icons/hi2"
 import { BsCameraVideo, BsCalendar4Event } from "react-icons/bs"
 import { MdOutlineArticle } from "react-icons/md"
@@ -12,7 +12,13 @@ const PostCreate = () => {
 
 
 if(isLoading){
-    return <h1>Loading...</h1>
+    return(
+    <Stack color='blue'>
+    <Skeleton height='20px' />
+    <Skeleton height='20px' />
+    <Skeleton height='20px' />
+  </Stack>
+    )
 }
 
 return (
@@ -36,16 +42,28 @@ return (
                         </Link>
                     </Flex>
                     <Flex gap="10px" cursor={"pointer"}>
+                        <Link to="/newPost">
                         <BsCameraVideo fontSize="25px" />
+                        </Link>
+                        <Link to="/newPost">
                         <Text>Video</Text>
+                        </Link>
                     </Flex>
                     <Flex gap="10px" cursor={"pointer"}>
+                        <Link to="/newPost">
                         <BsCalendar4Event fontSize="25px"/>
+                        </Link>
+                        <Link to='/newPost'>
                         <Text>Event</Text>
+                        </Link>
                     </Flex>
                     <Flex gap="10px" cursor={"pointer"}>
+                        <Link to="/newPost">
                         <MdOutlineArticle fontSize="25px"/>
+                        </Link>
+                        <Link to="/newPost">
                         <Text>Article</Text>
+                        </Link>
                     </Flex>
                 </Flex>
             </Box>

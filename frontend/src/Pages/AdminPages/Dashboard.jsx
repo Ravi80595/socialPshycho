@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "./Dashboard.css"
-import { Flex,Image,Box,Text,Menu,MenuButton,MenuGroup,MenuDivider,MenuList,MenuItem} from '@chakra-ui/react'
+import { Flex,Image,Box,Text,Menu,MenuButton,MenuGroup,MenuDivider,MenuList,MenuItem,Avatar} from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import UsersPage from './UsersPage'
@@ -103,7 +103,8 @@ return (
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-                <Image w={50} h="40px" src='https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM=' borderRadius={50}/>
+          <Avatar src={ele.userPicturePath}/>
+                // <Image w={50} h="40px" src= borderRadius={50}/>
             ))
           }
             </MenuButton>

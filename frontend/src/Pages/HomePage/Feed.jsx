@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useReducer } from 'react'
 import {AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
-import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,Spinner,Input,InputGroup,InputLeftElement,InputRightElement } from '@chakra-ui/react'
+import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,Spinner,Input,InputGroup,InputLeftElement,InputRightElement, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 // import {FaRegShareSquare} from "react-icons/fa"
 import {MdOutlineModeComment} from "react-icons/md"
@@ -15,6 +15,7 @@ const Feed = () => {
     const navigate=useNavigate()
     const [likes,setLikes]=useState([])
     const [text,setText]=useState("")
+    const toast=useToast()
     const { isOpen:iscommentOpen, onOpen:oncommentOpen, onClose:oncommentClose } = useDisclosure()
     const { isOpen:islikeOpen, onOpen:onlikeOpen, onClose:onlikeClose } = useDisclosure()
     const [comments,setComments]=useState([])
@@ -87,6 +88,11 @@ const handleClick=(id)=>{
 }
 
 const handleComment=(postId)=>{
+  if(text==""){
+    toast({
+      title: 'Please Enter Comment.', status: 'error',duration: 3000,isClosable: true,
+    })
+  }else{
   axios.put("http://localhost:3002/posts/comment",{postId,text},{
     headers:{
       Authorization: `Bearer ${token}`
@@ -95,8 +101,16 @@ const handleComment=(postId)=>{
   .then((res)=>{
     console.log(res.data.comments)
     getAllPosts()
+    toast({
+      title: 'This Comment Added',
+      description:text,
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
     setText(" ")
   })
+}
 }
 
 const seecomments=(ele)=>{

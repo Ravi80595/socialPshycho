@@ -1,5 +1,5 @@
 import express from "express"
-import { addComment, getFeedPosts,getLikedUser,getSinglePost,getUserPosts,likePost} from "../Controllers/posts.js"
+import { addComment, getFeedPosts,getLikedUser,getSinglePost,getUserPosts,likePost, postDelete} from "../Controllers/posts.js"
 import { verifyToken } from '../middelwares/auth.js'
 const router = express.Router()
 
@@ -24,5 +24,7 @@ router.patch("/:id/like",verifyToken,likePost)
 router.get("/likes/:id",getLikedUser)
 
 router.put("/comment",verifyToken,addComment)
+
+router.delete("/delete/:id",verifyToken,postDelete)
 
 export default router;

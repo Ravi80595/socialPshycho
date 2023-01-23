@@ -2,6 +2,7 @@ import { Box,Flex,Image,Heading,Text,Button} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import AdminNavbar from './AdminNavbar'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const AdminProfile = () => {
   const [profileData,setProfileData]=useState([])
@@ -28,7 +29,7 @@ return (
           profileData && profileData.map(ele=>(
             <Flex border="2px solid blue" p={5} justifyContent='space-evenly'>
               <Box w='40%'>
-                <Image w={300} src="https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM="/>
+                <Image w={300} src={ele.userPicturePath}/>
               </Box>
               <Box w='40%'>
                 <Box h="80%" lineHeight={8}>
@@ -40,7 +41,9 @@ return (
                 </Box>
                 <Button>Deactivate Account</Button>
               </Box>
+              <Link to="/adminSetting">
                 <Button w="10%">Edit</Button>
+              </Link>
             </Flex>
           ))
         }

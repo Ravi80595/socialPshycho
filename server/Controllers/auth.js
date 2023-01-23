@@ -2,15 +2,13 @@ import bcrypt from 'bcrypt'
 import  jwt  from 'jsonwebtoken'
 import User from "../models/User.js"
 
+// ........................... User Signup Method ...............................
+
 export const register = async (req,res)=>{
     try{
         const {firstName,lastName,email,password,picturePath,friends,location,username} = req.body;
         const salt = await bcrypt.genSalt()
         const passwordHash = await bcrypt.hash(password,salt)
-        // const user=User.findOne({username:username})
-        // if(user){
-        //         res.status(400).send("Username already exist")
-        // }else{
         const newUser = new User({
             firstName,
             lastName,
@@ -30,14 +28,13 @@ export const register = async (req,res)=>{
         console.log(err)
         res.status(500).json({error:err.message})
     }
-// 
 }
-// login
+
+// ........................... User Login Method ...............................
 
 export const login = async(req,res)=>{
     try{
         const {email,password}=req.body;
-        // console.log(email,password)
         const user = await User.findOne({email:email})
         if(!user) return res.status(400).json({msg:"User not exist"})
 

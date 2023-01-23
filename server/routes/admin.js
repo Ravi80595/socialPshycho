@@ -1,5 +1,5 @@
 import express from "express"
-import {adminLogin, adminProfile, adminSign, AllAdmin, AllUser} from "../Controllers/admin.js"
+import {adminLogin, adminProfile, adminProfileEdit, adminSign, AllAdmin, AllUser} from "../Controllers/admin.js"
 import { getFeedPosts } from "../Controllers/posts.js"
 import {Adminauthenticate} from "../middelwares/Adminauthenticate.js"
 
@@ -18,5 +18,6 @@ router.get("/admins",AllAdmin)
 
 router.get("/posts",getFeedPosts)
 
+router.patch("/profileEdit/:id",adminProfileEdit)
 
 export default router

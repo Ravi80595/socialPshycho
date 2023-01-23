@@ -11,12 +11,12 @@ import {
     Text
   } from '@chakra-ui/react' 
 import Navbar from 'Components/Navbar'
+import { Link } from 'react-router-dom'
 
 const FaqPage = () => {
   return (
     <>
     <Navbar/>
-    {/* <Image w="100%"  h="100px" src="https://miro.medium.com/max/720/0*FdLLSjLPudGd-Pt5"/> */}
         <Heading pt={100} textAlign="center">Here are some frequently asked questions.</Heading>
     <Box pt={20} w="80%" m='auto'>
     <Accordion allowToggle p={10} boxShadow= "rgba(0, 0, 0, 0.35) 0px 5px 15px">
@@ -30,10 +30,7 @@ const FaqPage = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+      Socialpshycho is a social media website. Here users can share posts can manage their own social media account.
       </AccordionPanel>
     </AccordionItem>
     <AccordionItem>
@@ -46,10 +43,7 @@ const FaqPage = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        SocailPshycho is created by Ravi Sharma. A Full-Stack Web Developer. 
       </AccordionPanel>
     </AccordionItem>
     <AccordionItem>
@@ -62,10 +56,7 @@ const FaqPage = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        To create account in Socialpshycho.Go to this <Link to="/usersign"><span>  Page </span> </Link>and just enter your details to create an account. After creating account you can visit to login page and login to your account.
       </AccordionPanel>
     </AccordionItem>
     <AccordionItem>
@@ -78,10 +69,7 @@ const FaqPage = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+      To upload post you can go to your main account page and just click on plus icon to add new post. After clicking on this post you will redirect to post upload page. Here you can drag and drop your image and write caption. Also you can add location to your post.
       </AccordionPanel>
     </AccordionItem>
     <AccordionItem>

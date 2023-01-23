@@ -1,4 +1,4 @@
-import { Box,Flex,Image,Input,Menu,MenuButton,MenuList,MenuGroup,MenuItem,Button,MenuDivider,Text} from '@chakra-ui/react'
+import { Box,Flex,Image,Input,Menu,MenuButton,MenuList,MenuGroup,MenuItem,Button,MenuDivider,Text, Avatar} from '@chakra-ui/react'
 import React from 'react'
 import {AiOutlineHeart,AiOutlineHome} from 'react-icons/ai'
 import {BiMessageSquareAdd,BiMessageDetail} from 'react-icons/bi'
@@ -85,7 +85,8 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-                <Image key={ele._id} pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
+            <Avatar key={ele._id} src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                // <Image key={ele._id} pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
             ))
           }
             </MenuButton>
@@ -110,7 +111,9 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title='Help'>
+                <Link to="/docs">
                 <MenuItem fontSize="20px">Docs</MenuItem>
+                </Link>
                 <Link to="/faqPage">
                 <MenuItem fontSize="20px">FAQ</MenuItem>
                 </Link>

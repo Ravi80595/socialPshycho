@@ -1,6 +1,6 @@
 import Navbar from 'Components/Navbar'
 import React, { useEffect, useRef, useState } from 'react'
-import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input} from '@chakra-ui/react'
+import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Popover,PopoverTrigger,Portal,PopoverContent,PopoverArrow,PopoverHeader,PopoverBody,PopoverCloseButton,Tooltip} from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import {IoAddCircleOutline} from "react-icons/io5"
 import axios from 'axios'
@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
 import {CiEdit} from "react-icons/ci"
 import {BiChevronDown} from "react-icons/bi"
+import {AiOutlineDelete} from 'react-icons/ai'
 
 
 const MainProfile = () => {
@@ -65,6 +66,21 @@ const handleUpdate= async()=>{
 })
 }
 
+const handleDelete=(ele)=>{
+  console.log("clicked")
+  axios.delete(`http://localhost:3002/posts/delete/${ele._id}`,{
+    headers:{
+      Authorization:`Bearer ${token}`
+  }
+  })
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+}
+
 const SinglePost=(ele)=>{
   navigate(`/SinglePost/${ele._id}`)
 }
@@ -107,11 +123,13 @@ if(isError){
         <Box w={["100%","100%",'70%']} margin="auto" p={[0,0,20]} pt={5}>
         {
           profileData.map(ele=>(
-            <>
+        <>
         <Flex w={["100%","100%","70%"]} margin='auto' mb={[0,0,10]} key={ele._id}>
         <Box>
-        <Image border='2px  solid blue' h={[100,100,250]} w={[100,100,250]} ml="35px" mt="25px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius="50%"/>
-        <Text mt={2} borderBottom="1px dashed black" w={[100,100,300]} onClick={onOpen}><BiChevronDown/></Text>
+        <Image border='2px solid blue' h={[100,100,250]} w={[100,100,250]} ml="35px" mt="25px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius="50%"/>
+        <Tooltip label="Update Profile Photo Here" aria-label='A tooltip'>
+        <Text mt={2} cursor="pointer" borderBottom="1px dashed black" w={[100,100,300]} onClick={onOpen}><BiChevronDown/></Text>
+        </Tooltip>
         </Box>
         <Box margin="auto">
           <Box textAlign="center">
@@ -179,8 +197,23 @@ if(isError){
          <Grid templateColumns='repeat(3, 1fr)' gap={[2,2,5]} pt={[1,0,30]}>
             {
               posts && posts.map(ele=>(
-                  <GridItem onClick={()=>SinglePost(ele)}>
-                    <Image cursor="pointer" src={`http://localhost:3002/assets/${ele.picturePath}`} h={[100,100,400]} w={400}/>
+                  <GridItem key={ele._id}>
+                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`http://localhost:3002/assets/${ele.picturePath}`} h={[100,100,400]} w={400}/>
+                <Popover>
+                  <PopoverTrigger>
+                <Text bg='#74ceda' cursor="pointer" color='white' textAlign='center'>Delete</Text>
+                  </PopoverTrigger>
+                  <Portal>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverHeader>Are you sure.You want Delete.</PopoverHeader>
+                      <PopoverCloseButton />
+                      <PopoverBody>
+                        <Button onClick={()=>handleDelete(ele)} colorScheme='blue'>Delete</Button>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Portal>
+                </Popover>
                   </GridItem>
               ))
             }

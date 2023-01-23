@@ -20,6 +20,8 @@ import Settings from 'Pages/OtherPages/Settings'
 import AdminPrivateRoute from './AdminPrivateRoute'
 import AdminProfile from 'Pages/AdminPages/profilePages/AdminProfile'
 import SettingPage from 'Pages/AdminPages/profilePages/SettingPage'
+import Docs from 'Pages/OtherPages/Docs'
+import PostSingle from 'Pages/AdminPages/OtherPages/PostSingle'
 
 
 const AllRoutes = () => {
@@ -35,9 +37,11 @@ const AllRoutes = () => {
         <Route path="/SinglePost/:id" element={<SinglePost/>}></Route>
         <Route path="/faqPage" element={<FaqPage/>}></Route>
         <Route path="/Notification" element={<Notification/>}></Route>
+        <Route path="/docs" element={<Docs/>}></Route>
         <Route path="/adminsign" element={<AdminSignup/>}></Route>
         <Route path="/adminlogin" element={<AdminLogin/>}></Route>
         <Route path="/adminsingleuser/:id" element={<UserSingl/>}></Route>
+        <Route path="/adminSinglePost/:id" element={<PostSingle/>}></Route>
         <Route path="/bluetick" element={<BlueTick/>}></Route>
         <Route path="/settings" element={<Settings/>}></Route>
         <Route path="/adminSetting" element={<SettingPage/>}></Route>

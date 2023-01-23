@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box,TableContainer,Table,Thead,Tr,Tbody,Td,Th,Spinner,Image} from '@chakra-ui/react'
+import { Box,TableContainer,Table,Thead,Tr,Tbody,Td,Th,Spinner,Image,Text,Flex,Input} from '@chakra-ui/react'
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -21,6 +21,10 @@ axios.get("http://localhost:3002/admin/admins")
   })
 },[])
 
+const handleChange=()=>{
+  // search functionalliy here
+}
+
 if(loading){
   return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
@@ -31,6 +35,11 @@ if(error){
 
 return (
     <Box>
+      <Flex justifyContent="space-between" mb={20}>
+        <Text w="15%">Total Admins : {admin.length}</Text>
+        <Input onInput={handleChange} w="60%" placeholder="search user"/>
+        <Text w="15%">Founder : Ravi</Text>
+      </Flex>
           <TableContainer>
             <Table size='sm'>
               <Thead>
@@ -45,7 +54,7 @@ return (
       {
         admin && admin.map(ele=>(
                 <Tr>
-                  <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
+                  <Td><Image w={50} src={ele.userPicturePath}/></Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>
                   <Td>{ele.email}</Td>
                   <Td>{ele.role}</Td>

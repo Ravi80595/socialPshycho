@@ -1,11 +1,11 @@
-import { Box,Flex,Heading,Image,Text } from '@chakra-ui/react'
+import { Box,Flex,Heading,Image,Text,Stack,Skeleton } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import {IoLocationOutline} from 'react-icons/io5'
 import {FaUserSecret} from 'react-icons/fa'
 import {CiEdit} from "react-icons/ci"
 import {BsTwitter} from "react-icons/bs"
 import {AiFillInstagram} from "react-icons/ai"
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProfiles } from 'Redux/AppReducer/action'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
@@ -55,8 +55,17 @@ const MainPage=()=>{
   navigate("/profile")
 }
 
+// if(isLoading){
+//   return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
+// }
 if(isLoading){
-  return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
+  return(
+  <Stack color='blue'>
+  <Skeleton height='20px' />
+  <Skeleton height='20px' />
+  <Skeleton height='20px' />
+</Stack>
+  )
 }
 
 // if(isError){

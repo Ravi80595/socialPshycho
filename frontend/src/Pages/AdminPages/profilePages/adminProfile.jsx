@@ -35,6 +35,8 @@ return (
                 <Heading>{ele.firstName} {ele.lastName}</Heading>
                 <Text>Email : {ele.email}</Text>
                 <Text>Role : {ele.role}</Text>
+                <Text>Created Date : {ele.date}</Text>
+                <Text>Created Time : {ele.time}am</Text>
                 </Box>
                 <Button>Deactivate Account</Button>
               </Box>

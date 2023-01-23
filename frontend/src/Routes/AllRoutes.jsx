@@ -19,6 +19,7 @@ import BlueTick from 'Pages/OtherPages/BlueTick'
 import Settings from 'Pages/OtherPages/Settings'
 import AdminPrivateRoute from './AdminPrivateRoute'
 import AdminProfile from 'Pages/AdminPages/profilePages/AdminProfile'
+import SettingPage from 'Pages/AdminPages/profilePages/SettingPage'
 
 
 const AllRoutes = () => {
@@ -39,6 +40,7 @@ const AllRoutes = () => {
         <Route path="/adminsingleuser/:id" element={<UserSingl/>}></Route>
         <Route path="/bluetick" element={<BlueTick/>}></Route>
         <Route path="/settings" element={<Settings/>}></Route>
+        <Route path="/adminSetting" element={<SettingPage/>}></Route>
         <Route path="*" element={<h1>Wrong Url</h1>}></Route>
         <Route path="/adminProfile" element={<AdminProfile/>}></Route>
         <Route path="/admin" element={<AdminPrivateRoute><Dashboard/></AdminPrivateRoute>}></Route>

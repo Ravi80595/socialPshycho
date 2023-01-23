@@ -30,8 +30,8 @@ const singleUserProfile=()=>{
        }
    })
    .then((res)=>{  
-    console.log(res)
-    setSingleProfile(res.data)
+    console.log(res.data,"ravi")
+    setSingleProfile([res.data])
    })
    .catch((err)=>{
        console.log(err)
@@ -53,75 +53,51 @@ const singleUserPosts=()=>{
    })
 }
 
+const SinglePost=()=>{
+
+}
 
 
 return (
     <>
       <AdminNavbar/>
-      <Flex pt={20} backgroundColor="blackAlpha.100">
-        <Box w="25%" pl={10} pr={10}>
-            <Text p={5} textAlign="center">Friends</Text>
-            {/* {
-            SingleFriends && SingleFriends.map(ele=>(
-
-        <Flex onClick={()=>SingleUser(ele._id)} justifyContent="space-around" _hover={{ bg: "grey" }} pb={2} key={ele._id} cursor="pointer">
-            <Box >
-                <Image w="50px" h="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
-            </Box>
-            <Box>
-                <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
-                <Text>{ele.location}</Text>
-            </Box>
-            <Box pt={3}>
-                <IoPersonRemoveOutline />
-            </Box>
-        </Flex>
-        ))
-    } */}
-        </Box>
-        <Box w='75%' margin="auto" p={20} pt={5}>
+      <Flex pt={10} backgroundColor="blackAlpha.100">
         {
           singleProfile && singleProfile.map(ele=>(
-        <Flex w="90%" margin='auto' mb={10}>
-        <Box w="40%">
-        <Image h='250px' border='2px solid white' src={`http://localhost:3002/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
+        <Box w="35%" key={ele._id} pr={10}>
+           <Box w="40%" m='auto'>
+        <Image h='200px' border='2px solid white' src={`http://localhost:3002/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
         </Box>
-        <Box margin="auto" w="55%" key={ele._id}>
-          <Flex justifyContent="space-evenly">
+        <Flex justifyContent='space-around'>
             <Text fontSize="25px">{ele.firstName+" "+ele.lastName}</Text>
-            <Button backgroundColor="grey">
-              {ele.friends.includes(user._id)?"Remove":"Add"}
-              </Button>
-              <Link to="/message">
-            <Button backgroundColor="grey">Message</Button>
-              </Link>
-          </Flex>
-          <Box>
-          <Flex justifyContent='space-around'  pt={5}>
-            <Text ><IoAddCircleOutline fontSize="25px"/></Text>
-            <Text>{posts.length} posts</Text>
-            <Text>{ele.friends.length} friends</Text>
-          </Flex>
-          <Text pt={10} pl={5}>Broken Boy <br />Haryanvi Boy <br /></Text>
-          </Box>
-        </Box>
+            <Text>{ele.username}</Text>
         </Flex>
-         ))
-        }
+        <Box p={5} lineHeight={10}>
+            <Text>Total Posts By User : {posts.length}</Text>
+            <Text>Total Friends of User : {ele.friends.length}</Text>
+            <Text>User Joining Date : {ele.date}</Text>
+            <Text>User Joining Time : {ele.time} am</Text>
+            <Text>Location of User : {ele.location}</Text>
+            <Text>Email of User : {ele.email}</Text>
+            <Text>Impression on user Profile : {ele.impressions}</Text>
+            <Text>User profile viewed by : {ele.viewedProfile} users</Text>
+            <Text>Is User Verified : false</Text>
+            </Box>
+        </Box>
+        ))
+      }
+        <Box w='65%' margin="auto" mt={0} p={10}>
          <hr />
-         <Flex justifyContent="space-evenly" backgroundColor='white'>
-         <Text textAlign="center">Posts</Text>
-         <Text>Reels</Text>
-         </Flex>
+         <Text backgroundColor='white' textAlign="center">All Posts</Text>
          <hr />
-         <Grid templateColumns='repeat(3, 1fr)' gap={5} pt={30}>
-            {/* {
+         <Grid templateColumns='repeat(3, 1fr)' gap={5}>
+            {
               posts && posts.map(ele=>(
-                  <GridItem onClick={()=>SinglePost(ele)}>
+                  <GridItem onClick={()=>SinglePost(ele)} pt={5}>
                     <Image cursor='pointer' src={`http://localhost:3002/assets/${ele.picturePath}`} h={400} w={400}/>
                   </GridItem>
               ))
-            } */}
+            }
          </Grid>
         </Box>
     </Flex>

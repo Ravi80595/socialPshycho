@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
+import { GetCurrentDate,GetCurrentTime } from "../Utils/DateTime.js";
 
+const currentDate=GetCurrentDate()
+const currentTime=GetCurrentTime()
 
 const userSchema = new mongoose.Schema({
     username:{type:String,unique:true,require:true},
@@ -14,7 +17,9 @@ const userSchema = new mongoose.Schema({
     viewedProfile:Number,
     impressions:Number,
     bio:{type:String,default:"Enter Bio"},
-    phone:String
+    phone:String,
+    date:{type:String,default:currentDate},
+    time:{type:String,default:currentTime}
 },{
     timestamps:true
 })

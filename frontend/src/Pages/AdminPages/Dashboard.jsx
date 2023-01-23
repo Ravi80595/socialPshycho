@@ -103,7 +103,7 @@ return (
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-                <Image w={50} h="40px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
+                <Image w={50} h="40px" src='https://media.istockphoto.com/id/610003972/vector/vector-businessman-black-silhouette-isolated.jpg?s=612x612&w=0&k=20&c=Iu6j0zFZBkswfq8VLVW8XmTLLxTLM63bfvI6uXdkacM=' borderRadius={50}/>
             ))
           }
             </MenuButton>
@@ -115,7 +115,9 @@ return (
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title='Manage'>
+                <Link to="/adminSetting">
                 <MenuItem>Setting & Privacy</MenuItem>
+                </Link>
                 <MenuItem>Language</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </MenuGroup>

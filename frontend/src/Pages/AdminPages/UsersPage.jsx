@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input } from '@chakra-ui/react'
+import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input,Select } from '@chakra-ui/react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -35,11 +35,7 @@ setUsers(res.data)
 .catch((err)=>{
 console.log(err)
 })
-};
-
-// const handleClick=(id)=>{
-//   navigate(`/SingleUser/${id}`)
-// }
+}
 
 const handleNavigate=(ele)=>{
   navigate(`/adminsingleuser/${ele._id}`)
@@ -51,13 +47,24 @@ return <Spinner textAlign='center' mt={50} ml={50} thickness='4px' speed='0.65s'
 
 return (
     <Box>
-      <Flex mb={20} justifyContent="space-between">
-        <Text w="10%">Total Users : {users.length}</Text>
-        <Input onInput={handleChange} w="50%" placeholder="search user"/>
-        <Text w="10%">Total us</Text>
+      <Flex justifyContent="space-between">
+        <Text w="15%">Total Users : {users.length}</Text>
+        <Input onInput={handleChange} w="60%" placeholder="search user"/>
+        <Text w="15%">Verified Users : 0</Text>
       </Flex>
-
-
+      <Flex mb={10}mt={5} justifyContent="space-between">
+        <Select w="20%" >
+          <option value="">SortBy Name</option>
+          <option value="">LTH</option>
+          <option value="">HTL</option>
+        </Select>
+        <Select w="20%" >
+          <option value="">FilterBy Location</option>
+          <option value="">Haryana</option>
+          <option value="">Delhi</option>
+          <option value="">Punjab</option>
+        </Select>
+      </Flex>
           <TableContainer>
             <Table size='sm'>
               <Thead>

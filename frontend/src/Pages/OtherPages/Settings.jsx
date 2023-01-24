@@ -9,6 +9,7 @@ import {RiAdminFill,RiLockPasswordLine} from "react-icons/ri"
 import ChangePswrd from './ChangePswrd'
 import {AiOutlineEdit,AiOutlineAppstoreAdd,AiOutlineMail,AiOutlineContacts} from "react-icons/ai"
 import {MdOutlineLiveHelp} from "react-icons/md"
+import { baseUrl } from 'Utils/BaseUrl'
 
 const Settings = () => {
   const [show,setShow]=useState("editProfile")
@@ -26,7 +27,7 @@ const Settings = () => {
             profileData && profileData.map(ele=>(
           <Flex p={2} w="100%" h={20} >
             <Box>
-            <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text pl={5}>{`${ele.firstName} ${ele.lastName}`}</Text>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AdminNavbar from './AdminNavbar'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const AdminProfile = () => {
   const [profileData,setProfileData]=useState([])
@@ -14,7 +15,7 @@ useEffect(()=>{
 
 const getadminProfile=()=>{
     console.log(admin._id)
-  axios.get(`http://localhost:3002/admin/profile/${admin._id}`)
+  axios.get(`${baseUrl}/admin/profile/${admin._id}`)
   .then((res)=>{
     console.log(res.data)
     setProfileData([res.data])

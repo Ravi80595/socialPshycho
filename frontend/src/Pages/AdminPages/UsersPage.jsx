@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input,Select } from '@chakra-ui/react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const UsersPage = () => {
   const [users,setUsers]=useState([])
@@ -12,7 +13,7 @@ const UsersPage = () => {
 
 useEffect(()=>{
   setLoading(true)
-  axios.get("http://localhost:3002/admin/users")
+  axios.get(`${baseUrl}/admin/users`)
   .then((res)=>{
     console.log(res.data)
     setUsers(res.data)
@@ -24,7 +25,7 @@ useEffect(()=>{
 },[])
 
 const handleChange = (e) => {
-axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
+axios.get(`${baseUrl}/users/search/${e.target.value}`,{
 headers:{
   Authorization:`Bearer ${token}`
 }
@@ -44,6 +45,8 @@ const handleNavigate=(ele)=>{
 if(loading){
 return <Spinner textAlign='center' mt={50} ml={50} thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
+
+
 
 return (
     <Box>
@@ -79,7 +82,7 @@ return (
       {
         users && users.map(ele=>(
                 <Tr onClick={()=>handleNavigate(ele)} cursor="pointer" _hover={{backgroundColor:"#f3f4f6"}}>
-                  <Td><Image w={50} src={`http://localhost:3002/assets/${ele.picturePath}`}/></Td>
+                  <Td><Image w={50} src={`${baseUrl}/assets/${ele.picturePath}`}/></Td>
                   <Td>{ele.username}</Td>
                   <Td>{ele.firstName} {ele.lastName}</Td>
                   <Td>{ele.email}</Td>

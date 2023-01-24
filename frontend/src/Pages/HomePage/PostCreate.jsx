@@ -5,6 +5,7 @@ import { BsCameraVideo, BsCalendar4Event } from "react-icons/bs"
 import { MdOutlineArticle } from "react-icons/md"
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const PostCreate = () => {
     const {isLoading,isError,profileData} = useSelector((store)=>store.AppReducer)
@@ -26,7 +27,7 @@ return (
             {
                 profileData && profileData.map(ele=>(
                 <Flex justifyContent="space-around" key={ele._id} gap={5} p={3}>
-                    <Image h="50px" src={`http://localhost:3002/assets/${ele.picturePath}`} w="12%" borderRadius={50} />
+                    <Image h="50px" src={`${baseUrl}/assets/${ele.picturePath}`} w="12%" borderRadius={50} />
                     <Input mt={3} placeholder="Create new post" borderRadius={20} />
                 </Flex>
                 ))

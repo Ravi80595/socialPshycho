@@ -12,6 +12,7 @@ import AllAdmin from './AllAdmin'
 import {GiPostStamp} from "react-icons/gi"
 import AllPosts from './AllPosts'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const Dashboard = () => {
@@ -28,7 +29,7 @@ useEffect(()=>{
 
 const getadminProfile=()=>{
   console.log(admin._id)
-axios.get(`http://localhost:3002/admin/profile/${admin._id}`)
+axios.get(`${baseUrl}/admin/profile/${admin._id}`)
 .then((res)=>{
   console.log(res.data)
   setProfileData([res.data])

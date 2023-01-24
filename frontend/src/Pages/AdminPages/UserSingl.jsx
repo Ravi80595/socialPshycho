@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import AdminNavbar from './profilePages/AdminNavbar'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 
@@ -24,7 +25,7 @@ useEffect(()=>{
 },[])
 
 const singleUserProfile=()=>{
-    axios.get(`http://localhost:3002/users/${id}`,{
+    axios.get(`${baseUrl}/users/${id}`,{
        headers:{
            Authorization: `Bearer ${token}`
        }
@@ -39,7 +40,7 @@ const singleUserProfile=()=>{
 }
 
 const singleUserPosts=()=>{
-  axios.get(`http://localhost:3002/posts/${id}/posts`,{
+  axios.get(`${baseUrl}/posts/${id}/posts`,{
        headers:{
            Authorization: `Bearer ${token}`
        }
@@ -66,7 +67,7 @@ return (
           singleProfile && singleProfile.map(ele=>(
         <Box w="35%" key={ele._id} pr={10}>
            <Box w="40%" m='auto'>
-        <Image h='200px' border='2px solid white' src={`http://localhost:3002/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
+        <Image h='200px' border='2px solid white' src={`${baseUrl}/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
         </Box>
         <Flex justifyContent='space-around'>
             <Text fontSize="25px">{ele.firstName+" "+ele.lastName}</Text>
@@ -94,7 +95,7 @@ return (
             {
               posts && posts.map(ele=>(
                   <GridItem onClick={()=>SinglePost(ele)} pt={5}>
-                    <Image cursor='pointer' src={`http://localhost:3002/assets/${ele.picturePath}`} h={400} w={400}/>
+                    <Image cursor='pointer' src={`${baseUrl}/assets/${ele.picturePath}`} h={400} w={400}/>
                   </GridItem>
               ))
             }

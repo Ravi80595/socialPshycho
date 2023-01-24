@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Box,TableContainer,Table,Thead,Tr,Tbody,Td,Th,Spinner,Image,Text,Flex,Input} from '@chakra-ui/react'
 import { useState } from 'react'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const AllAdmin = () => {
   const [admin,setAdmin]=useState([])
@@ -10,7 +11,7 @@ const AllAdmin = () => {
 
 useEffect(()=>{
   setLoading(true)
-axios.get("http://localhost:3002/admin/admins")
+axios.get(`${baseUrl}/admin/admins`)
 .then((res)=>{
     setAdmin(res.data)
     setLoading(false)

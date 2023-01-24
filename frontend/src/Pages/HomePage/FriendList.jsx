@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getFriendList} from "../../Redux/AppReducer/action"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const FriendList = () => {
@@ -26,7 +27,7 @@ const handleClick=(id)=>{
 
 
 const handleFriend=(ele)=>{
-    axios.get(`http://localhost:3002/users/${user._id}/${ele._id}`,{
+    axios.get(`${baseUrl}/users/${user._id}/${ele._id}`,{
       headers:{
         Authorization:`Bearer ${token}`
       }
@@ -49,7 +50,7 @@ if(isLoading){
 
         <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
             <Box onClick={()=>handleClick(ele._id)}>
-                <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text onClick={()=>handleClick(ele._id)}>{`${ele.firstName} ${ele.lastName}`}</Text>

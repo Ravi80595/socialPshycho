@@ -3,6 +3,7 @@ import { Box,Heading,Flex,FormControl,FormLabel,Input,InputGroup,InputRightEleme
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 // import AdminNavbar from '../profilePages/AdminNavbar'
 
 
@@ -26,7 +27,7 @@ const handleLogin=()=>{
     email:values.email,
     password:values.password
   }
-axios.post("http://localhost:3002/admin/login",payload)
+axios.post(`${baseUrl}/admin/login`,payload)
 .then((res)=>{
   localStorage.setItem("adminToken",JSON.stringify(res.data))
   alert("Login Success")

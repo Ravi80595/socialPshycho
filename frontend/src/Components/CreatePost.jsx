@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone'
 import {CiEdit} from "react-icons/ci"
 import { useState } from 'react'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const CreatePost = () => {
@@ -25,7 +26,7 @@ const handlePost=async()=>{
      formData.append("image", image);
      formData.append("picturePath",image.name)
      console.log(desc,location,image.name)
-await axios.post("http://localhost:3002/posts/create",formData,{
+await axios.post(`${baseUrl}/posts/create`,formData,{
      headers:{
           "Content-Type": "multipart/form-data",
           Authorization:`Bearer ${token}`

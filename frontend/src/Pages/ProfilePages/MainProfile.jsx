@@ -14,6 +14,7 @@ import Dropzone from 'react-dropzone'
 import {CiEdit} from "react-icons/ci"
 import {BiChevronDown} from "react-icons/bi"
 import {AiOutlineDelete} from 'react-icons/ai'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const MainProfile = () => {
@@ -34,7 +35,7 @@ useEffect(()=>{
 },[])
 
 const getUserPosts=()=>{
-  axios.get(`http://localhost:3002/posts/${user._id}/posts`,{
+  axios.get(`${baseUrl}/posts/${user._id}/posts`,{
     headers:{
       Authorization:`Bearer ${token}`,
     }
@@ -50,7 +51,7 @@ const handleUpdate= async()=>{
   console.log("clicked",user._id,"name",image)
   let formData= new FormData()
   formData.append("images",image)
-  await axios.patch(`http://localhost:3002/users/editprofile/${user._id}`,formData,{
+  await axios.patch(`${baseUrl}/users/editprofile/${user._id}`,formData,{
     headers:{
         "Content-Type": "multipart/form-data",
         Authorization:`Bearer ${token}`
@@ -68,7 +69,7 @@ const handleUpdate= async()=>{
 
 const handleDelete=(ele)=>{
   console.log("clicked")
-  axios.delete(`http://localhost:3002/posts/delete/${ele._id}`,{
+  axios.delete(`${baseUrl}/posts/delete/${ele._id}`,{
     headers:{
       Authorization:`Bearer ${token}`
   }
@@ -107,7 +108,7 @@ if(isError){
 
         <Flex onClick={()=>SingleUser(ele._id)} justifyContent="space-around" pb={2} key={ele._id} cursor="pointer" _hover={{ bg: "grey" }} mt={2}>
             <Box >
-                <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box pl={0}>
                 <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
@@ -126,7 +127,7 @@ if(isError){
         <>
         <Flex w={["100%","100%","70%"]} margin='auto' mb={[0,0,10]} key={ele._id}>
         <Box>
-        <Image border='2px solid blue' h={[100,100,250]} w={[100,100,250]} ml="35px" mt="25px" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius="50%"/>
+        <Image border='2px solid blue' h={[100,100,250]} w={[100,100,250]} ml="35px" mt="25px" src={`${baseUrl}/assets/${ele.picturePath}`} borderRadius="50%"/>
         <Tooltip label="Update Profile Photo Here" aria-label='A tooltip'>
         <Text mt={2} cursor="pointer" borderBottom="1px dashed black" w={[100,100,300]} onClick={onOpen}><BiChevronDown/></Text>
         </Tooltip>
@@ -198,7 +199,7 @@ if(isError){
             {
               posts && posts.map(ele=>(
                   <GridItem key={ele._id}>
-                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`http://localhost:3002/assets/${ele.picturePath}`} h={[100,100,400]} w={400}/>
+                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]} w={400}/>
                 <Popover>
                   <PopoverTrigger>
                 <Text bg='#74ceda' cursor="pointer" color='white' textAlign='center'>Delete</Text>

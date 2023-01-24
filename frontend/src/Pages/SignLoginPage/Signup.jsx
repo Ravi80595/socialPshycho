@@ -2,6 +2,7 @@ import { Box,Flex,HStack,FormControl,FormLabel,Input,Button,Text,Image,Heading,I
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const Signup = () => {
@@ -38,7 +39,7 @@ const handleSubmit=()=>{
 if(payload.email=="" || payload.password=="" || payload.firstName=="" || payload.lastName==""){
         alert("Please fill All Madentory fields")
   }else{
-axios.post(`http://localhost:3002/auth/register`,payload)
+axios.post(`${baseUrl}/auth/register`,payload)
 .then((res)=>{
     console.log("Signup Success",res)
     alert("Signup Success")

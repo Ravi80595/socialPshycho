@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, Flex,Text,Input,Image,InputGroup,InputRightElement,Button,InputLeftElement } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import {BsEmojiSmile} from "react-icons/bs"
+import { baseUrl } from 'Utils/BaseUrl'
 
 const Messages = () => {
   const {AllFriends} = useSelector((store)=>store.AppReducer)
@@ -19,7 +20,7 @@ const Messages = () => {
             profileData && profileData.map(ele=>(
           <Flex p={2} w="100%" h={20} >
             <Box>
-            <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text pl={5}>{`${ele.firstName} ${ele.lastName}`}</Text>
@@ -34,7 +35,7 @@ const Messages = () => {
             AllFriends && AllFriends.map(ele=>(
         <Flex justifyContent="space-around"  p={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
             <Box>
-                <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text>{`${ele.firstName} ${ele.lastName}`}</Text>

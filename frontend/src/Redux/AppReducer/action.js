@@ -1,5 +1,6 @@
 import * as types from "./actionType"
 import axios from 'axios'
+import { baseUrl } from "Utils/BaseUrl"
 
 
 const postProfileRequest =()=>{
@@ -52,7 +53,7 @@ const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
 
 const getProfiles=(r=user)=>async(dispatch)=>{
     dispatch(postProfileRequest())
-   await axios.get(`http://localhost:3002/users/${r._id}`,{
+   await axios.get(`${baseUrl}/users/${r._id}`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -72,7 +73,7 @@ const getProfiles=(r=user)=>async(dispatch)=>{
 
 const getFriendList=(r=user)=>(dispatch)=>{
     // dispatch(postProfileRequest())
-     axios.get(`http://localhost:3002/users/${r._id}/friends`,{
+     axios.get(`${baseUrl}/users/${r._id}/friends`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -89,7 +90,7 @@ const getFriendList=(r=user)=>(dispatch)=>{
 
 
 const getSingleUserFriendList=(payload)=>(dispatch)=>{
-     axios.get(`http://localhost:3002/users/${payload}/friends`,{
+     axios.get(`${baseUrl}/users/${payload}/friends`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -105,7 +106,7 @@ const getSingleUserFriendList=(payload)=>(dispatch)=>{
 }
 
 const getSingleUserProfile=(payload)=>(dispatch)=>{
-     axios.get(`http://localhost:3002/users/${payload}`,{
+     axios.get(`${baseUrl}/users/${payload}`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -120,7 +121,7 @@ const getSingleUserProfile=(payload)=>(dispatch)=>{
 
 const getSinglePost=(payload)=>(dispatch)=>{
     console.log(payload)
-    axios.get(`http://localhost:3002/posts/singlepost/${payload}`,{
+    axios.get(`${baseUrl}/posts/singlepost/${payload}`,{
        headers:{
            Authorization: `Bearer ${token}`
        }

@@ -10,6 +10,7 @@ import { getProfiles } from 'Redux/AppReducer/action'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '@chakra-ui/react'
 import axios from "axios"
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 
@@ -25,7 +26,6 @@ const onpageLoad=()=>{
   dispatch(getProfiles(user))
 }
 
-
 useEffect(()=>{
   // getUserProfiles()
   onpageLoad()
@@ -33,7 +33,7 @@ useEffect(()=>{
 
 
 const getUserProfiles=()=>{
-   axios.get(`http://localhost:3002/users/${user._id}`,{
+   axios.get(`${baseUrl}/users/${user._id}`,{
       headers:{
           Authorization: `Bearer ${token}`
       }
@@ -80,7 +80,7 @@ if(isLoading){
             return(
               <Box key={ele._id}>
               <Flex p="10px" onClick={MainPage} cursor="pointer">
-                <Image h="50px" src={`http://localhost:3002/assets/${ele.picturePath}`} w="20%" borderRadius={50}/>
+                <Image h="50px" src={`${baseUrl}/assets/${ele.picturePath}`} w="20%" borderRadius={50}/>
                 <Box pl={4}>
                 <Heading as="h3" fontSize='20px' >{ele.firstName+" "+ele.lastName}</Heading>
                 <Text>Friends : {ele.friends.length=="undefined"?"No Friends":ele.friends.length}</Text>

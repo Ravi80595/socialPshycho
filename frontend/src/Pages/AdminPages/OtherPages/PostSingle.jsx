@@ -3,6 +3,7 @@ import AdminNavbar from '../profilePages/AdminNavbar'
 import { Box,Flex,Text,Image } from '@chakra-ui/react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const PostSingle = () => {
     const [singleProfile,setSingleProfile]=useState([])
@@ -18,7 +19,7 @@ useEffect(()=>{
 
 
 const SinglePost=()=>{
-    axios.get(`http://localhost:3002/posts/singlepost/${id}`,{
+    axios.get(`${baseUrl}/posts/singlepost/${id}`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -54,7 +55,7 @@ return (
           singleProfile && singleProfile.map(ele=>(
         <Box w="35%" key={ele._id} pr={10}>
            <Box w="40%" m='auto'>
-        <Image h='200px' border='2px solid white' src={`http://localhost:3002/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
+        <Image h='200px' border='2px solid white' src={`${baseUrl}/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
         </Box>
         <Flex justifyContent='space-around'>
             <Text fontSize="25px">{ele.firstName+" "+ele.lastName}</Text>

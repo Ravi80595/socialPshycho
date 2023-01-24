@@ -1,6 +1,7 @@
 import { Box,Text,Flex,Input,Textarea, Button,Select } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const EditProfile = () => {
   const [name,setName]=useState("")
@@ -17,7 +18,7 @@ const obj={
     bio:bio,
     phone:phone
   }
-await axios.patch(`http://localhost:3002/users/updateDetail/${user._id}`,obj,{
+await axios.patch(`${baseUrl}/users/updateDetail/${user._id}`,obj,{
     headers:{
         Authorization:`Bearer ${token}`
     }

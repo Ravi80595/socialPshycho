@@ -1,5 +1,6 @@
 import * as types from "./actionType"
 import axios from 'axios'
+import { baseUrl } from "Utils/BaseUrl"
 
 
 const postLoginRequest =()=>{
@@ -25,7 +26,7 @@ const login=(payload)=>(dispatch)=>{
     return axios({
         method:'post',
         url:"/auth/login",
-        baseURL:'http://localhost:3002',
+        baseURL:`${baseUrl}`,
         data:payload
     }).then((res)=>{
         console.log(res.data)

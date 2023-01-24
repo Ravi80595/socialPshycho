@@ -7,6 +7,7 @@ import {MdOutlineModeComment} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import {BsEmojiSmile,BsSave2} from "react-icons/bs"
 import {CiHeart} from "react-icons/ci"
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const Feed = () => {
@@ -47,7 +48,7 @@ const SingleUser=(id)=>{
 
 
 const getAllPosts=()=>{
-    axios.get(`http://localhost:3002/posts`,{
+    axios.get(`${baseUrl}/posts`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -63,7 +64,7 @@ const getAllPosts=()=>{
 
 const likePost=(postId)=>{
   console.log('clicked')
-  axios.patch(`http://localhost:3002/posts/${postId}/like/`,{userId: user._id},{
+  axios.patch(`${baseUrl}/posts/${postId}/like/`,{userId: user._id},{
       headers:{
           Authorization: `Bearer ${token}`
       }
@@ -76,7 +77,7 @@ const likePost=(postId)=>{
 
 const handleLikedUser=(id)=>{
   onlikeOpen()
-axios.get(`http://localhost:3002/posts/likes/${id}`)
+axios.get(`${baseUrl}/posts/likes/${id}`)
 .then((res)=>{
   console.log(res.data)
   setLikes(res.data)
@@ -93,7 +94,7 @@ const handleComment=(postId)=>{
       title: 'Please Enter Comment.', status: 'error',duration: 3000,isClosable: true,
     })
   }else{
-  axios.put("http://localhost:3002/posts/comment",{postId,text},{
+  axios.put(`${baseUrl}/posts/comment`,{postId,text},{
     headers:{
       Authorization: `Bearer ${token}`
   }
@@ -125,7 +126,7 @@ const seecomments=(ele)=>{
         <Box backgroundColor='white' mt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
          <Flex p="7px">
         <Flex w="70%" gap={5}>
-        <Image cursor='pointer' onClick={()=>SingleUser(ele.userId)} h="55px" src={`http://localhost:3002/assets/${ele.userPicturePath}`} w={["20%","30%","15%"]} borderRadius={50}/>
+        <Image cursor='pointer' onClick={()=>SingleUser(ele.userId)} h="55px" src={`${baseUrl}/assets/${ele.userPicturePath}`} w={["20%","30%","15%"]} borderRadius={50}/>
         <Box>
         <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{`${ele.username}`}</Text>
         <Text>{ele.location}</Text>
@@ -136,7 +137,7 @@ const seecomments=(ele)=>{
       </Flex>
       <Text p={2}>{ele.description}</Text>
       <Box>
-      <Image onDoubleClick={()=>likePost(ele._id)} w="100%" pb={5} m="auto" src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={5}/>
+      <Image onDoubleClick={()=>likePost(ele._id)} w="100%" pb={5} m="auto" src={`${baseUrl}/assets/${ele.picturePath}`} borderRadius={5}/>
       </Box>
       <Flex gap={2} pl={2} justifyContent="space-between">
         <Flex gap={2}>
@@ -200,7 +201,7 @@ const seecomments=(ele)=>{
                     {likes && likes.map(ele=>(
         <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
             <Box onClick={()=>handleClick(ele._id)}>
-            <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text onClick={()=>handleClick(ele._id)}>{`${ele.firstName} ${ele.lastName}`}</Text>

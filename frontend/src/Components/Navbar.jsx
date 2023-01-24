@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import axios from 'axios'
 import {GrFormClose} from "react-icons/gr"
+import { baseUrl } from 'Utils/BaseUrl'
 
 const Navbar = () => {
   const navigate=useNavigate()
@@ -35,7 +36,7 @@ window.onclick=()=>{
 
 const handleChange = (e) => {
     document.querySelector("#searchBox").style.display="block"
-axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
+axios.get(`${baseUrl}/users/search/${e.target.value}`,{
   headers:{
     Authorization:`Bearer ${token}`
 }
@@ -85,7 +86,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
             <MenuButton>
         {
         profileData && profileData.map(ele=>(
-            <Avatar key={ele._id} src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+            <Avatar key={ele._id} src={`${baseUrl}/assets/${ele.picturePath}`}/>
                 // <Image key={ele._id} pt={[0]} w={[10,10,65]} h={[10,10,55]} src={`http://localhost:3002/assets/${ele.picturePath}`} borderRadius={50}/>
             ))
           }
@@ -131,7 +132,7 @@ axios.get(`http://localhost:3002/users/search/${e.target.value}`,{
         <>
         <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
             <Box onClick={()=>handleClick(ele._id)}>
-                <Image h="50px" w="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text onClick={()=>handleClick(ele._id)}>{ele.username}</Text>

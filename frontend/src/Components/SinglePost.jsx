@@ -10,6 +10,7 @@ import { getSinglePost } from 'Redux/AppReducer/action'
 import axios from 'axios'
 import {AiTwotoneHeart} from "react-icons/ai"
 import {BsEmojiSmile} from "react-icons/bs"
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const SinglePost = () => {
@@ -29,8 +30,7 @@ useEffect(()=>{
 
 
 const likePost=(postId)=>{
-  console.log("Clicked")
-  axios.patch(`http://localhost:3002/posts/${postId}/like/`,{userId: user._id},{
+  axios.patch(`${baseUrl}/posts/${postId}/like/`,{userId: user._id},{
       headers:{
           Authorization: `Bearer ${token}`
       }
@@ -44,7 +44,7 @@ const likePost=(postId)=>{
 }
 
 const handleComment=(postId)=>{
-  axios.put("http://localhost:3002/posts/comment",{postId,text},{
+  axios.put(`${baseUrl}/posts/comment`,{postId,text},{
     headers:{
       Authorization: `Bearer ${token}`
   }
@@ -62,11 +62,11 @@ return (
       <Box w="60%" m="auto" pt='120px' key={ele._id} >
         <Flex boxShadow= "rgba(0, 0, 0, 0.24) 0px 3px 8px">
         <Box w="50%" >
-             <Image w='100%' h="500px"  src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+             <Image w='100%' h="500px"  src={`${baseUrl}/assets/${ele.picturePath}`}/>
         </Box>
         <Box w="50%">
             <Flex gap={5} p={5}>
-            <Image w={50} h="50px" borderRadius={50} src={`http://localhost:3002/assets/${ele.userPicturePath}`}/>
+            <Image w={50} h="50px" borderRadius={50} src={`${baseUrl}/assets/${ele.userPicturePath}`}/>
             <Box>
             <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
             <Text>{ele.location}</Text>

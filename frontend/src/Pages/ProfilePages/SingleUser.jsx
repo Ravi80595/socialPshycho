@@ -7,6 +7,7 @@ import { getSingleUserFriendList, getSingleUserProfile } from 'Redux/AppReducer/
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { baseUrl } from 'Utils/BaseUrl'
 
 const SingleUser = () => {
     const dispatch=useDispatch()
@@ -25,7 +26,7 @@ useEffect(()=>{
 },[id])
 
 const getUserPosts=()=>{
-  axios.get(`http://localhost:3002/posts/${id}/posts`,{
+  axios.get(`${baseUrl}/posts/${id}/posts`,{
     headers:{
       Authorization:`Bearer ${token}`,
     }
@@ -50,7 +51,7 @@ const handleFriend=(ele)=>{
   if(ele._id==user._id){
     alert("You can't add yourself as a friend.")
   }else{
-  axios.get(`http://localhost:3002/users/${user._id}/${ele._id}`,{
+  axios.get(`${baseUrl}/users/${user._id}/${ele._id}`,{
     headers:{
       Authorization:`Bearer ${token}`
     }
@@ -75,7 +76,7 @@ return (
 
         <Flex onClick={()=>SingleUser(ele._id)} justifyContent="space-around" _hover={{ bg: "grey" }} pb={2} key={ele._id} cursor="pointer">
             <Box >
-                <Image w="50px" h="50px" borderRadius="50%" src={`http://localhost:3002/assets/${ele.picturePath}`}/>
+                <Image w="50px" h="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
                 <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
@@ -93,7 +94,7 @@ return (
           SingleProfile.map(ele=>(
         <Flex w="90%" margin='auto' mb={10}>
         <Box w="40%">
-        <Image h='250px' border='2px solid white' src={`http://localhost:3002/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
+        <Image h='250px' border='2px solid white' src={`${baseUrl}/assets/${ele.picturePath}`} w={250} ml="35px" mt="25px" borderRadius="50%"/>
         </Box>
         <Box margin="auto" w="55%" key={ele._id}>
           <Flex justifyContent="space-evenly">
@@ -127,7 +128,7 @@ return (
             {
               posts && posts.map(ele=>(
                   <GridItem onClick={()=>SinglePost(ele)}>
-                    <Image cursor='pointer' src={`http://localhost:3002/assets/${ele.picturePath}`} h={400} w={400}/>
+                    <Image cursor='pointer' src={`${baseUrl}/assets/${ele.picturePath}`} h={400} w={400}/>
                   </GridItem>
               ))
             }

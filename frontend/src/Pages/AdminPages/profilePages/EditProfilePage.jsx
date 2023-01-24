@@ -1,6 +1,7 @@
 import { Box,Text,Flex,Input,Textarea,Button} from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { baseUrl } from 'Utils/BaseUrl'
 import AdminNavbar from './AdminNavbar'
 
 const EditProfilePage = () => {
@@ -25,7 +26,7 @@ const handleSubmit=()=>{
     image:values.image,
     phone:values.phone
   }
-axios.patch(`http://localhost:3002/admin/profileEdit/${admin._id}`,payload,{
+axios.patch(`${baseUrl}/admin/profileEdit/${admin._id}`,payload,{
   headers:{
     Authorization: `Bearer ${token}`
   }

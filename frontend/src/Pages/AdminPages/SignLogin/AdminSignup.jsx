@@ -3,6 +3,7 @@ import { Box,FormLabel,InputGroup,Input,Button,InputRightElement,Text,FormContro
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { baseUrl } from 'Utils/BaseUrl'
 
 
 const AdminSignup = () => {
@@ -32,7 +33,7 @@ const handleSubmit=()=>{
     role:values.role,
     key:values.key
   }
-axios.post(`http://localhost:3002/admin/signup`,payload)
+axios.post(`${baseUrl}/admin/signup`,payload)
 .then((res)=>{
   console.log(res)
   alert("Signup Successfull")

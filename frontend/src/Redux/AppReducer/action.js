@@ -70,9 +70,9 @@ const getProfiles=(r=user)=>async(dispatch)=>{
 
 
 
-const getFriendList=()=>(dispatch)=>{
+const getFriendList=(r=user)=>(dispatch)=>{
     // dispatch(postProfileRequest())
-     axios.get(`http://localhost:3002/users/${user._id}/friends`,{
+     axios.get(`http://localhost:3002/users/${r._id}/friends`,{
         headers:{
             Authorization: `Bearer ${token}`
         }

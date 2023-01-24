@@ -8,7 +8,6 @@ import {FaUserAlt,FaRupeeSign} from "react-icons/fa"
 import {BsTagsFill} from "react-icons/bs"
 import {RiAdminFill} from "react-icons/ri"
 import {CiDiscount1} from "react-icons/ci"
-import { useSelector } from 'react-redux'
 import AllAdmin from './AllAdmin'
 import {GiPostStamp} from "react-icons/gi"
 import AllPosts from './AllPosts'
@@ -72,21 +71,21 @@ return (
 </Flex>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow(3)}>
 <FaRupeeSign/>  
-<Text pl={["0px","5px",'15px']} className="lhsName">Orders</Text>
+<Text pl={["0px","5px",'15px']} className="lhsName">BlackList</Text>
 </Flex>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('Discounts')}>
 <CiDiscount1/>
-<Text pl={["0px","5px",'15px']} className="lhsName">Discounts</Text>
+<Text pl={["0px","5px",'15px']} className="lhsName">Ads Section</Text>
 </Flex>
 {/* <hr /> */}
 <Text>Charts</Text>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow(3)}>
 <FaRupeeSign/>  
-<Text pl={["0px","5px",'15px']} className="lhsName">Bar Chart</Text>
+<Text pl={["0px","5px",'15px']} className="lhsName">Bar Charts</Text>
 </Flex>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('Discounts')}>
 <CiDiscount1/>
-<Text pl={["0px","5px",'15px']} className="lhsName">Pie Chart</Text>
+<Text pl={["0px","5px",'15px']} className="lhsName">Pie Charts</Text>
 </Flex>
 
 </Box>
@@ -131,9 +130,6 @@ return (
 {
 show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:<h1>Fearture Available Soon</h1>
 }
-{/* show==2?<ProductPage/>:show==3?<OrdersPage/> */}
-{/* :show=="AllAdmin"?<AllAdminPage/>:show=="SalesTeams"?<SalesTeam/>:show=="Discounts"?<Discounts/> */}
-
 </Box>
 </Box>
 </Flex>

@@ -29,8 +29,8 @@ const MainProfile = () => {
 
 useEffect(()=>{
   getUserPosts()
-  dispatch(getProfiles())
-  dispatch(getFriendList())
+  dispatch(getProfiles(user))
+  dispatch(getFriendList(user))
 },[])
 
 const getUserPosts=()=>{

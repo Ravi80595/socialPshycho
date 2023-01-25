@@ -37,9 +37,9 @@ if(error){
 return (
     <Box>
       <Flex justifyContent="space-between" mb={20}>
-        <Text w="15%">Total Admins : {admin.length}</Text>
-        <Input onInput={handleChange} w="60%" placeholder="search user"/>
-        <Text w="15%">Founder : Ravi</Text>
+        <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total Admins : {admin.length}</Text>
+        <Input w={["30%","30%","30%","60%"]} onInput={handleChange}  placeholder="search user"/>
+        <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Founder : Ravi</Text>
       </Flex>
           <TableContainer>
             <Table size='sm'>

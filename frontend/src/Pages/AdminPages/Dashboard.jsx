@@ -45,13 +45,13 @@ navigate("/adminlogin")
 
 return (
 <Flex w='100%'>
-    <Box id='lhsBox' w={["5%","10%","16%"]} h='100vh' p={["0px","0px",'20px']}>
+    <Box id='lhsBox' fontSize={[12,15,20]} w={["5%","10%","16%"]} h='100vh' p={["0px","0px",'20px']}>
     <Text textAlign={"center"} mb={5} >SocialPhsycho</Text>
     {/* <hr /> */}
             {/* Side Bar */}
 
 <Box id='linkBox'>
-<Text>Client Facing</Text>
+<Text display={["none","none","none","block"]} >Client Facing</Text>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow("Admins")}>
 <RiAdminFill/>
 <Text pl={["0px","5px",'15px']} className="lhsName">Admins</Text>
@@ -65,7 +65,7 @@ return (
 <Text pl={["0px","5px",'15px']} className="lhsName">Posts</Text>
 </Flex>
 {/* <hr /> */}
-<Text>Managment</Text>
+<Text display={["none","none","none","block"]}>Managment</Text>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow(2)}>
 <BsTagsFill />  
 <Text pl={["0px","5px",'15px']} className="lhsName">Manage Team</Text>
@@ -79,7 +79,7 @@ return (
 <Text pl={["0px","5px",'15px']} className="lhsName">Ads Section</Text>
 </Flex>
 {/* <hr /> */}
-<Text>Charts</Text>
+<Text display={["none","none","none","block"]}>Charts</Text>
 <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow(3)}>
 <FaRupeeSign/>  
 <Text pl={["0px","5px",'15px']} className="lhsName">Bar Charts</Text>

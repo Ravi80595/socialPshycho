@@ -23,23 +23,23 @@ const Messages = () => {
             <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
-                <Text pl={5}>{`${ele.firstName} ${ele.lastName}`}</Text>
+                <Text display={["none","none","none","block"]} pl={5}>{`${ele.firstName} ${ele.lastName}`}</Text>
             </Box>
           </Flex>
             ))
           }
           <hr />
-          <Input  m={5} w="90%" placeholder='Search friends...' />
+          <Input display={["none","none","none","block"]}  m={5} w="90%" placeholder='Search friends...' />
           <hr />  
           {
             AllFriends && AllFriends.map(ele=>(
         <Flex justifyContent="space-around"  p={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
             <Box>
-                <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
+                <Image h={["20px","20px","30px","50px"]} w={["20px","20px","30px","50px"]} borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box>
             <Box>
-                <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
-                <Text>{ele.location}</Text>
+                <Text fontSize={["10px","10px","10px","20px"]}>{`${ele.firstName} ${ele.lastName}`}</Text>
+                <Text display={["none","none","none","block"]}>{ele.location}</Text>
             </Box>
         </Flex>
         ))

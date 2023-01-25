@@ -31,9 +31,9 @@ const handleNavigate=(ele)=>{
 return (
     <Box>
     <Flex mb={20} justifyContent="space-between">
-      <Text w="10%">Total Posts : {posts.length}</Text>
-      <Input w="50%" placeholder="search post"/>
-      <Text w="10%">Total us</Text>
+      <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total Posts : {posts.length}</Text>
+      <Input w={["30%","30%","30%","60%"]} placeholder="search post"/>
+      <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total us</Text>
     </Flex>
         <TableContainer>
           <Table size='sm'>

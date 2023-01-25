@@ -51,17 +51,17 @@ return <Spinner textAlign='center' mt={50} ml={50} thickness='4px' speed='0.65s'
 return (
     <Box>
       <Flex justifyContent="space-between">
-        <Text w="15%">Total Users : {users.length}</Text>
-        <Input onInput={handleChange} w="60%" placeholder="search user"/>
-        <Text w="15%">Verified Users : 0</Text>
+        <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total Users : {users.length}</Text>
+        <Input fontSize={["10px","10px","10px","20px"]} onInput={handleChange} w={["30%","30%","30%","60%"]} placeholder="search user"/>
+        <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Verified Users : 0</Text>
       </Flex>
       <Flex mb={10}mt={5} justifyContent="space-between">
-        <Select w="20%" >
+        <Select w={["40%","40%","40%","20%"]} fontSize={["10px","10px","10px","20px"]} >
           <option value="">SortBy Name</option>
           <option value="">LTH</option>
           <option value="">HTL</option>
         </Select>
-        <Select w="20%" >
+        <Select w={["40%","40%","40%","20%"]} fontSize={["10px","10px","10px","20px"]}>
           <option value="">FilterBy Location</option>
           <option value="">Haryana</option>
           <option value="">Delhi</option>

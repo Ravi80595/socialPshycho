@@ -37,7 +37,7 @@ await axios.patch(`${baseUrl}/users/updateDetail/${user._id}`,obj,{
 }
 
 return (
-    <Box w="60%" m='auto' mb={10}>
+    <Box w={["90%","90%","90%","60%"]} m='auto' mb={10}>
         <Flex justifyContent="space-around" pt={10}>
           <Text >First-name</Text>
           <Box  w="70%" >

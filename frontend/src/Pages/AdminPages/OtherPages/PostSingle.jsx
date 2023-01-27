@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import AdminNavbar from '../profilePages/AdminNavbar'
-import { Box,Flex,Text,Image } from '@chakra-ui/react'
+import { Box,Flex,Text,Image,Button } from '@chakra-ui/react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { baseUrl } from 'Utils/BaseUrl'
+import {BiCommentDetail} from "react-icons/bi"
 
 const PostSingle = () => {
     const [singleProfile,setSingleProfile]=useState([])
@@ -11,9 +12,8 @@ const PostSingle = () => {
     const {id}=useParams()
     const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
 
-
+console.log(post)
 useEffect(()=>{
-    // singleUserProfile()
     SinglePost()
 },[])
 
@@ -25,26 +25,25 @@ const SinglePost=()=>{
         }
     })
     .then((res)=>{
-        console.log(res.data)
+        singleUserProfile(res.data.userId)
         setPost([res.data])
     })
 }
 
 
-// const singleUserProfile=()=>{
-//     axios.get(`http://localhost:3002/users/${id}`,{
-//        headers:{
-//            Authorization: `Bearer ${token}`
-//        }
-//    })
-//    .then((res)=>{  
-//     console.log(res.data,"ravi")
-//     setSingleProfile([res.data])
-//    })
-//    .catch((err)=>{
-//        console.log(err)
-//    })
-// }
+const singleUserProfile=(res)=>{
+    axios.get(`${baseUrl}/users/${res}`,{
+       headers:{
+           Authorization: `Bearer ${token}`
+       }
+   })
+   .then((res)=>{  
+    setSingleProfile([res.data])
+   })
+   .catch((err)=>{
+       console.log(err)
+   })
+}
 
 
 return (
@@ -79,7 +78,59 @@ return (
          <hr />
          <Text backgroundColor='white' textAlign="center">Post Details</Text>
          <hr />
-
+{
+        post && post.map(ele=>(
+      <Box w="90%" m="auto" pt='120px' key={ele._id} >
+        <Text> {ele.date} / {ele.time}am</Text>
+        <Flex boxShadow= "rgba(0, 0, 0, 0.24) 0px 3px 8px">
+        <Box w="50%" >
+             <Image w='100%' h="500px"  src={`${baseUrl}/assets/${ele.picturePath}`}/>
+        </Box>
+        <Box w="50%">
+            <Flex gap={5} p={5}>
+            <Image w={50} h="50px" borderRadius={50} src={`${baseUrl}/assets/${ele.userPicturePath}`}/>
+            <Box>
+            <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
+            <Text>{ele.location}</Text>
+            </Box>
+        </Flex>
+             <hr />
+        <Box h={200} overflow="auto">
+            <Text textAlign="center" overflow="auto">
+              {
+                ele.comments.map(res=>(
+                  <>
+                  <Flex m={1} p={2} overflow="auto">
+                    <Flex w='40%' cursor="pointer" justifyContent='space-around'>
+                    <Image w={10} h={10} borderRadius={50} src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
+                    <Box>
+                    <Text> <b>{res.postedBy} </b> : </Text>
+                    <Text fontSize={10}>{res.date}</Text>
+                    </Box>
+                    </Flex>
+                    <Text pt={1}>{res.text}</Text>
+                    <Text marginLeft="auto">
+                    </Text>
+                  </Flex>
+                  </>
+                ))
+              }
+            </Text>
+        </Box>
+             <hr /> 
+        <Box>
+        <Flex gap={2} pl={5} justifyContent="space-between" pt={5}>
+            <Text>{ele.like.length} Like</Text>
+            <Text><BiCommentDetail fontSize='25px'/>Comments</Text>
+        </Flex>
+        <Text pt={2}>{ele.description=="undefined"?"No Caption":ele.description}</Text>
+        </Box>
+      </Box>
+      </Flex>
+    </Box>
+     ))
+    }
+    <Button bg='black' color='white' mt={5}>Delete Post</Button>
         </Box>
     </Flex>
       

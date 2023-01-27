@@ -171,3 +171,15 @@ export const postDelete=async(req,res)=>{
         console.log(err)
     }
 }
+
+// ........................... Post Search Method ...............................
+
+export const searchPost=async(req,res)=>{
+    const params=req.params.id
+    try{
+        const posts= await Post.find({username:{$regex:req.params.id}})
+        res.send(posts)
+    }catch (err) {
+        console.log(err)
+    }
+}

@@ -47,8 +47,8 @@ const postSinglePost=(payload)=>{
         payload
     }
 }
-const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
 
+const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || ''
 
 const getProfiles=(user)=>async(dispatch)=>{
     dispatch(postProfileRequest())

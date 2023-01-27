@@ -7,6 +7,8 @@ import { baseUrl } from 'Utils/BaseUrl'
 const AllPosts = () => {
     const [posts,setPosts]=useState([])
     const navigate=useNavigate()
+    const { token } = JSON.parse(localStorage.getItem("socialPshcyoToken"))
+
 
 useEffect(()=>{
     getAllPosts()
@@ -24,6 +26,20 @@ const handleNavigate=(ele)=>{
   navigate(`/adminSinglePost/${ele._id}`)
 }
 
+const handleChange = (e) => {
+  axios.get(`http://localhost:3000/posts/search/${e.target.value}`,{
+  headers:{
+    Authorization:`Bearer ${token}`
+  }
+  }).then((res)=>{
+  console.log(res.data)
+  setPosts(res.data)
+  })
+  .catch((err)=>{
+  console.log(err)
+  })
+  }
+
 // if(loading){
 //     return <Spinner thickness='4px' ml={10} speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 //     }
@@ -32,7 +48,7 @@ return (
     <Box>
     <Flex mb={20} justifyContent="space-between">
       <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total Posts : {posts.length}</Text>
-      <Input w={["30%","30%","30%","60%"]} placeholder="search post"/>
+      <Input w={["30%","30%","30%","60%"]} onInput={handleChange}  placeholder="search post"/>
       <Text w={["30%","30%","30%","15%"]} fontSize={["10px","10px","10px","20px"]}>Total us</Text>
     </Flex>
         <TableContainer>

@@ -13,6 +13,8 @@ import {GiPostStamp} from "react-icons/gi"
 import AllPosts from './AllPosts'
 import axios from 'axios'
 import { baseUrl } from 'Utils/BaseUrl'
+import Feedbacks from './OtherPages/Feedbacks'
+import Teams from './OtherPages/Teams'
 
 
 const Dashboard = () => {
@@ -66,7 +68,7 @@ return (
 </Flex>
 {/* <hr /> */}
 <Text display={["none","none","none","block"]}>Managment</Text>
-<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow(2)}>
+<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('teams')}>
 <BsTagsFill />  
 <Text pl={["0px","5px",'15px']} className="lhsName">Manage Team</Text>
 </Flex>
@@ -74,9 +76,9 @@ return (
 <FaRupeeSign/>  
 <Text pl={["0px","5px",'15px']} className="lhsName">BlackList</Text>
 </Flex>
-<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('Discounts')}>
+<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('feedback')}>
 <CiDiscount1/>
-<Text pl={["0px","5px",'15px']} className="lhsName">Ads Section</Text>
+<Text pl={["0px","5px",'15px']} className="lhsName" >Feedbacks</Text>
 </Flex>
 {/* <hr /> */}
 <Text display={["none","none","none","block"]}>Charts</Text>
@@ -84,10 +86,10 @@ return (
 <FaRupeeSign/>  
 <Text pl={["0px","5px",'15px']} className="lhsName">Bar Charts</Text>
 </Flex>
-<Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('Discounts')}>
+{/* <Flex id='usersBox' p='10px 17px' className='linkItem' onClick={()=>setShow('Discounts')}>
 <CiDiscount1/>
 <Text pl={["0px","5px",'15px']} className="lhsName">Pie Charts</Text>
-</Flex>
+</Flex> */}
 
 </Box>
 </Box>
@@ -129,7 +131,7 @@ return (
 <Box id='rhsBody' m='30px' p='30px'>
 
 {
-show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:<h1>Fearture Available Soon</h1>
+show==="Users"?<UsersPage/>:show=="Admins"?<AllAdmin/>:show=="Posts"?<AllPosts/>:show=="feedback"?<Feedbacks/>:show=="teams"?<Teams/>:<h1>Fearture Available Soon</h1>
 }
 </Box>
 </Box>

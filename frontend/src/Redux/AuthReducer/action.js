@@ -30,6 +30,7 @@ const login=(payload)=>(dispatch)=>{
         data:payload
     }).then((res)=>{
         console.log(res.data)
+        localStorage.setItem("socialPshcyoToken",JSON.stringify(res.data))
        return dispatch(postLoginSuccess(res.data))
     }).catch((e)=>{
         console.log(e)

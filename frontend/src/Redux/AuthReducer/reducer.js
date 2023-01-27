@@ -33,7 +33,7 @@ const reducer = (state = initalState,action)=>{
                 isLoading:false,
                 isError:true,
                 isAuth:false,
-                token:""
+                token:[]
             }
         }
         default:

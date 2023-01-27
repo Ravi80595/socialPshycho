@@ -20,10 +20,10 @@ const SideProfile = () => {
   const {token}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
   const {isLoading,profileData,isError} = useSelector((store)=>store.AppReducer)
   const {user}=useSelector((store)=>store.AuthReducer.token)
-
+  // const [profileData,setProfileData]=useState()
 
 const onpageLoad=()=>{
-  dispatch(getProfiles(user))
+  dispatch(getProfiles())
 }
 
 useEffect(()=>{

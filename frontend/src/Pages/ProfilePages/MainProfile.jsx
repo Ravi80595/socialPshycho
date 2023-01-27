@@ -1,6 +1,6 @@
 import Navbar from 'Components/Navbar'
 import React, { useEffect, useRef, useState } from 'react'
-import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Popover,PopoverTrigger,Portal,PopoverContent,PopoverArrow,PopoverHeader,PopoverBody,PopoverCloseButton,Tooltip} from '@chakra-ui/react'
+import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Popover,PopoverTrigger,Portal,PopoverContent,PopoverArrow,PopoverHeader,PopoverBody,PopoverCloseButton,Tooltip,Spinner} from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import {IoAddCircleOutline} from "react-icons/io5"
 import axios from 'axios'
@@ -48,7 +48,7 @@ const getUserPosts=()=>{
 
 const profilepicref=useRef()
 const handleUpdate= async()=>{
-  console.log("clicked",user._id,"name",image)
+  // console.log("clicked",user._id,"name",image)
   let formData= new FormData()
   formData.append("images",image)
   await axios.patch(`${baseUrl}/users/editprofile/${user._id}`,formData,{
@@ -58,9 +58,8 @@ const handleUpdate= async()=>{
     }
 })
 .then((res)=>{
-    console.log(res)
-    setImage(" ")
-    alert("Image Updated")
+  alert("Image Updated")
+  setImage(" ")
 })
 .catch((err)=>{
   console.log(err)
@@ -90,7 +89,7 @@ const SingleUser=(id)=>{
 }
 
 if(isLoading){
-    return <h1>Loading...</h1>
+  return <Spinner ml='50%' mt='10%' thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
 }
 
 if(isError){

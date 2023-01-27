@@ -47,13 +47,14 @@ const postSinglePost=(payload)=>{
         payload
     }
 }
+const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
 
 
-const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken")) || []
-
-const getProfiles=(r=user)=>async(dispatch)=>{
+const getProfiles=(user)=>async(dispatch)=>{
     dispatch(postProfileRequest())
-   await axios.get(`${baseUrl}/users/${r._id}`,{
+    const {token,user}=JSON.parse(localStorage.getItem("socialPshcyoToken"))
+    console.log(user)
+   await axios.get(`${baseUrl}/users/${user._id}`,{
         headers:{
             Authorization: `Bearer ${token}`
         }

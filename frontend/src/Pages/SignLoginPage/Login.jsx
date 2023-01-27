@@ -30,7 +30,7 @@ const Login = () => {
       alert("Please fill All Madentory fields")
     }else{
       dispatch(login(payload)).then((res)=>{
-      localStorage.setItem("socialPshcyoToken",JSON.stringify(res.payload))
+      // localStorage.setItem("socialPshcyoToken",JSON.stringify(res.payload))
       setValues({email:"",password:""})
       navigate("/")
     })

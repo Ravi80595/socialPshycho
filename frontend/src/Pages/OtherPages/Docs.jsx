@@ -1,15 +1,26 @@
-import React from 'react'
-import { Tabs,Tab,TabPanels,TabList,TabPanel } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { Tabs,Tab,TabPanels,TabList,TabPanel,Box,FormControl,Input,Button,Textarea,Heading,FormLabel,Text} from '@chakra-ui/react'
 import Navbar from 'Components/Navbar'
 
 const Docs = () => {
+  const [username,setUsername]=useState('')
+  const [msg,setMsg]=useState('')
 
+
+const handlePost=()=>{
+  const payload={
+    username,
+    msg
+  }
+  alert(`Thanks,${username} your valuable feedback is saved.`)
+}
 
 
 return (
     <>
     <Navbar/>
-    <Tabs p={5} pt={20} w="70%" m="auto" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px'>
+    <Box pt={20}>
+    <Tabs p={5} w="70%" m="auto" mt={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
   <TabList>
     <Tab>Our Code Base</Tab>
     <Tab>Documentation Help</Tab>
@@ -17,23 +28,40 @@ return (
   </TabList>
 
   <TabPanels>
-    <TabPanel>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dicta hic ipsum rem suscipit nemo nesciunt praesentium a beatae, unde odio aut quisquam possimus odit repudiandae exercitationem tenetur quas amet.
+    <TabPanel p={10}>
+      <p>Hey my name is Ravi Sharma. This whole website created by me. All the codebase of this available on this link. Please Refer to this link for whole Documentation https://github.com/Ravi80595/socialPshycho or 
+        <a href="https://github.com/Ravi80595/socialPshycho"> Click Here</a>
         <br /> <br /> 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur architecto exercitationem, nam iusto aut eaque consequuntur sed odit fugiat tenetur deserunt porro distinctio eos sequi ab. Itaque ducimus obcaecati adipisci!
+        This whole website is created using MERN stack. To create this website i use mongodb, express nodejs in the backend. And for the frontend part i use react and redux for functionality and structure. And for the designing part is use chakra ui css laibrary. 
         <br />
         <br /><br />
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique labore cupiditate, itaque reprehenderit ad tempora, assumenda neque illum excepturi dolorem numquam. Fugiat illum voluptatum temporibus maiores, doloribus quasi quam reprehenderit.
+        The backend of the website is deployed on render and the frontend of the website is deployed on vercel. For frontend you can visit to this link https://socialpshycho.vercel.app/ or <a href="https://socialpshycho.vercel.app/"> Click here.</a>
       </p>
+      <br />
+      <Button mt={20} w='100%' m='auto'>Code </Button>
     </TabPanel>
-    <TabPanel>
+    <TabPanel p={10}>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur animi culpa modi maiores voluptas excepturi adipisci porro neque numquam obcaecati. Similique culpa placeat incidunt explicabo eligendi consectetur quia molestias a?</p>
+      <br />
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi voluptas libero illum nam facere asperiores neque, adipisci pariatur deleniti iure enim tempora nisi. Odit aspernatur temporibus dolorem eaque tenetur quibusdam?</p>
     </TabPanel>
     <TabPanel>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore totam maxime doloribus tempore dolorem eius ab distinctio molestias asperiores autem iusto, quaerat, aliquid iure a nesciunt culpa. Pariatur, est doloribus!</p>
+    <Box width={["90%","90%","90%"]} m="auto">
+        <Box p={10} m={[0,0,0]}>
+      <Text pb={10} textAlign='center'>Please Enter your query and suggestion here.</Text>
+            <FormControl isRequired>
+                    <FormLabel>UserName</FormLabel>
+                    <Input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} placeholder='Enter Username'/>
+                    <FormLabel>Message</FormLabel>
+                    <Textarea value={msg} onChange={(e)=>setMsg(e.target.value)} placeholder='Enter Your Message Here' />
+                    <Button mt={4} width="100%" onClick={handlePost}>POST</Button>
+            </FormControl>
+        </Box>
+</Box>
     </TabPanel>
   </TabPanels>
 </Tabs>
+</Box>
 </>
   )
 }

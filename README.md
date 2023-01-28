@@ -5,6 +5,22 @@ Hi 👋, Welcome to SocialPshyco Codebase.
 </h2>
 <hr>
 This is a social media website. Here user can share images. Also like and comment on other users posts.
+## Tech Stack Used : -
+- #### Frontend
+  - `React`
+ - `Redux `
+  - `CSS`
+  - `json `
+  - `axios `
+  - `styled component `
+- #### Libraries
+  - `chakra-ui`
+    - `Firebase `
+- #### Backend
+ - `MongoDB`
+    - `Express `
+    - `NodeJS `
+---
 
 <img src='https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png' />  
 

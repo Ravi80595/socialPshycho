@@ -5,6 +5,7 @@ Hi 👋, Welcome to SocialPshyco Codebase.
 </h2>
 <hr>
 This is a social media website. Here user can share images. Also like and comment on other users posts.
+---
 ## Tech Stack Used : -
 - #### Frontend
   - `React`

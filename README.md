@@ -7,9 +7,9 @@ Hi 👋, Welcome to SocialPshyco Codebase.
 This is a social media website. Here user can share images. Also like and comment on other users posts.
 ---
 ## Tech Stack Used : -
-- #### Frontend
+- #### Languages
   - `React`
- - `Redux `
+ - `redux `
   - `CSS`
   - `json `
   - `axios `
@@ -17,10 +17,6 @@ This is a social media website. Here user can share images. Also like and commen
 - #### Libraries
   - `chakra-ui`
     - `Firebase `
-- #### Backend
- - `MongoDB`
-    - `Express `
-    - `NodeJS `
 ---
 
 <img src='https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png' />  

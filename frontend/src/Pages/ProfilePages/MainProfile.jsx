@@ -100,7 +100,7 @@ if(isError){
     <>
     <Navbar/>
     <Flex pt={20} backgroundColor="blackAlpha.100">
-        <Box w={["0%","0%","25%"]} pl={10} pr={10} display={["none","none","block"]}>
+        <Box w={["0%","0%","0%","25%"]} pl={10} pr={10} display={["none","none","none","block"]}>
             <Text p={5} textAlign="center">Friends</Text>
             {
             AllFriends && AllFriends.map(ele=>(
@@ -120,7 +120,7 @@ if(isError){
         ))
     }
         </Box>
-        <Box w={["100%","100%",'70%']} margin="auto" p={[0,0,20]} pt={5}>
+        <Box w={["100%","100%","100%",'70%']} margin="auto" p={[0,0,20]} pt={5}>
         {
           profileData.map(ele=>(
         <>
@@ -194,11 +194,11 @@ if(isError){
          <Text>Reels</Text>
          </Flex>
          <hr />
-         <Grid templateColumns='repeat(3, 1fr)' gap={[2,2,5]} pt={[1,0,30]}>
+         <Grid templateColumns={['repeat(1, 1fr)','repeat(2, 1fr)','repeat(3, 1fr)']} gap={[2,2,5]} pt={[1,0,30]} w="100%">
             {
               posts && posts.map(ele=>(
-                  <GridItem key={ele._id}>
-                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]} w={400}/>
+                  <GridItem key={ele._id} w="100%">
+                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]}/>
                 <Popover>
                   <PopoverTrigger>
                 <Text bg='#74ceda' cursor="pointer" color='white' textAlign='center'>Delete</Text>

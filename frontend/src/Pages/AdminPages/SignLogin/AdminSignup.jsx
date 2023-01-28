@@ -44,7 +44,7 @@ axios.post(`${baseUrl}/admin/signup`,payload)
 }
 
   return (
-    <Box p={5} w="30%" m='auto' mt={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
+    <Box p={5} width={["90%","90%","90%","30%"]} m='auto' mt={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
     <FormControl isRequired>
         <HStack>
             <Box>

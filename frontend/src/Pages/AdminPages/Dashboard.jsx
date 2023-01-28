@@ -47,7 +47,7 @@ navigate("/adminlogin")
 
 return (
 <Flex w='100%'>
-    <Box id='lhsBox' fontSize={[12,15,20]} w={["5%","10%","16%"]} h='100vh' p={["0px","0px",'20px']}>
+    <Box id='lhsBox' fontSize={[12,15,20]} w={["5%","5%","10%","16%"]} h='100vh' p={["0px","0px",'20px']}>
     <Text textAlign={"center"} mb={5} >SocialPhsycho</Text>
     {/* <hr /> */}
             {/* Side Bar */}

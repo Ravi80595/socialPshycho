@@ -45,7 +45,7 @@ return (
         <Button>User Login Page</Button>
       </Link>
     </Flex>
-    <Box width="30%" m="auto" mt={10}>
+    <Box width={["100%","90%","90%","30%"]} m="auto" mt={10}>
     <Box p={10} m={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
       <Heading textAlign="center" mb={10} fontFamily="cursive">SocialPshcyo</Heading>
         <FormControl isRequired>

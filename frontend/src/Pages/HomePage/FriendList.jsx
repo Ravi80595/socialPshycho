@@ -1,4 +1,4 @@
-import { Box,Text,Flex,Image,Spinner } from '@chakra-ui/react'
+import { Box,Text,Flex,Image,Spinner,Stack,Skeleton } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import {IoPersonRemoveOutline} from "react-icons/io5"
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,7 +38,13 @@ const handleFriend=(ele)=>{
   }
 
 if(isLoading){
-    return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
+  return(
+  <Stack color='blue'>
+  <Skeleton height='20px' />
+  <Skeleton height='20px' />
+  <Skeleton height='20px' />
+</Stack>
+  )
 }
 
   return (

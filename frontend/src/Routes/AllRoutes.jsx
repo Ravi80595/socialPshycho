@@ -27,7 +27,7 @@ import PostSingle from 'Pages/AdminPages/OtherPages/PostSingle'
 const AllRoutes = () => {
   return (
       <Routes>
-        <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}></Route>
+        <Route path="/" element={<Home/>}></Route>
         <Route path="/usersign" element={<Signup/>}></Route>
         <Route path="/userlogin" element={<Login/>}></Route>
         <Route path="/profile" element={<MainProfile/>}></Route>

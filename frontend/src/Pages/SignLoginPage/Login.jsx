@@ -32,7 +32,7 @@ const Login = () => {
       dispatch(login(payload)).then((res)=>{
       // localStorage.setItem("socialPshcyoToken",JSON.stringify(res.payload))
       setValues({email:"",password:""})
-      navigate("/")
+      navigate("/user")
     })
   }
   }

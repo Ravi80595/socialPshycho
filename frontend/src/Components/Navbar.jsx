@@ -20,7 +20,7 @@ const Navbar = () => {
 const handleLogout=()=>{
   let Socialpshcyo=""
   localStorage.setItem("socialPshcyoToken",JSON.stringify(Socialpshcyo))
-  navigate("/userlogin")
+  navigate("/")
 }
 
 // ....................... Single User Page Navigation ............................

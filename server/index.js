@@ -16,14 +16,10 @@ import {register} from "./Controllers/auth.js"
 import {createPost} from "./Controllers/posts.js"
 import { verifyToken } from "./middelwares/auth.js"
 import { updateProfile } from "./Controllers/users.js"
-// const { Server } = require("socket.io");
-// import { Server } from "socket.io"
-// const io = new Server(Server);
-// import http
-// const http = require('http');
-// const server = http.createServer(app);
+import http from 'http'
+import { Server } from 'socket.io';
 
-    //  configuration
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
@@ -37,9 +33,14 @@ app.use(morgan("common"))
 app.use(bodyParser.json({limit:"30mb",extended:true}))
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}))
 app.use("/assets",express.static(path.join(__dirname,'public/assets')))
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
 
-
-    // storing system
 
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
@@ -50,8 +51,7 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({storage:storage})
-
-// Routes 
+ 
 
 app.post("/auth/register",upload.single("picture"),register)
 app.patch("/users/editprofile/:id",upload.single("images"),updateProfile)
@@ -62,30 +62,32 @@ app.use("/posts",postRoutes)
 app.use("/admin",adminRoutes)
 
 
-// Socket connection here
+
+io.on('connection', (socket) => {
+    socket.on('message', (data) => {
+      io.emit('message', data);
+    });
+    socket.on('disconnect', () => {
+      console.log('A user disconnected');
+    });
+});
+  
 
 
-
-
-
-// io.on('connection', (socket) => {
-//     console.log('a user connected');
-//   });
-
-        // Database connection
 
 const PORT = process.env.PORT || 3001
+// mongoose.set("strictQuery", false);
 let connections = mongoose.connect(process.env.MONGO_URL)
 
-app.listen(PORT,async()=>{
+server.listen(PORT,()=>{
     try{
-        await connections
-        console.log("Server Connected With DataBase")
+        connections
+        console.log(`Server Connected With DataBase ${PORT}`)
     }
     catch(err){
     console.log("Somethning Wents Wrong",err)
     }
-    })
+})
 
   
 

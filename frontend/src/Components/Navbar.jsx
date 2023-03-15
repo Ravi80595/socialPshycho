@@ -55,11 +55,11 @@ axios.get(`${baseUrl}/users/search/${e.target.value}`,{
     <Box zIndex="9999" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' backgroundColor="white" position='fixed' w="100%">
     <Flex justifyContent='space-between' w='100%' h={20}>
           <Flex  w={["0%","0%","50%"]} p={[0,0,5]} justifyContent='space-around'>
-        <Image display={["none","none","block"]} onClick={()=>{navigate("/")}} cursor="pointer" src="https://cdn-icons-png.flaticon.com/512/831/831276.png"/>
+        <Image display={["none","none","block"]} onClick={()=>{navigate("/user")}} cursor="pointer" src="https://cdn-icons-png.flaticon.com/512/831/831276.png"/>
         <Input onInput={handleChange} placeholder="search" w="60%" display={["none","none","block"]}/>
       </Flex>
       <Flex w={["100%","100%",'50%']} p={5} justifyContent="space-evenly" fontSize='30px'>
-        <Link to="/">
+        <Link to="/user">
         <AiOutlineHome/>
         </Link>
          <Link to="/newPost">
